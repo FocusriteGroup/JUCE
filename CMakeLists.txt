@@ -1,138 +1,194 @@
-# ==============================================================================
-#
-#  This file is part of the JUCE library.
-#  Copyright (c) 2020 - Raw Material Software Limited
-#
-#  JUCE is an open source library subject to commercial or open-source
-#  licensing.
-#
-#  By using JUCE, you agree to the terms of both the JUCE 6 End-User License
-#  Agreement and JUCE Privacy Policy (both effective as of the 16th June 2020).
-#
-#  End User License Agreement: www.juce.com/juce-6-licence
-#  Privacy Policy: www.juce.com/juce-privacy-policy
-#
-#  Or: You may also use this code under the terms of the GPL v3 (see
-#  www.gnu.org/licenses).
-#
-#  JUCE IS PROVIDED "AS IS" WITHOUT ANY WARRANTY, AND ALL WARRANTIES, WHETHER
-#  EXPRESSED OR IMPLIED, INCLUDING MERCHANTABILITY AND FITNESS FOR PURPOSE, ARE
-#  DISCLAIMED.
-#
-# ==============================================================================
+cmake_minimum_required(VERSION 3.12 FATAL_ERROR)
 
-cmake_minimum_required(VERSION 3.12)
+# ------------------------------------------------------------------------------
+# Include cmake-common
+# ------------------------------------------------------------------------------
+        
+set(CMAKE_MODULE_PATH 
+    ${CMAKE_MODULE_PATH}
+    ${CMAKE_CURRENT_SOURCE_DIR}/libs/cmake-common
+)
 
-project(JUCE VERSION 6.0.7 LANGUAGES C CXX)
+include(cmake-common)
 
-set_property(GLOBAL PROPERTY USE_FOLDERS YES)
+# ------------------------------------------------------------------------------
+# Add CMAKE_BUILD_TYPE variable
+# ------------------------------------------------------------------------------
+        
+if (NOT CMAKE_BUILD_TYPE)
+    set (CMAKE_BUILD_TYPE "Debug"  CACHE STRING "Choose the type of build." FORCE)
+endif (NOT CMAKE_BUILD_TYPE)
 
-set(JUCE_MODULES_DIR "${JUCE_SOURCE_DIR}/modules" CACHE INTERNAL
-    "The path to JUCE modules")
+# ------------------------------------------------------------------------------
+# Source files
+# ------------------------------------------------------------------------------
+        
+file(GLOB_RECURSE JUCE_MODULE_HEADERS CONFIGURE_DEPENDS modules/*.h)
+file(GLOB_RECURSE JUCE_MODULE_SOURCES CONFIGURE_DEPENDS modules/*.cpp)
 
-include(extras/Build/CMake/JUCEUtils.cmake)
+# These files are added to the IDE, but are not compiled, since they are included
+# by the JuceLibraryCode/ versions
+# Set the HEADER_FILE_ONLY to ensure that they're not compiled
+foreach(SOURCE ${JUCE_MODULE_HEADERS} ${JUCE_MODULE_SOURCES})
+    set_source_files_properties(${SOURCE} PROPERTIES HEADER_FILE_ONLY TRUE)
+endforeach(SOURCE)
 
-juce_disable_default_flags()
+source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR}/modules
+    PREFIX juce_modules 
+    FILES ${JUCE_MODULE_HEADERS} ${JUCE_MODULE_SOURCES}
+)
 
-set_directory_properties(PROPERTIES
-    JUCE_COMPANY_NAME       "JUCE"
-    JUCE_COMPANY_WEBSITE    "juce.com"
-    JUCE_COMPANY_EMAIL      "info@juce.com"
-    JUCE_COMPANY_COPYRIGHT  "Copyright (c) 2020 - Raw Material Software Limited")
-
-option(JUCE_COPY_PLUGIN_AFTER_BUILD
-    "Whether or not plugins should be installed to the system after building" OFF)
-set_property(GLOBAL PROPERTY JUCE_COPY_PLUGIN_AFTER_BUILD ${JUCE_COPY_PLUGIN_AFTER_BUILD})
-
-set(CMAKE_CXX_EXTENSIONS FALSE)
-
-# This option controls whether dummy targets are added to the build, where these targets contain all
-# of the source files for each JUCE module. If you're planning to use an IDE and want to be able to
-# browse all of JUCE's source files, this may be useful. However, it will increase the size of
-# generated IDE projects and might slow down configuration a bit. If you enable this, you should
-# probably also add `set_property(GLOBAL PROPERTY USE_FOLDERS YES)` to your top level CMakeLists,
-# otherwise the module sources will be added directly to the top level of the project, instead of in
-# a nice 'Modules' subfolder.
-
-option(JUCE_ENABLE_MODULE_SOURCE_GROUPS "Show all module sources in IDE projects" OFF)
-
-add_subdirectory(modules)
-add_subdirectory(extras/Build)
-
-# If you want to build the JUCE examples with VST2/AAX support, you'll need to make the VST2/AAX
-# headers visible to the juce_audio_processors module. You can either set the paths on the command
-# line, (e.g. -DJUCE_GLOBAL_AAX_SDK_PATH=/path/to/sdk) if you're just building the JUCE examples, or
-# you can call the `juce_set_*_sdk_path` functions in your own CMakeLists after importing JUCE.
-
-if(JUCE_GLOBAL_AAX_SDK_PATH)
-    juce_set_aax_sdk_path("${JUCE_GLOBAL_AAX_SDK_PATH}")
+if (APPLE)
+    set(JUCE_LIBRARY_CODE
+        JuceLibraryCode/juce/include_juce_analytics.cpp
+        JuceLibraryCode/juce/include_juce_audio_basics.mm
+        JuceLibraryCode/juce/include_juce_audio_devices.mm
+        JuceLibraryCode/juce/include_juce_audio_formats.mm
+        JuceLibraryCode/juce/include_juce_audio_processors.mm
+        JuceLibraryCode/juce/include_juce_audio_utils.mm
+        JuceLibraryCode/juce/include_juce_core.mm
+        JuceLibraryCode/juce/include_juce_cryptography.mm
+        JuceLibraryCode/juce/include_juce_data_structures.mm
+        JuceLibraryCode/juce/include_juce_events.mm
+        JuceLibraryCode/juce/include_juce_graphics.mm
+        JuceLibraryCode/juce/include_juce_gui_basics.mm
+        JuceLibraryCode/juce/include_juce_gui_extra.mm
+        JuceLibraryCode/juce/include_juce_opengl.mm
+        JuceLibraryCode/juce/include_juce_video.mm
+        JuceLibraryCode/juce/JuceHeader.h
+    )
+else()
+    set(JUCE_LIBRARY_CODE
+        JuceLibraryCode/juce/include_juce_analytics.cpp
+        JuceLibraryCode/juce/include_juce_audio_basics.cpp
+        JuceLibraryCode/juce/include_juce_audio_devices.cpp
+        JuceLibraryCode/juce/include_juce_audio_formats.cpp
+        JuceLibraryCode/juce/include_juce_audio_processors.cpp
+        JuceLibraryCode/juce/include_juce_audio_utils.cpp
+        JuceLibraryCode/juce/include_juce_core.cpp
+        JuceLibraryCode/juce/include_juce_cryptography.cpp
+        JuceLibraryCode/juce/include_juce_data_structures.cpp
+        JuceLibraryCode/juce/include_juce_events.cpp
+        JuceLibraryCode/juce/include_juce_graphics.cpp
+        JuceLibraryCode/juce/include_juce_gui_basics.cpp
+        JuceLibraryCode/juce/include_juce_gui_extra.cpp
+        JuceLibraryCode/juce/include_juce_opengl.cpp
+        JuceLibraryCode/juce/include_juce_video.cpp
+        JuceLibraryCode/juce/JuceHeader.h
+    )
 endif()
 
-if(JUCE_GLOBAL_VST2_SDK_PATH)
-    juce_set_vst2_sdk_path("${JUCE_GLOBAL_VST2_SDK_PATH}")
+source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR}/JuceLibraryCode 
+    PREFIX JuceLibraryCode 
+    FILES ${JUCE_LIBRARY_CODE}
+)
+
+# ------------------------------------------------------------------------------
+# jucelib library
+# ------------------------------------------------------------------------------
+        
+add_library(jucelib 
+    ${JUCE_LIBRARY_CODE}
+    ${JUCE_MODULE_HEADERS}
+    ${JUCE_MODULE_SOURCES}
+)
+
+target_include_directories(jucelib
+    INTERFACE
+    ${CMAKE_CURRENT_SOURCE_DIR}/JuceLibraryCode
+    ${CMAKE_CURRENT_SOURCE_DIR}/modules
+    PRIVATE
+    modules
+)
+
+target_compile_definitions (jucelib PRIVATE
+    $<IF:$<CONFIG:Debug>,_DEBUG=1,_NDEBUG=1>
+    $<IF:$<CONFIG:Debug>,DEBUG=1,NDEBUG=1>
+    "JUCE_DONT_DECLARE_PROJECTINFO=1"
+    "JUCER_XCODE_MAC_75C930FD=1"
+    "JUCE_APP_VERSION=1.0.0"
+    "JUCE_APP_VERSION_HEX=0x10000"
+    "JucePlugin_Build_VST=0"
+    "JucePlugin_Build_VST3=0"
+    "JucePlugin_Build_AU=0"
+    "JucePlugin_Build_AUv3=0"
+    "JucePlugin_Build_RTAS=0"
+    "JucePlugin_Build_AAX=0"
+    "JucePlugin_Build_Standalone=0"
+    "JucePlugin_Build_Unity=0"
+)
+
+set_target_properties(jucelib PROPERTIES
+    OUTPUT_NAME                                                 "Juce"
+    CXX_STANDARD                                                14
+    CXX_EXTENSIONS                                              OFF
+    XCODE_ATTRIBUTE_CLANG_ENABLE_OBJC_WEAK                      "YES"
+    XCODE_ATTRIBUTE_CLANG_LINK_OBJC_RUNTIME                     NO
+    XCODE_ATTRIBUTE_CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS  "YES"
+    XCODE_ATTRIBUTE_CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF        "YES"
+    XCODE_ATTRIBUTE_COMBINE_HIDPI_IMAGES                        YES
+    XCODE_ATTRIBUTE_CONFIGURATION_BUILD_DIR                     "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)"
+    XCODE_ATTRIBUTE_COPY_PHASE_STRIP                            NO
+    XCODE_ATTRIBUTE_GCC_DYNAMIC_NO_PIC                          NO
+    XCODE_ATTRIBUTE_GCC_VERSION                                 com.apple.compilers.llvm.clang.1_0
+    XCODE_ATTRIBUTE_PRODUCT_BUNDLE_IDENTIFIER                   com.ampify.jucelib
+    XCODE_ATTRIBUTE_PRODUCT_NAME                                "Juce"
+    XCODE_ATTRIBUTE_SKIP_INSTALL                                "YES"
+    XCODE_ATTRIBUTE_USE_HEADERMAP                               NO
+)
+
+if (APPLE)
+    target_link_libraries(jucelib PUBLIC
+            "-framework Accelerate"
+            "-framework AppKit"
+            "-framework AudioToolbox"
+            "-framework AVKit"
+            "-framework AVFoundation"
+            "-framework CoreAudio"
+            "-framework CoreFoundation"
+            "-framework CoreGraphics"
+            "-framework CoreImage"
+            "-framework CoreMedia"
+            "-framework CoreMIDI"
+            "-framework CoreServices"
+            "-framework CoreText"
+            "-framework ImageIO"
+            "-framework IOKit"
+            "-framework WebKit"
+    )
+
+    target_compile_options(jucelib PRIVATE
+        -fno-common 
+        -Wswitch 
+        -Wunused-variable 
+        -Wparentheses 
+        -Wnon-virtual-dtor 
+        -Wshorten-64-to-32 
+        -Wundeclared-selector 
+        -Wuninitialized 
+        -Wunused-function 
+        -Wbool-conversion 
+        -Wcomma 
+        -Wconstant-conversion 
+        -Wempty-body 
+        -Wenum-conversion 
+        -Winfinite-recursion 
+        -Wint-conversion 
+        -Wrange-loop-analysis 
+        -Wstrict-prototypes 
+        -Wmove 
+        -Wunreachable-code 
+        -Wduplicate-method-match 
+        -Wreorder
+
+        -mmacosx-version-min=10.11
+        $<IF:$<CONFIG:Debug>,-O0,-O3>
+        $<IF:$<CONFIG:Debug>,,-flto>
+        -stdlib=libc++
+    )
+elseif (MSVC)
+    target_compile_options(jucelib PRIVATE
+        /W4 
+        $<IF:$<CONFIG:Debug>,/Od,/Ox>
+    )
 endif()
-
-# We don't build anything other than the juceaide by default, because we want to keep configuration
-# speedy and the number of targets low. If you want to add targets for the extra projects and
-# example PIPs (there's a lot of them!), specify -DJUCE_BUILD_EXAMPLES=ON and/or
-# -DJUCE_BUILD_EXTRAS=ON when initially generating your build tree.
-
-option(JUCE_BUILD_EXTRAS "Add build targets for the Projucer and other tools" OFF)
-
-if(JUCE_BUILD_EXTRAS)
-    add_subdirectory(extras)
-endif()
-
-option(JUCE_BUILD_EXAMPLES "Add build targets for the DemoRunner and PIPs" OFF)
-
-if(JUCE_BUILD_EXAMPLES)
-    add_subdirectory(examples)
-endif()
-
-# ==================================================================================================
-# Install configuration
-
-if(CMAKE_VERSION VERSION_GREATER_EQUAL "3.14")
-    set(extra_version_arg ARCH_INDEPENDENT)
-endif()
-
-include(CMakePackageConfigHelpers)
-write_basic_package_version_file("${JUCE_BINARY_DIR}/JUCEConfigVersion.cmake"
-    VERSION ${JUCE_VERSION}
-    COMPATIBILITY ExactVersion
-    ${extra_version_arg})
-
-set(JUCE_INSTALL_DESTINATION "lib/cmake/JUCE-${JUCE_VERSION}" CACHE STRING
-    "The location, relative to the install prefix, where the JUCE config file will be installed")
-
-set(JUCE_MODULE_PATH "include/JUCE-${JUCE_VERSION}/modules")
-set(UTILS_INSTALL_DIR "${JUCE_INSTALL_DESTINATION}")
-set(JUCEAIDE_PATH "${JUCE_TOOL_INSTALL_DIR}/${JUCE_JUCEAIDE_NAME}")
-configure_package_config_file("${JUCE_CMAKE_UTILS_DIR}/JUCEConfig.cmake.in"
-    "${JUCE_BINARY_DIR}/JUCEConfig.cmake"
-    PATH_VARS UTILS_INSTALL_DIR JUCEAIDE_PATH JUCE_MODULE_PATH
-    INSTALL_DESTINATION "${JUCE_INSTALL_DESTINATION}")
-
-set(JUCE_MODULE_PATH "${JUCE_MODULES_DIR}")
-set(UTILS_INSTALL_DIR "${CMAKE_CURRENT_SOURCE_DIR}/extras/Build/CMake")
-get_target_property(JUCEAIDE_PATH juceaide IMPORTED_LOCATION)
-configure_package_config_file("${JUCE_CMAKE_UTILS_DIR}/JUCEConfig.cmake.in"
-    "${JUCE_BINARY_DIR}/JUCEExportConfig.cmake"
-    PATH_VARS UTILS_INSTALL_DIR JUCEAIDE_PATH JUCE_MODULE_PATH
-    INSTALL_PREFIX "${CMAKE_CURRENT_BINARY_DIR}"
-    INSTALL_DESTINATION "${CMAKE_CURRENT_BINARY_DIR}")
-
-install(FILES "${JUCE_BINARY_DIR}/JUCEConfigVersion.cmake"
-              "${JUCE_BINARY_DIR}/JUCEConfig.cmake"
-              "${JUCE_CMAKE_UTILS_DIR}/JUCEHelperTargets.cmake"
-              "${JUCE_CMAKE_UTILS_DIR}/JUCECheckAtomic.cmake"
-              "${JUCE_CMAKE_UTILS_DIR}/JUCEUtils.cmake"
-              "${JUCE_CMAKE_UTILS_DIR}/LaunchScreen.storyboard"
-              "${JUCE_CMAKE_UTILS_DIR}/PIPAudioProcessor.cpp.in"
-              "${JUCE_CMAKE_UTILS_DIR}/PIPComponent.cpp.in"
-              "${JUCE_CMAKE_UTILS_DIR}/PIPConsole.cpp.in"
-              "${JUCE_CMAKE_UTILS_DIR}/RecentFilesMenuTemplate.nib"
-              "${JUCE_CMAKE_UTILS_DIR}/UnityPluginGUIScript.cs.in"
-              "${JUCE_CMAKE_UTILS_DIR}/copyDir.cmake"
-              "${JUCE_CMAKE_UTILS_DIR}/juce_runtime_arch_detection.cpp"
-        DESTINATION "${JUCE_INSTALL_DESTINATION}")
