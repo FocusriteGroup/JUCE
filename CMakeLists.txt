@@ -190,5 +190,6 @@ elseif (MSVC)
     target_compile_options(jucelib PRIVATE
         /W4
         $<IF:$<CONFIG:Debug>,/Od,/Ox>
+        $<IF:$<CONFIG:Debug>,/MTd,/MT>  # Runtime library
     )
 endif()
