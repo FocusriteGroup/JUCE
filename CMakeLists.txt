@@ -49,6 +49,7 @@ if (APPLE)
         JuceLibraryCode/juce/include_juce_core.mm
         JuceLibraryCode/juce/include_juce_cryptography.mm
         JuceLibraryCode/juce/include_juce_data_structures.mm
+        JuceLibraryCode/juce/include_juce_dsp.mm
         JuceLibraryCode/juce/include_juce_events.mm
         JuceLibraryCode/juce/include_juce_graphics.mm
         JuceLibraryCode/juce/include_juce_gui_basics.mm
@@ -68,6 +69,7 @@ else()
         JuceLibraryCode/juce/include_juce_core.cpp
         JuceLibraryCode/juce/include_juce_cryptography.cpp
         JuceLibraryCode/juce/include_juce_data_structures.cpp
+        JuceLibraryCode/juce/include_juce_dsp.cpp
         JuceLibraryCode/juce/include_juce_events.cpp
         JuceLibraryCode/juce/include_juce_graphics.cpp
         JuceLibraryCode/juce/include_juce_gui_basics.cpp
