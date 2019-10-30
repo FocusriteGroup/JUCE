@@ -29,6 +29,10 @@
     juce::MessageManager::getInstanceWithoutCreating ()->isThisTheMessageThread ());
 
 
+#define ASSERT_IS_NOT_ON_JUCE_MESSAGE_THREAD\
+    jassert (juce::MessageManager::getInstanceWithoutCreating () != nullptr &&\
+    ! juce::MessageManager::getInstanceWithoutCreating ()->isThisTheMessageThread ());
+
 // [END_USER_CODE_SECTION]
 
 /*
