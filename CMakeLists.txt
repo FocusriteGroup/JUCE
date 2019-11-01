@@ -120,6 +120,10 @@ target_compile_definitions (jucelib PRIVATE
     "JucePlugin_Build_Unity=0"
 )
 
+target_compile_definitions (jucelib PUBLIC
+    "JUCE_USE_MP3AUDIOFORMAT=1"
+)
+
 set_target_properties(jucelib PROPERTIES
     OUTPUT_NAME                                                 "Juce"
     CXX_STANDARD                                                14
