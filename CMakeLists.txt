@@ -124,6 +124,8 @@ target_compile_definitions (jucelib PUBLIC
     "JUCE_USE_MP3AUDIOFORMAT=1"
 )
 
+set(MACOS_DEPLOYMENT_TARGET 10.12)
+
 set_target_properties(jucelib PROPERTIES
     OUTPUT_NAME                                                 "Juce"
     CXX_STANDARD                                                14
@@ -141,6 +143,7 @@ set_target_properties(jucelib PROPERTIES
     XCODE_ATTRIBUTE_PRODUCT_NAME                                "Juce"
     XCODE_ATTRIBUTE_SKIP_INSTALL                                "YES"
     XCODE_ATTRIBUTE_USE_HEADERMAP                               NO
+    XCODE_ATTRIBUTE_MACOSX_DEPLOYMENT_TARGET                    ${MACOS_DEPLOYMENT_TARGET}
 )
 
 if (APPLE)
@@ -187,7 +190,7 @@ if (APPLE)
         -Wduplicate-method-match
         -Wreorder
 
-        -mmacosx-version-min=10.11
+        -mmacosx-version-min=${MACOS_DEPLOYMENT_TARGET}
         $<IF:$<CONFIG:Debug>,-O0,-O3>
         $<IF:$<CONFIG:Debug>,,-flto>
         -stdlib=libc++
