@@ -61,7 +61,6 @@ if (APPLE)
         JuceLibraryCode/juce/include_juce_graphics.mm
         JuceLibraryCode/juce/include_juce_gui_basics.mm
         JuceLibraryCode/juce/include_juce_gui_extra.mm
-        JuceLibraryCode/juce/JuceHeader.h
     )
 else()
     set(JUCE_LIBRARY_CODE
