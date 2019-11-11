@@ -38,8 +38,16 @@ source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR}/modules
     FILES ${JUCE_MODULE_HEADERS} ${JUCE_MODULE_SOURCES}
 )
 
+set(JUCE_LIBRARY_CODE
+    JuceLibraryCode/juce/JuceAudio.h
+    JuceLibraryCode/juce/JuceCore.h
+    JuceLibraryCode/juce/JuceGraphics.h
+    JuceLibraryCode/juce/JuceHeader.h
+)
+
 if (APPLE)
     set(JUCE_LIBRARY_CODE
+        ${JUCE_LIBRARY_CODE}
         JuceLibraryCode/juce/include_juce_analytics.cpp
         JuceLibraryCode/juce/include_juce_audio_basics.mm
         JuceLibraryCode/juce/include_juce_audio_devices.mm
@@ -47,19 +55,17 @@ if (APPLE)
         JuceLibraryCode/juce/include_juce_audio_processors.mm
         JuceLibraryCode/juce/include_juce_audio_utils.mm
         JuceLibraryCode/juce/include_juce_core.mm
-        JuceLibraryCode/juce/include_juce_cryptography.mm
         JuceLibraryCode/juce/include_juce_data_structures.mm
         JuceLibraryCode/juce/include_juce_dsp.mm
         JuceLibraryCode/juce/include_juce_events.mm
         JuceLibraryCode/juce/include_juce_graphics.mm
         JuceLibraryCode/juce/include_juce_gui_basics.mm
         JuceLibraryCode/juce/include_juce_gui_extra.mm
-        JuceLibraryCode/juce/include_juce_opengl.mm
-        JuceLibraryCode/juce/include_juce_video.mm
         JuceLibraryCode/juce/JuceHeader.h
     )
 else()
     set(JUCE_LIBRARY_CODE
+        ${JUCE_LIBRARY_CODE}
         JuceLibraryCode/juce/include_juce_analytics.cpp
         JuceLibraryCode/juce/include_juce_audio_basics.cpp
         JuceLibraryCode/juce/include_juce_audio_devices.cpp
@@ -67,16 +73,12 @@ else()
         JuceLibraryCode/juce/include_juce_audio_processors.cpp
         JuceLibraryCode/juce/include_juce_audio_utils.cpp
         JuceLibraryCode/juce/include_juce_core.cpp
-        JuceLibraryCode/juce/include_juce_cryptography.cpp
         JuceLibraryCode/juce/include_juce_data_structures.cpp
         JuceLibraryCode/juce/include_juce_dsp.cpp
         JuceLibraryCode/juce/include_juce_events.cpp
         JuceLibraryCode/juce/include_juce_graphics.cpp
         JuceLibraryCode/juce/include_juce_gui_basics.cpp
         JuceLibraryCode/juce/include_juce_gui_extra.cpp
-        JuceLibraryCode/juce/include_juce_opengl.cpp
-        JuceLibraryCode/juce/include_juce_video.cpp
-        JuceLibraryCode/juce/JuceHeader.h
     )
 endif()
 
