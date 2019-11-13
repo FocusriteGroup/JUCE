@@ -1632,8 +1632,8 @@ public:
             scale = 1.0 / Desktop::getInstance().getDisplays().getMainDisplay().scale;
        #endif
 
-        const RECT r = { roundToInt (area.getX()     * scale), roundToInt (area.getY()      * scale),
-                         roundToInt (area.getRight() * scale), roundToInt (area.getBottom() * scale) };
+        const RECT r = { roundToInt (std::floorf (area.getX()    * scale)), roundToInt (std::floorf (area.getY()     * scale)),
+                         roundToInt (std::ceilf (area.getRight() * scale)), roundToInt (std::ceilf (area.getBottom() * scale)) };
 
         InvalidateRect (hwnd, &r, FALSE);
     }
