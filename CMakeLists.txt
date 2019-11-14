@@ -111,6 +111,7 @@ target_compile_definitions (jucelib PRIVATE
     "JUCER_XCODE_MAC_75C930FD=1"
     "JUCE_APP_VERSION=1.0.0"
     "JUCE_APP_VERSION_HEX=0x10000"
+    "JUCE_COREGRAPHICS_DRAW_ASYNC=1"
     "JucePlugin_Build_VST=0"
     "JucePlugin_Build_VST3=0"
     "JucePlugin_Build_AU=0"
