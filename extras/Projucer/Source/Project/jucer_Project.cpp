@@ -326,6 +326,7 @@ void Project::removeDefunctExporters()
     oldExporters.set ("MSVC6",   "MSVC6");
     oldExporters.set ("VS2010",  "Visual Studio 2010");
     oldExporters.set ("VS2012",  "Visual Studio 2012");
+    oldExporters.set ("VS2013",  "Visual Studio 2013");
 
     for (auto& key : oldExporters.getAllKeys())
     {
@@ -1036,7 +1037,7 @@ void Project::createPropertyEditors (PropertyListBuilder& props)
                                              "Include BinaryData.h in the JuceHeader.h file");
 
     props.add (new TextPropertyComponent (binaryDataNamespaceValue, "BinaryData Namespace", 256, false),
-                                          "The namespace containing the binary assests.");
+                                          "The namespace containing the binary assets.");
 
     props.add (new ChoicePropertyComponent (cppStandardValue, "C++ Language Standard",
                                             { "C++11", "C++14", "C++17", "Use Latest" },
