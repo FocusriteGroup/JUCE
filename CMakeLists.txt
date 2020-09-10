@@ -126,6 +126,10 @@ target_compile_definitions (jucelib PUBLIC
     "JUCE_USE_MP3AUDIOFORMAT=1"
 )
 
+target_precompile_headers(jucelib INTERFACE
+    JuceLibraryCode/juce/JuceCore.h
+)
+
 set(MACOS_DEPLOYMENT_TARGET 10.12)
 
 set_target_properties(jucelib PROPERTIES
