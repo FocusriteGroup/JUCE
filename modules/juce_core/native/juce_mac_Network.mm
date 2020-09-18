@@ -192,11 +192,13 @@ public:
 
         while (numBytes > 0)
         {
+            const ScopedLock sl (dataLock);
+            
             const int available = jmin (numBytes, (int) [data length]);
 
             if (available > 0)
             {
-                const ScopedLock sl (dataLock);
+                
                 [data getBytes: dest length: (NSUInteger) available];
                 [data replaceBytesInRange: NSMakeRange (0, (NSUInteger) available) withBytes: nil length: 0];
 
@@ -206,6 +208,8 @@ public:
             }
             else
             {
+                ScopedUnlock unlock (dataLock);
+            
                 if (hasFailed || hasFinished)
                     break;
 
@@ -335,7 +339,7 @@ public:
     bool isBeingDeleted = false;
     const int numRedirectsToFollow;
     int numRedirects = 0;
-    int64 latestTotalBytes = 0;
+    std::atomic <int64> latestTotalBytes { 0 };
     CriticalSection createTaskLock;
     bool hasBeenCancelled = false;
 

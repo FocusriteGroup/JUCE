@@ -90,6 +90,8 @@ void ThreadedAnalyticsDestination::EventDispatcher::run()
     while (! threadShouldExit())
     {
         {
+            const ScopedLock lock (queueAccess);
+        
             const auto numEventsInBatch = eventsToSend.size();
             const auto freeBatchCapacity = maxBatchSize - numEventsInBatch;
 
@@ -99,8 +101,6 @@ void ThreadedAnalyticsDestination::EventDispatcher::run()
 
                 if (numNewEvents > 0)
                 {
-                    const ScopedLock lock (queueAccess);
-
                     const auto numEventsToAdd = jmin (numNewEvents, freeBatchCapacity);
                     const auto newBatchSize = numEventsInBatch + numEventsToAdd;
 
