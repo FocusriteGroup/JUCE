@@ -30,11 +30,10 @@
  description:      Showcases in-app purchases features. To run this demo you must enable the
                    "In-App Purchases Capability" option in the Projucer exporter.
 
- dependencies:     juce_audio_basics, juce_audio_devices, juce_audio_formats,
-                   juce_audio_processors, juce_audio_utils, juce_core,
-                   juce_cryptography, juce_data_structures, juce_events,
-                   juce_graphics, juce_gui_basics, juce_gui_extra,
-                   juce_product_unlocking
+ dependencies:     juce_accessibility, juce_audio_basics, juce_audio_devices, juce_audio_formats,
+                   juce_audio_processors, juce_audio_utils, juce_core, juce_cryptography,
+                   juce_data_structures, juce_events, juce_graphics, juce_gui_basics,
+                   juce_gui_extra, juce_product_unlocking
  exporters:        xcode_mac, xcode_iphone, androidstudio
 
  moduleFlags:      JUCE_STRICT_REFCOUNTEDPOINTER=1

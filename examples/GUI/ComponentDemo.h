@@ -29,8 +29,8 @@
  website:          http://juce.com
  description:      Displays a grid of lights.
 
- dependencies:     juce_core, juce_data_structures, juce_events, juce_graphics,
-                   juce_gui_basics
+ dependencies:     juce_accessibility, juce_core, juce_data_structures,
+                   juce_events, juce_graphics, juce_gui_basics
  exporters:        xcode_mac, vs2019
 
  moduleFlags:      JUCE_STRICT_REFCOUNTEDPOINTER=1

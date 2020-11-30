@@ -29,8 +29,8 @@
  website:          http://juce.com
  description:      Collects analytics data.
 
- dependencies:     juce_analytics, juce_core, juce_data_structures, juce_events,
-                   juce_graphics, juce_gui_basics
+ dependencies:     juce_accessibility, juce_analytics, juce_core, juce_data_structures,
+                   juce_events, juce_graphics, juce_gui_basics
  exporters:        xcode_mac, vs2019, linux_make, xcode_iphone, androidstudio
 
  moduleFlags:      JUCE_STRICT_REFCOUNTEDPOINTER=1

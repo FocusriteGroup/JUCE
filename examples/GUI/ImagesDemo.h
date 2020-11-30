@@ -29,8 +29,8 @@
  website:          http://juce.com
  description:      Displays image files.
 
- dependencies:     juce_core, juce_data_structures, juce_events, juce_graphics,
-                   juce_gui_basics
+ dependencies:     juce_accessibility, juce_core, juce_data_structures,
+                   juce_events, juce_graphics, juce_gui_basics
  exporters:        xcode_mac, vs2019, linux_make, androidstudio, xcode_iphone
 
  moduleFlags:      JUCE_STRICT_REFCOUNTEDPOINTER=1

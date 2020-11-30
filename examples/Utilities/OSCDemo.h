@@ -29,8 +29,8 @@
  website:          http://juce.com
  description:      Application using the OSC protocol.
 
- dependencies:     juce_core, juce_data_structures, juce_events, juce_graphics,
-                   juce_gui_basics, juce_osc
+ dependencies:     juce_accessibility, juce_core, juce_data_structures,
+                   juce_events, juce_graphics, juce_gui_basics, juce_osc
  exporters:        xcode_mac, vs2019, linux_make
 
  moduleFlags:      JUCE_STRICT_REFCOUNTEDPOINTER=1
