@@ -1312,11 +1312,8 @@ public:
         If you override this to return a custom KeyboardFocusTraverser, then
         this component and all its sub-components will use the new object to
         make their focusing decisions.
-
-        The method should return a new object, which the caller is required to
-        delete when no longer needed.
     */
-    virtual KeyboardFocusTraverser* createFocusTraverser();
+    virtual std::unique_ptr<KeyboardFocusTraverser> createFocusTraverser();
 
     /** Returns the focus order of this component, if one has been specified.
 

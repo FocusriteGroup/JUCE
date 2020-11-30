@@ -212,7 +212,7 @@ public:
     /** @internal */
     void fileDragExit (const StringArray&) override;
     /** @internal */
-    KeyboardFocusTraverser* createFocusTraverser() override;
+    std::unique_ptr<KeyboardFocusTraverser> createFocusTraverser() override;
 
 private:
     //==============================================================================

@@ -59,30 +59,32 @@ public:
     /** Returns the component that should be given focus after the specified one
         when moving "forwards".
 
-        The default implementation will return the next component which is to the
-        right of or below this one.
+        This must return nullptr if there is no next component.
 
-        This may return nullptr if there's no suitable candidate.
+        The default implementation will return the next component which is to the
+        right of or below this one, and may return nullptr if there is no suitable
+        candidate.
     */
     virtual Component* getNextComponent (Component* current);
 
     /** Returns the component that should be given focus after the specified one
         when moving "backwards".
 
-        The default implementation will return the next component which is to the
-        left of or above this one.
+        This must return nullptr if there is no previous component.
 
-        This may return nullptr if there's no suitable candidate.
+        The default implementation will return the next component which is to the
+        right of or below this one, and may return nullptr if there is no suitable
+        candidate.
     */
     virtual Component* getPreviousComponent (Component* current);
 
-    /** Returns the component that should receive focus be default within the given
+    /** Returns the component that should receive focus by default within the given
         parent component.
 
-        The default implementation will just return the foremost child component that
-        wants focus.
+        This must return nullptr if there is no default focus component.
 
-        This may return nullptr if there's no suitable candidate.
+        The default implementation will just return the foremost child component that
+        wants focus, and may return nullptr if there is no suitable candidate.
     */
     virtual Component* getDefaultComponent (Component* parentComponent);
 };

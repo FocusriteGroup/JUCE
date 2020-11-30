@@ -70,7 +70,7 @@ void FilenameComponent::resized()
     getLookAndFeel().layoutFilenameComponent (*this, &filenameBox, browseButton.get());
 }
 
-KeyboardFocusTraverser* FilenameComponent::createFocusTraverser()
+std::unique_ptr<KeyboardFocusTraverser> FilenameComponent::createFocusTraverser()
 {
     // This prevents the sub-components from grabbing focus if the
     // FilenameComponent has been set to refuse focus.

@@ -2718,10 +2718,10 @@ void Component::setExplicitFocusOrder (int newFocusOrderIndex)
     properties.set (juce_explicitFocusOrderId, newFocusOrderIndex);
 }
 
-KeyboardFocusTraverser* Component::createFocusTraverser()
+std::unique_ptr<KeyboardFocusTraverser> Component::createFocusTraverser()
 {
     if (flags.isFocusContainerFlag || parentComponent == nullptr)
-        return new KeyboardFocusTraverser();
+        return std::make_unique<KeyboardFocusTraverser>();
 
     return parentComponent->createFocusTraverser();
 }
@@ -2774,7 +2774,7 @@ void Component::grabFocusInternal (FocusChangeType cause, bool canTryParent)
             else
             {
                 // find the default child component..
-                std::unique_ptr<KeyboardFocusTraverser> traverser (createFocusTraverser());
+                auto traverser = createFocusTraverser();
 
                 if (traverser != nullptr)
                 {
@@ -2822,7 +2822,7 @@ void Component::moveKeyboardFocusToSibling (bool moveToNext)
 
     if (parentComponent != nullptr)
     {
-        std::unique_ptr<KeyboardFocusTraverser> traverser (createFocusTraverser());
+        auto traverser = createFocusTraverser();
 
         if (traverser != nullptr)
         {

@@ -92,8 +92,10 @@ namespace KeyboardFocusHelpers
 
             if (! comps.isEmpty())
             {
-                auto index = comps.indexOf (current);
-                return comps [(index + comps.size() + delta) % comps.size()];
+                auto index = comps.indexOf (current) + delta;
+
+                if (isPositiveAndBelow (index, comps.size()))
+                    return comps[index];
             }
         }
 
