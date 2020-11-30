@@ -262,6 +262,7 @@ StringArray getJUCEModules() noexcept
 {
     static StringArray juceModuleIds =
     {
+        "juce_accessibility",
         "juce_analytics",
         "juce_audio_basics",
         "juce_audio_devices",
@@ -307,6 +308,7 @@ StringArray getModulesRequiredForComponent() noexcept
 {
     return
     {
+        "juce_accessibility",
         "juce_core",
         "juce_data_structures",
         "juce_events",
@@ -319,6 +321,7 @@ StringArray getModulesRequiredForAudioProcessor() noexcept
 {
     return
     {
+        "juce_accessibility",
         "juce_audio_basics",
         "juce_audio_devices",
         "juce_audio_formats",
