@@ -17,6 +17,10 @@
 			isa = PBXBuildFile;
 			fileRef = 80D62B907248523E6943298B;
 		};
+		498CA7F49794E70AA6A58BDF = {
+			isa = PBXBuildFile;
+			fileRef = E00510EB62D8D3080820DAFC;
+		};
 		C1B9334AE849F93FB3C56B34 = {
 			isa = PBXBuildFile;
 			fileRef = 5A75806B34E4EA6598A6024A;
@@ -292,6 +296,10 @@
 		3C5267E06A897B0DC0F7EA50 = {
 			isa = PBXBuildFile;
 			fileRef = 472F9A90F685220D730EBF6C;
+		};
+		5086DB8DF23B4DAD0EDD62DF = {
+			isa = PBXBuildFile;
+			fileRef = 3CF152D68766B5BD6A8BD2C5;
 		};
 		4C743A3DA8682EEE89BDBD28 = {
 			isa = PBXBuildFile;
@@ -813,6 +821,13 @@
 			lastKnownFileType = sourcecode.c.h;
 			name = "jucer_ErrorListComponent.h";
 			path = "../../Source/LiveBuildEngine/UI/jucer_ErrorListComponent.h";
+			sourceTree = "SOURCE_ROOT";
+		};
+		3CF152D68766B5BD6A8BD2C5 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.objcpp;
+			name = "include_juce_accessibility.mm";
+			path = "../../JuceLibraryCode/include_juce_accessibility.mm";
 			sourceTree = "SOURCE_ROOT";
 		};
 		3D36F0CEB84B27BD02FC461A = {
@@ -2215,6 +2230,13 @@
 			path = "../../Source/Settings/jucer_StoredSettings.h";
 			sourceTree = "SOURCE_ROOT";
 		};
+		E00510EB62D8D3080820DAFC = {
+			isa = PBXFileReference;
+			lastKnownFileType = wrapper.framework;
+			name = AppKit.framework;
+			path = System/Library/Frameworks/AppKit.framework;
+			sourceTree = SDKROOT;
+		};
 		E111A336FE13C033EAA0A1D1 = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.c.h;
@@ -2311,6 +2333,13 @@
 			lastKnownFileType = sourcecode.c.h;
 			name = "jucer_PIPTemplate.h";
 			path = "../../Source/BinaryData/Templates/jucer_PIPTemplate.h";
+			sourceTree = "SOURCE_ROOT";
+		};
+		E9174402F96491575E3D9E87 = {
+			isa = PBXFileReference;
+			lastKnownFileType = file;
+			name = "juce_accessibility";
+			path = "../../../../modules/juce_accessibility";
 			sourceTree = "SOURCE_ROOT";
 		};
 		E96597BBC6A98255B51B94DC = {
@@ -3064,6 +3093,7 @@
 		8A24D1B6925535A868974986 = {
 			isa = PBXGroup;
 			children = (
+				E9174402F96491575E3D9E87,
 				EE12741389A87D1BF04AE795,
 				BA159A3B7D129771F5C15EA3,
 				AA1C44E89D792DDC4867B2C8,
@@ -3081,6 +3111,7 @@
 			children = (
 				472F9A90F685220D730EBF6C,
 				4F687965FBE86EAFDB3ACFEC,
+				3CF152D68766B5BD6A8BD2C5,
 				E2687B099347B364D1919A9B,
 				DB9C8E35DF815B803CB4A9CF,
 				D766BB9D8C32B5560F0493F3,
@@ -3109,6 +3140,7 @@
 			children = (
 				7B3F7ECF6DBF8C8EE5C2CB86,
 				80D62B907248523E6943298B,
+				E00510EB62D8D3080820DAFC,
 				5A75806B34E4EA6598A6024A,
 				210CD22F25F2C22F9CEEB025,
 				D00F311BFC3C2625C457CB9B,
@@ -3166,6 +3198,7 @@
 					"JUCE_DISPLAY_SPLASH_SCREEN=0",
 					"JUCE_USE_DARK_SPLASH_SCREEN=1",
 					"JUCE_PROJUCER_VERSION=0x60005",
+					"JUCE_MODULE_AVAILABLE_juce_accessibility=1",
 					"JUCE_MODULE_AVAILABLE_juce_build_tools=1",
 					"JUCE_MODULE_AVAILABLE_juce_core=1",
 					"JUCE_MODULE_AVAILABLE_juce_cryptography=1",
@@ -3197,8 +3230,8 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = (
 					"../../JuceLibraryCode",
-					"../../../Build",
 					"../../../../modules",
+					"../../../Build",
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = Info-App.plist;
@@ -3207,8 +3240,8 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_HEADER_SEARCH_PATHS = (
 					"../../JuceLibraryCode",
-					"../../../Build",
 					"../../../../modules",
+					"../../../Build",
 				);
 				OTHER_CPLUSPLUSFLAGS = "-Wall -Wshadow-all -Wshorten-64-to-32 -Wstrict-aliasing -Wuninitialized -Wunused-parameter -Wconversion -Wsign-compare -Wint-conversion -Wconditional-uninitialized -Woverloaded-virtual -Wreorder -Wconstant-conversion -Wsign-conversion -Wunused-private-field -Wbool-conversion -Wextra-semi -Wunreachable-code -Wzero-as-null-pointer-constant -Wcast-align -Winconsistent-missing-destructor-override -Wshift-sign-overflow -Wnullable-to-nonnull-conversion -Wno-missing-field-initializers -Wno-ignored-qualifiers -Wswitch-enum";
 				PRODUCT_BUNDLE_IDENTIFIER = com.juce.theprojucer;
@@ -3236,6 +3269,7 @@
 					"JUCE_DISPLAY_SPLASH_SCREEN=0",
 					"JUCE_USE_DARK_SPLASH_SCREEN=1",
 					"JUCE_PROJUCER_VERSION=0x60005",
+					"JUCE_MODULE_AVAILABLE_juce_accessibility=1",
 					"JUCE_MODULE_AVAILABLE_juce_build_tools=1",
 					"JUCE_MODULE_AVAILABLE_juce_core=1",
 					"JUCE_MODULE_AVAILABLE_juce_cryptography=1",
@@ -3267,8 +3301,8 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = (
 					"../../JuceLibraryCode",
-					"../../../Build",
 					"../../../../modules",
+					"../../../Build",
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = Info-App.plist;
@@ -3277,8 +3311,8 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_HEADER_SEARCH_PATHS = (
 					"../../JuceLibraryCode",
-					"../../../Build",
 					"../../../../modules",
+					"../../../Build",
 				);
 				OTHER_CPLUSPLUSFLAGS = "-Wall -Wshadow-all -Wshorten-64-to-32 -Wstrict-aliasing -Wuninitialized -Wunused-parameter -Wconversion -Wsign-compare -Wint-conversion -Wconditional-uninitialized -Woverloaded-virtual -Wreorder -Wconstant-conversion -Wsign-conversion -Wunused-private-field -Wbool-conversion -Wextra-semi -Wunreachable-code -Wzero-as-null-pointer-constant -Wcast-align -Winconsistent-missing-destructor-override -Wshift-sign-overflow -Wnullable-to-nonnull-conversion -Wno-missing-field-initializers -Wno-ignored-qualifiers -Wswitch-enum";
 				PRODUCT_BUNDLE_IDENTIFIER = com.juce.theprojucer;
@@ -3469,6 +3503,7 @@
 				6ECB2F11D2F593FACCCF99DB,
 				95F56FB44C669F93AE77E465,
 				3C5267E06A897B0DC0F7EA50,
+				5086DB8DF23B4DAD0EDD62DF,
 				4C743A3DA8682EEE89BDBD28,
 				5DD883699B85E4C492CAD065,
 				D5C9125F65493CA481F18E53,
@@ -3486,6 +3521,7 @@
 			files = (
 				8B4A593B3869815BBAC3EF93,
 				A578EAD4BB55680E8097BE0F,
+				498CA7F49794E70AA6A58BDF,
 				C1B9334AE849F93FB3C56B34,
 				A14C2C2725DA3CA7995D2815,
 				1E76E36772355E2A43CF4961,

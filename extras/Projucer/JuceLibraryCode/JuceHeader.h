@@ -13,6 +13,7 @@
 #pragma once
 
 
+#include <juce_accessibility/juce_accessibility.h>
 #include <juce_build_tools/juce_build_tools.h>
 #include <juce_core/juce_core.h>
 #include <juce_cryptography/juce_cryptography.h>
