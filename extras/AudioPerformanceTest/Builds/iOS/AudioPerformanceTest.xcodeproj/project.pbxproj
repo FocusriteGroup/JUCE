@@ -77,6 +77,10 @@
 			isa = PBXBuildFile;
 			fileRef = 0564535EEA7E4462926EA0C9;
 		};
+		44ED6BE3206305983E5D0AA7 = {
+			isa = PBXBuildFile;
+			fileRef = 5362843E7D24E883B88948CC;
+		};
 		2BAED5B831BB736E77A718AE = {
 			isa = PBXBuildFile;
 			fileRef = 89B3243200BAA6BD72905DBB;
@@ -224,6 +228,13 @@
 			lastKnownFileType = file;
 			name = "juce_gui_basics";
 			path = "../../../../modules/juce_gui_basics";
+			sourceTree = "SOURCE_ROOT";
+		};
+		5362843E7D24E883B88948CC = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.objcpp;
+			name = "include_juce_accessibility.mm";
+			path = "../../JuceLibraryCode/include_juce_accessibility.mm";
 			sourceTree = "SOURCE_ROOT";
 		};
 		5622D2E05ACA8C4395206C56 = {
@@ -415,6 +426,13 @@
 			path = "../../JuceLibraryCode/include_juce_data_structures.mm";
 			sourceTree = "SOURCE_ROOT";
 		};
+		F3B8694D49AA24F8390607DC = {
+			isa = PBXFileReference;
+			lastKnownFileType = file;
+			name = "juce_accessibility";
+			path = "../../../../modules/juce_accessibility";
+			sourceTree = "SOURCE_ROOT";
+		};
 		F40C1815F7E7E4FBAF3A3091 = {
 			isa = PBXFileReference;
 			lastKnownFileType = wrapper.framework;
@@ -442,6 +460,7 @@
 		90489A23F0DBAD5F1550CE20 = {
 			isa = PBXGroup;
 			children = (
+				F3B8694D49AA24F8390607DC,
 				920FF34D4A00A5AD433EE5F4,
 				A3B86BB7483BC5697B58E417,
 				253CCF9514FE705169600047,
@@ -460,6 +479,7 @@
 		0B8996A5E2671A4628476CFB = {
 			isa = PBXGroup;
 			children = (
+				5362843E7D24E883B88948CC,
 				89B3243200BAA6BD72905DBB,
 				322D3066DCD98A8D0542236A,
 				9E05B63699A307598B66F829,
@@ -548,6 +568,7 @@
 					"JUCE_DISPLAY_SPLASH_SCREEN=0",
 					"JUCE_USE_DARK_SPLASH_SCREEN=1",
 					"JUCE_PROJUCER_VERSION=0x60005",
+					"JUCE_MODULE_AVAILABLE_juce_accessibility=1",
 					"JUCE_MODULE_AVAILABLE_juce_audio_basics=1",
 					"JUCE_MODULE_AVAILABLE_juce_audio_devices=1",
 					"JUCE_MODULE_AVAILABLE_juce_audio_formats=1",
@@ -612,6 +633,7 @@
 					"JUCE_DISPLAY_SPLASH_SCREEN=0",
 					"JUCE_USE_DARK_SPLASH_SCREEN=1",
 					"JUCE_PROJUCER_VERSION=0x60005",
+					"JUCE_MODULE_AVAILABLE_juce_accessibility=1",
 					"JUCE_MODULE_AVAILABLE_juce_audio_basics=1",
 					"JUCE_MODULE_AVAILABLE_juce_audio_devices=1",
 					"JUCE_MODULE_AVAILABLE_juce_audio_formats=1",
@@ -790,6 +812,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				07451DA87757F9EF80E31BE8,
+				44ED6BE3206305983E5D0AA7,
 				2BAED5B831BB736E77A718AE,
 				01C9BC9A0A0F54B693CDA31A,
 				48ADBEF873A610909D727C97,

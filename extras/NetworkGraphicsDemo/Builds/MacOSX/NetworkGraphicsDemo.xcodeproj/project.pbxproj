@@ -13,6 +13,10 @@
 			isa = PBXBuildFile;
 			fileRef = 2E13A899F4E3C99054A3656F;
 		};
+		040A525CBE63A9F254CEDFF4 = {
+			isa = PBXBuildFile;
+			fileRef = A38071B5091C2BDF5B23A779;
+		};
 		C4D6C466C41173D6970553D2 = {
 			isa = PBXBuildFile;
 			fileRef = 9E8129263CD42C6029FC2CAD;
@@ -76,6 +80,10 @@
 		9F618C008A503063D10076C4 = {
 			isa = PBXBuildFile;
 			fileRef = 74711D7544168CCAC4969A07;
+		};
+		B9BC0179E53B24381CB2CB2F = {
+			isa = PBXBuildFile;
+			fileRef = 44ED2E7ADE07E3FB5A8ED8FD;
 		};
 		BB9A9692D99DD0DDB1047B60 = {
 			isa = PBXBuildFile;
@@ -202,6 +210,13 @@
 			name = CoreMIDI.framework;
 			path = System/Library/Frameworks/CoreMIDI.framework;
 			sourceTree = SDKROOT;
+		};
+		44ED2E7ADE07E3FB5A8ED8FD = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.objcpp;
+			name = "include_juce_accessibility.mm";
+			path = "../../JuceLibraryCode/include_juce_accessibility.mm";
+			sourceTree = "SOURCE_ROOT";
 		};
 		4D1DB6D77B6F3DE7A569780B = {
 			isa = PBXFileReference;
@@ -371,6 +386,13 @@
 			path = System/Library/Frameworks/AudioToolbox.framework;
 			sourceTree = SDKROOT;
 		};
+		A38071B5091C2BDF5B23A779 = {
+			isa = PBXFileReference;
+			lastKnownFileType = wrapper.framework;
+			name = AppKit.framework;
+			path = System/Library/Frameworks/AppKit.framework;
+			sourceTree = SDKROOT;
+		};
 		A505E1DABB2ED630EFBA96DB = {
 			isa = PBXFileReference;
 			lastKnownFileType = file;
@@ -455,6 +477,13 @@
 			path = ../../JuceLibraryCode/JuceHeader.h;
 			sourceTree = "SOURCE_ROOT";
 		};
+		D274088CE7BE4C0424CF9B69 = {
+			isa = PBXFileReference;
+			lastKnownFileType = file;
+			name = "juce_accessibility";
+			path = "../../../../modules/juce_accessibility";
+			sourceTree = "SOURCE_ROOT";
+		};
 		E4162459ED4C829EF7B19691 = {
 			isa = PBXFileReference;
 			explicitFileType = wrapper.application;
@@ -535,6 +564,7 @@
 		EF0AACA84F1CEE7F45F56339 = {
 			isa = PBXGroup;
 			children = (
+				D274088CE7BE4C0424CF9B69,
 				B76F10A7778664E164A01934,
 				89583CD42AD218E9753DF11C,
 				9C67BD1915C7FD5747C2BA8F,
@@ -558,6 +588,7 @@
 			children = (
 				74711D7544168CCAC4969A07,
 				92800676AF753D1A60108F11,
+				44ED2E7ADE07E3FB5A8ED8FD,
 				6D1F9E505D20C09647124F0A,
 				AF330F41D1A4865108690E3C,
 				C6E2284D86D93F1D9D5C7666,
@@ -591,6 +622,7 @@
 			isa = PBXGroup;
 			children = (
 				2E13A899F4E3C99054A3656F,
+				A38071B5091C2BDF5B23A779,
 				9E8129263CD42C6029FC2CAD,
 				398A945EFD9ED923162982B1,
 				C78806A6727F44EACFDED4A5,
@@ -646,6 +678,7 @@
 					"JUCE_DISPLAY_SPLASH_SCREEN=0",
 					"JUCE_USE_DARK_SPLASH_SCREEN=1",
 					"JUCE_PROJUCER_VERSION=0x60005",
+					"JUCE_MODULE_AVAILABLE_juce_accessibility=1",
 					"JUCE_MODULE_AVAILABLE_juce_audio_basics=1",
 					"JUCE_MODULE_AVAILABLE_juce_audio_devices=1",
 					"JUCE_MODULE_AVAILABLE_juce_audio_formats=1",
@@ -713,6 +746,7 @@
 					"JUCE_DISPLAY_SPLASH_SCREEN=0",
 					"JUCE_USE_DARK_SPLASH_SCREEN=1",
 					"JUCE_PROJUCER_VERSION=0x60005",
+					"JUCE_MODULE_AVAILABLE_juce_accessibility=1",
 					"JUCE_MODULE_AVAILABLE_juce_audio_basics=1",
 					"JUCE_MODULE_AVAILABLE_juce_audio_devices=1",
 					"JUCE_MODULE_AVAILABLE_juce_audio_formats=1",
@@ -893,6 +927,7 @@
 			files = (
 				987CBD5330E76B404F0D966C,
 				9F618C008A503063D10076C4,
+				B9BC0179E53B24381CB2CB2F,
 				BB9A9692D99DD0DDB1047B60,
 				6C2200C52B65E1BE80544E50,
 				A1F34D09F4E4338775917ED1,
@@ -915,6 +950,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				80EE2C27B466BAFD83881D3F,
+				040A525CBE63A9F254CEDFF4,
 				C4D6C466C41173D6970553D2,
 				BED88ADEA4DC91AA8C810FA8,
 				3C30D7C28C86F4054257DCD5,
