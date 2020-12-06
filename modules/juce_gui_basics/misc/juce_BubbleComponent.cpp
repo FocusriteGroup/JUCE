@@ -147,4 +147,10 @@ void BubbleComponent::setPosition (Rectangle<int> rectangleToPointTo,
     setBounds (targetX - arrowTip.x, targetY - arrowTip.y, totalW, totalH);
 }
 
+//==============================================================================
+std::unique_ptr<AccessibilityHandler> BubbleComponent::createAccessibilityHandler()
+{
+    return std::make_unique<ComponentAccessibilityHandler> (*this, AccessibilityRole::window);
+}
+
 } // namespace juce

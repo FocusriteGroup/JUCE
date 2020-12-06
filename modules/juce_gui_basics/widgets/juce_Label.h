@@ -338,6 +338,8 @@ protected:
     void valueChanged (Value&) override;
     /** @internal */
     void callChangeListeners();
+    /** @internal */
+    std::unique_ptr<AccessibilityHandler> createAccessibilityHandler() override;
 
 private:
     //==============================================================================

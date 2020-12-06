@@ -150,6 +150,57 @@ public:
         return {};
     }
 
+    //==============================================================================
+    struct RowComponentAccessibilityHandler  : public ComponentAccessibilityHandler
+    {
+        static AccessibilityActions buildAccessibilityActions (RowComponent& rowComponent)
+        {
+            auto updateSelection = [&rowComponent] (bool s) { rowComponent.update (rowComponent.row, s); };
+
+            return AccessibilityActions().addAction (AccessibilityActionType::select,   [updateSelection] { updateSelection (true); })
+                                         .addAction (AccessibilityActionType::deselect, [updateSelection] { updateSelection (false); })
+                                         .addAction (AccessibilityActionType::press,    [&rowComponent]   { rowComponent.owner.selectRow (rowComponent.row); });
+        }
+
+        explicit RowComponentAccessibilityHandler (RowComponent& rowComponentToWrap)
+            : ComponentAccessibilityHandler (rowComponentToWrap,
+                                             AccessibilityRole::listItem,
+                                             buildAccessibilityActions (rowComponentToWrap)),
+              rowComponent (rowComponentToWrap)
+        {
+        }
+
+        String getTitle() const override
+        {
+            if (auto* m = rowComponent.owner.getModel())
+                return m->getNameForRow (rowComponent.row);
+
+            return {};
+        }
+
+        AccessibleState getCurrentState() const override
+        {
+            if (auto* m = rowComponent.owner.getModel())
+                if (rowComponent.row >= m->getNumRows())
+                    return AccessibleState().withIgnored();
+
+            auto state = ComponentAccessibilityHandler::getCurrentState();
+
+            if (rowComponent.selected)
+                return state.withFocused().withSelected();
+
+            return state;
+        }
+
+        RowComponent& rowComponent;
+    };
+
+    std::unique_ptr<AccessibilityHandler> createAccessibilityHandler() override
+    {
+        return std::make_unique<RowComponentAccessibilityHandler> (*this);
+    }
+
+    //==============================================================================
     ListBox& owner;
     std::unique_ptr<Component> customComponent;
     int row = -1;
@@ -938,6 +989,11 @@ void ListBox::startDragAndDrop (const MouseEvent& e, const SparseSet<int>& rowsT
     }
 }
 
+std::unique_ptr<AccessibilityHandler> ListBox::createAccessibilityHandler()
+{
+    return std::make_unique<ComponentAccessibilityHandler> (*this, AccessibilityRole::list);
+}
+
 //==============================================================================
 Component* ListBoxModel::refreshComponentForRow (int, bool, Component* existingComponentToUpdate)
 {
@@ -946,6 +1002,7 @@ Component* ListBoxModel::refreshComponentForRow (int, bool, Component* existingC
     return nullptr;
 }
 
+String ListBoxModel::getNameForRow (int rowNumber)                      { return "Row " + String (rowNumber); }
 void ListBoxModel::listBoxItemClicked (int, const MouseEvent&) {}
 void ListBoxModel::listBoxItemDoubleClicked (int, const MouseEvent&) {}
 void ListBoxModel::backgroundClicked (const MouseEvent&) {}

@@ -194,6 +194,10 @@ void Desktop::handleAsyncUpdate()
     // BailOutChecker so that any remaining listeners will still get a callback (with a null pointer).
     WeakReference<Component> currentFocus (Component::getCurrentlyFocusedComponent());
     focusListeners.call ([&] (FocusChangeListener& l) { l.globalFocusChanged (currentFocus.get()); });
+
+    if (currentFocus.get() != nullptr)
+        if (auto* handler = currentFocus->getAccessibilityHandler())
+            handler->notifyAccessibilityEvent (AccessibilityEvent::focusChanged);
 }
 
 //==============================================================================

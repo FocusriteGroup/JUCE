@@ -262,4 +262,10 @@ void CallOutBox::timerCallback()
     stopTimer();
 }
 
+//==============================================================================
+std::unique_ptr<AccessibilityHandler> CallOutBox::createAccessibilityHandler()
+{
+    return std::make_unique<ComponentAccessibilityHandler> (*this, AccessibilityRole::window);
+}
+
 } // namespace juce

@@ -41,7 +41,7 @@
   website:            http://www.juce.com/juce
   license:            GPL/Commercial
 
-  dependencies:       juce_graphics juce_data_structures
+  dependencies:       juce_accessibility juce_data_structures
   OSXFrameworks:      Cocoa Carbon QuartzCore
   iOSFrameworks:      UIKit CoreServices
 
@@ -53,7 +53,7 @@
 #pragma once
 #define JUCE_GUI_BASICS_H_INCLUDED
 
-#include <juce_graphics/juce_graphics.h>
+#include <juce_accessibility/juce_accessibility.h>
 #include <juce_data_structures/juce_data_structures.h>
 
 //==============================================================================
@@ -293,6 +293,14 @@ namespace juce
 #include "lookandfeel/juce_LookAndFeel_V3.h"
 #include "lookandfeel/juce_LookAndFeel_V4.h"
 #include "mouse/juce_LassoComponent.h"
+#include "accessibility/juce_ComponentAccessibilityHandler.h"
+#include "accessibility/juce_ButtonAccessibilityHandler.h"
+#include "accessibility/juce_ComboBoxAccessibilityHandler.h"
+#include "accessibility/juce_DocumentWindowAccessibilityHandler.h"
+#include "accessibility/juce_LabelAccessibilityHandler.h"
+#include "accessibility/juce_SliderAccessibilityHandler.h"
+#include "accessibility/juce_TableListBoxAccessibilityHandler.h"
+#include "accessibility/juce_TextEditorAccessibilityHandler.h"
 
 #if JUCE_LINUX
  #if JUCE_GUI_BASICS_INCLUDE_XHEADERS

@@ -887,6 +887,8 @@ public:
     void itemDragExit (const SourceDetails&) override;
     /** @internal */
     void itemDropped (const SourceDetails&) override;
+    /** @internal */
+    std::unique_ptr<AccessibilityHandler> createAccessibilityHandler() override;
 
 private:
     friend class TreeViewItem;

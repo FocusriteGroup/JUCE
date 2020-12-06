@@ -3020,4 +3020,33 @@ bool Component::BailOutChecker::shouldBailOut() const noexcept
     return safePointer == nullptr;
 }
 
+//==============================================================================
+void Component::setDescription (const String& newDescription)
+{
+    componentDescription = newDescription;
+}
+
+void Component::setHelpText (const String& newHelpText)
+{
+    componentHelpText = newHelpText;
+}
+
+std::unique_ptr<AccessibilityHandler> Component::createAccessibilityHandler()
+{
+    return std::make_unique<ComponentAccessibilityHandler> (*this, AccessibilityRole::unspecified);
+}
+
+void Component::invalidateAccessibilityHandler()
+{
+    accessibilityHandler = nullptr;
+}
+
+AccessibilityHandler* Component::getAccessibilityHandler()
+{
+    if (accessibilityHandler == nullptr)
+        accessibilityHandler = createAccessibilityHandler();
+
+    return accessibilityHandler.get();
+}
+
 } // namespace juce

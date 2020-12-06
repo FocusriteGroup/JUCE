@@ -641,4 +641,10 @@ void ComboBox::setSelectedItemIndex (const int index, const bool dontSendChange)
 void ComboBox::setSelectedId (const int newItemId, const bool dontSendChange)    { setSelectedId (newItemId, dontSendChange ? dontSendNotification : sendNotification); }
 void ComboBox::setText (const String& newText, const bool dontSendChange)        { setText (newText, dontSendChange ? dontSendNotification : sendNotification); }
 
+//==============================================================================
+std::unique_ptr<AccessibilityHandler> ComboBox::createAccessibilityHandler()
+{
+    return std::make_unique<ComboBoxAccessibilityHandler> (*this);
+}
+
 } // namespace juce

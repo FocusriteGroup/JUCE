@@ -95,6 +95,8 @@ public:
     void menuBarItemsChanged (MenuBarModel*) override;
     /** @internal */
     void menuCommandInvoked (MenuBarModel*, const ApplicationCommandTarget::InvocationInfo&) override;
+    /** @internal */
+    std::unique_ptr<AccessibilityHandler> createAccessibilityHandler() override;
 
 private:
     //==============================================================================

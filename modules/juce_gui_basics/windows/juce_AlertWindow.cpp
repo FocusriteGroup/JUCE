@@ -704,4 +704,10 @@ bool AlertWindow::showNativeDialogBox (const String& title,
 }
 #endif
 
+//==============================================================================
+std::unique_ptr<AccessibilityHandler> AlertWindow::createAccessibilityHandler()
+{
+    return std::make_unique<ComponentAccessibilityHandler> (*this, AccessibilityRole::dialogWindow);
+}
+
 } // namespace juce

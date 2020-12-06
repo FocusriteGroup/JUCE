@@ -101,6 +101,8 @@ public:
     void parentHierarchyChanged() override;
     /** @internal */
     Path getOutlineAsPath() const override;
+    /** @internal */
+    std::unique_ptr<AccessibilityHandler> createAccessibilityHandler() override;
 
 private:
     //==============================================================================

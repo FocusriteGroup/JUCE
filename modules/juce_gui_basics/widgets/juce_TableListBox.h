@@ -105,6 +105,12 @@ public:
     virtual Component* refreshComponentForCell (int rowNumber, int columnId, bool isRowSelected,
                                                 Component* existingComponentToUpdate);
 
+    /** This can be overridden to return a name for the specified cell.
+
+        By default this will just return a string containing the cell position.
+    */
+    virtual String getNameForCell (int rowNumber, int columnId);
+
     //==============================================================================
     /** This callback is made when the user clicks on one of the cells in the table.
 
@@ -332,7 +338,8 @@ public:
     void tableColumnDraggingChanged (TableHeaderComponent*, int) override;
     /** @internal */
     void resized() override;
-
+    /** @internal */
+    std::unique_ptr<AccessibilityHandler> createAccessibilityHandler() override;
 
 private:
     //==============================================================================

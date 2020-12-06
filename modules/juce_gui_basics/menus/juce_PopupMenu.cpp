@@ -84,7 +84,7 @@ struct ItemComponent  : public Component
     ItemComponent (const PopupMenu::Item& i,
                    const PopupMenu::Options& o,
                    MenuWindow& parent)
-        : item (i), options (o), customComp (i.customComponent)
+        : item (i), parentWindow (parent), options (o), customComp (i.customComponent)
     {
         if (item.isSectionHeader)
             customComp = *new HeaderItemComponent (item.text, options);
@@ -160,9 +160,62 @@ struct ItemComponent  : public Component
         }
     }
 
+    std::unique_ptr<AccessibilityHandler> createAccessibilityHandler() override
+    {
+        return std::make_unique<ItemComponentAccessibilityHandler> (*this);
+    }
+
     PopupMenu::Item item;
 
 private:
+    //==============================================================================
+    struct ItemComponentAccessibilityHandler  : public ComponentAccessibilityHandler
+    {
+        static AccessibilityActions buildAccessibilityActions (ItemComponent& itemComponent)
+        {
+            auto cancelFn = [&itemComponent] { itemComponent.setHighlighted (false); };
+
+            auto pressFn = [&itemComponent]
+            {
+                itemComponent.parentWindow.setCurrentlyHighlightedChild (&itemComponent);
+                itemComponent.parentWindow.triggerCurrentlyHighlightedItem();
+            };
+
+            return AccessibilityActions().addAction (AccessibilityActionType::select,
+                                                     [&itemComponent] { itemComponent.parentWindow.setCurrentlyHighlightedChild (&itemComponent); })
+                                         .addAction (AccessibilityActionType::press,    std::move (pressFn))
+                                         .addAction (AccessibilityActionType::deselect, cancelFn)
+                                         .addAction (AccessibilityActionType::cancel,   cancelFn);
+        }
+
+        explicit ItemComponentAccessibilityHandler (ItemComponent& itemComponentToWrap)
+            : ComponentAccessibilityHandler (itemComponentToWrap,
+                                             AccessibilityRole::menuItem,
+                                             buildAccessibilityActions (itemComponentToWrap)),
+              itemComponent (itemComponentToWrap)
+        {
+        }
+
+        String getTitle() const override
+        {
+            return itemComponent.item.text;
+        }
+
+        AccessibleState getCurrentState() const override
+        {
+            auto state = ComponentAccessibilityHandler::getCurrentState();
+
+            if (itemComponent.isHighlighted)
+                return state.withFocused().withSelected();
+
+            return state;
+        }
+
+        ItemComponent& itemComponent;
+    };
+
+    //==============================================================================
+    MenuWindow& parentWindow;
     const PopupMenu::Options& options;
     // NB: we use a copy of the one from the item info in case we're using our own section comp
     ReferenceCountedObjectPtr<CustomComponent> customComp;
@@ -1022,6 +1075,9 @@ struct MenuWindow  : public Component
         {
             currentChild->setHighlighted (true);
             timeEnteredCurrentChildComp = Time::getApproximateMillisecondCounter();
+
+            if (auto* handler = currentChild->getAccessibilityHandler())
+                handler->notifyAccessibilityEvent (AccessibilityEvent::focusChanged);
         }
     }
 
@@ -1115,6 +1171,22 @@ struct MenuWindow  : public Component
     bool canScroll() const noexcept                 { return childYOffset != 0 || needsToScroll; }
     bool isTopScrollZoneActive() const noexcept     { return canScroll() && childYOffset > 0; }
     bool isBottomScrollZoneActive() const noexcept  { return canScroll() && childYOffset < contentHeight - windowPos.getHeight(); }
+
+    //==============================================================================
+    struct MenuWindowAccessibilityHandler  : public ComponentAccessibilityHandler
+    {
+        explicit MenuWindowAccessibilityHandler (MenuWindow& window)
+            : ComponentAccessibilityHandler (window, AccessibilityRole::popupMenu)
+        {
+        }
+
+        AccessibleState getCurrentState() const override  { return AccessibleState().withIgnored(); }
+    };
+
+    std::unique_ptr<AccessibilityHandler> createAccessibilityHandler() override
+    {
+        return std::make_unique<MenuWindowAccessibilityHandler> (*this);
+    }
 
     //==============================================================================
     MenuWindow* parent;
@@ -1866,6 +1938,10 @@ struct PopupMenuCompletionCallback  : public ModalComponentManager::Callback
             managerOfChosenCommand->invoke (info, true);
         }
 
+        if (component != nullptr && ! component->isOnDesktop())
+            if (auto* handler = component->getAccessibilityHandler())
+                handler->notifyAccessibilityEvent (AccessibilityEvent::windowClosed);
+
         // (this would be the place to fade out the component, if that's what's required)
         component.reset();
 
@@ -1877,6 +1953,10 @@ struct PopupMenuCompletionCallback  : public ModalComponentManager::Callback
             if (prevFocused != nullptr && prevFocused->isShowing())
                 prevFocused->grabKeyboardFocus();
         }
+
+        if (auto* focus = Component::getCurrentlyFocusedComponent())
+            if (auto* handler = focus->getAccessibilityHandler())
+                handler->notifyAccessibilityEvent (AccessibilityEvent::focusChanged);
     }
 
     ApplicationCommandManager* managerOfChosenCommand = nullptr;
@@ -1903,6 +1983,15 @@ int PopupMenu::showWithOptionalCallback (const Options& options,
 
         window->toFront (false);  // need to do this after making it modal, or it could
                                   // be stuck behind other comps that are already modal..
+
+        if (options.getParentComponent() != nullptr)
+        {
+            if (auto* handler = window->getAccessibilityHandler())
+            {
+                handler->notifyAccessibilityEvent (AccessibilityEvent::windowOpened);
+                handler->notifyAccessibilityEvent (AccessibilityEvent::focusChanged);
+            }
+        }
 
        #if JUCE_MODAL_LOOPS_PERMITTED
         if (userCallback == nullptr && canBeModal)

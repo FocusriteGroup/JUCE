@@ -208,4 +208,27 @@ bool DrawableText::replaceColour (Colour originalColour, Colour replacementColou
     return true;
 }
 
+//==============================================================================
+struct DrawableTextAccessibilityHandler  : public ComponentAccessibilityHandler
+{
+    DrawableTextAccessibilityHandler (DrawableText& drawableTextToWrap)
+        : ComponentAccessibilityHandler (drawableTextToWrap, AccessibilityRole::staticText),
+          drawableText (drawableTextToWrap)
+    {
+    }
+
+    String getTitle() const override  { return drawableText.getText(); }
+
+private:
+    DrawableText& drawableText;
+
+    //==============================================================================
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (DrawableTextAccessibilityHandler)
+};
+
+std::unique_ptr<AccessibilityHandler> DrawableText::createAccessibilityHandler()
+{
+    return std::make_unique<DrawableTextAccessibilityHandler> (*this);
+}
+
 } // namespace juce

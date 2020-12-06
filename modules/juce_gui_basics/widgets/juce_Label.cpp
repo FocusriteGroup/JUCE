@@ -480,4 +480,9 @@ void Label::textEditorFocusLost (TextEditor& ed)
     textEditorTextChanged (ed);
 }
 
+std::unique_ptr<AccessibilityHandler> Label::createAccessibilityHandler()
+{
+    return std::make_unique<LabelAccessibilityHandler> (*this);
+}
+
 } // namespace juce

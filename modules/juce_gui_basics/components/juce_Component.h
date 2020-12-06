@@ -2281,7 +2281,65 @@ public:
     */
     bool getViewportIgnoreDragFlag() const noexcept                     { return flags.viewportIgnoreDragFlag; }
 
+    //==============================================================================
+    /** Returns the description for this component.
+
+        @see setDescription
+    */
+    const String& getDescription() const noexcept  { return componentDescription; }
+
+    /** Sets the description for this component.
+
+        If this component supports accessibility using the default ComponentAccessibilityHandler
+        implementation, this string will be passed to accessibility clients requesting a
+        description, and may be read out by a screen reader.
+
+        @see getDescription, getAccessibilityHandler
+    */
+    void setDescription (const String& newDescription);
+
+    /** Returns the help text for this component.
+
+        @see setHelpText
+    */
+    const String& getHelpText() const noexcept    { return componentHelpText; }
+
+    /** Sets the help text for this component.
+
+        If this component supports accessibility using the default ComponentAccessibilityHandler
+        implementation, this string will be passed to accessibility clients requesting help text,
+        and may be read out by a screen reader.
+
+        @see getHelpText, getAccessibilityHandler
+    */
+    void setHelpText (const String& newHelpText);
+
+    /** Returns the accessibility handler for this component, or nullptr if this
+        component does not support accessibility.
+
+        @see createAccessibilityHandler
+    */
+    AccessibilityHandler* getAccessibilityHandler();
+
+    /**
+    */
+    void invalidateAccessibilityHandler();
+
 private:
+    //==============================================================================
+    /** Override this method to return a custom AccessibilityHandler for this component.
+
+        The default implementation creates and returns a ComponentAccessibilityHandler
+        object with an unspecified role, meaning it will be visible to accessibility clients
+        but without a specific role, action callbacks or interfaces. To control how accessibility
+        clients see and interact with your component, subclass ComponentAccessibilityHandler,
+        implement the desired behaviours, and return an instance of it from this overridden method
+        in your component subclass.
+
+        @see getAccessibilityHandler
+    */
+    virtual std::unique_ptr<AccessibilityHandler> createAccessibilityHandler();
+
     //==============================================================================
     friend class ComponentPeer;
     friend class MouseInputSource;
@@ -2291,7 +2349,7 @@ private:
     static Component* currentlyFocusedComponent;
 
     //==============================================================================
-    String componentName, componentID;
+    String componentName, componentID, componentDescription, componentHelpText;
     Component* parentComponent = nullptr;
     Rectangle<int> boundsRelativeToParent;
     std::unique_ptr<Positioner> positioner;
@@ -2310,6 +2368,8 @@ private:
 
     friend class WeakReference<Component>;
     WeakReference<Component>::Master masterReference;
+
+    std::unique_ptr<AccessibilityHandler> accessibilityHandler;
 
     struct ComponentFlags
     {

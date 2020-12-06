@@ -1675,4 +1675,9 @@ void Slider::mouseWheelMove (const MouseEvent& e, const MouseWheelDetails& wheel
         Component::mouseWheelMove (e, wheel);
 }
 
+std::unique_ptr<AccessibilityHandler> Slider::createAccessibilityHandler()
+{
+    return std::make_unique<SliderAccessibilityHandler> (*this);
+}
+
 } // namespace juce

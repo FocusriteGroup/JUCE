@@ -440,4 +440,10 @@ bool ScrollBar::getVisibility() const noexcept
                                     && visibleRange.getLength() > 0.0);
 }
 
+//==============================================================================
+std::unique_ptr<AccessibilityHandler> ScrollBar::createAccessibilityHandler()
+{
+    return std::make_unique<ComponentAccessibilityHandler> (*this, AccessibilityRole::scrollBar);
+}
+
 } // namespace juce

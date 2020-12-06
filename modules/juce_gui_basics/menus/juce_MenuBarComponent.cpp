@@ -355,4 +355,10 @@ void MenuBarComponent::timerCallback()
     updateItemUnderMouse (getMouseXYRelative());
 }
 
+//==============================================================================
+std::unique_ptr<AccessibilityHandler> MenuBarComponent::createAccessibilityHandler()
+{
+    return std::make_unique<ComponentAccessibilityHandler> (*this, AccessibilityRole::menuBar);
+}
+
 } // namespace juce

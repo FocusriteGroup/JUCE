@@ -46,7 +46,7 @@ public:
             {
                 if (columnComponents[i] == nullptr)
                 {
-                    auto columnRect = headerComp.getColumnPosition(i).withHeight (getHeight());
+                    auto columnRect = headerComp.getColumnPosition (i).withHeight (getHeight());
 
                     if (columnRect.getX() >= clipBounds.getRight())
                         break;
@@ -219,7 +219,82 @@ public:
         return columnComponents [owner.getHeader().getIndexOfColumnId (columnId, true)];
     }
 
+    std::unique_ptr<AccessibilityHandler> createAccessibilityHandler() override
+    {
+        return std::make_unique<RowComponentAccessibilityHandler> (*this);
+    }
+
 private:
+    //==============================================================================
+    struct RowComponentAccessibilityHandler  : public ComponentAccessibilityHandler
+    {
+        static AccessibilityActions buildAccessibilityActions (RowComp& rowComponent)
+        {
+            auto updateSelection = [&rowComponent] (bool shouldBeSelected)
+            {
+                rowComponent.update (rowComponent.row, shouldBeSelected);
+            };
+
+            return AccessibilityActions().addAction (AccessibilityActionType::select,   [updateSelection] { updateSelection (true); })
+                                         .addAction (AccessibilityActionType::deselect, [updateSelection] { updateSelection (false); });
+        }
+
+        RowComponentAccessibilityHandler (RowComp& rowComp)
+            : ComponentAccessibilityHandler (rowComp,
+                                             AccessibilityRole::cell,
+                                             buildAccessibilityActions (rowComp),
+                                             {}, {}, {},
+                                             std::make_unique<RowComponentCellInterface> (*this)),
+              rowComponent (rowComp)
+        {
+        }
+
+        String getTitle() const override
+        {
+            if (auto* m = rowComponent.owner.getModel())
+                return m->getNameForCell (rowComponent.row, 0);
+
+            return {};
+        }
+
+        AccessibleState getCurrentState() const override
+        {
+            if (auto* m = rowComponent.owner.getModel())
+                if (rowComponent.row >= m->getNumRows())
+                    return AccessibleState().withIgnored();
+
+            auto state = ComponentAccessibilityHandler::getCurrentState();
+
+            if (rowComponent.isSelected)
+                return state.withFocused().withSelected();
+
+            return state;
+        }
+
+        struct RowComponentCellInterface  : public CellInterface
+        {
+            RowComponentCellInterface (RowComponentAccessibilityHandler& handler)
+                : owner (handler)
+            {
+            }
+
+            int getColumnIndex() const override      { return 0; }
+            int getColumnSpan() const override       { return 1; }
+
+            int getRowIndex() const override         { return owner.rowComponent.row; }
+            int getRowSpan() const override          { return 1; }
+
+            int getDisclosureLevel() const override  { return 0; }
+
+            const AccessibilityHandler* getTableHandler() const override  { return owner.rowComponent.owner.getAccessibilityHandler(); }
+
+            RowComponentAccessibilityHandler& owner;
+        };
+
+        RowComp& rowComponent;
+    };
+
+    //==============================================================================
     TableListBox& owner;
     OwnedArray<Component> columnComponents;
     int row = -1;
@@ -467,6 +542,11 @@ void TableListBox::updateColumnComponents() const
             rowComp->resized();
 }
 
+std::unique_ptr<AccessibilityHandler> TableListBox::createAccessibilityHandler()
+{
+    return std::make_unique<TableListBoxAccessibilityHandler> (*this);
+}
+
 //==============================================================================
 void TableListBoxModel::cellClicked (int, int, const MouseEvent&)       {}
 void TableListBoxModel::cellDoubleClicked (int, int, const MouseEvent&) {}
@@ -486,6 +566,11 @@ Component* TableListBoxModel::refreshComponentForCell (int, int, bool, Component
     ignoreUnused (existingComponentToUpdate);
     jassert (existingComponentToUpdate == nullptr); // indicates a failure in the code that recycles the components
     return nullptr;
+}
+
+String TableListBoxModel::getNameForCell (int r, int c)
+{
+    return "Cell " + String (r) + ", " + String (c);
 }
 
 } // namespace juce

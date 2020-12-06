@@ -57,26 +57,6 @@ namespace juce
 {
 
 //==============================================================================
-static CGFloat getMainScreenHeight() noexcept
-{
-    if ([[NSScreen screens] count] == 0)
-        return 0.0f;
-
-    return [[[NSScreen screens] objectAtIndex: 0] frame].size.height;
-}
-
-static void flipScreenRect (NSRect& r) noexcept
-{
-    r.origin.y = getMainScreenHeight() - (r.origin.y + r.size.height);
-}
-
-static NSRect flippedScreenRect (NSRect r) noexcept
-{
-    flipScreenRect (r);
-    return r;
-}
-
-//==============================================================================
 class NSViewComponentPeer  : public ComponentPeer,
                              private Timer
 {
@@ -164,6 +144,8 @@ public:
 
             if ([window respondsToSelector: @selector (setRestorable:)])
                 [window setRestorable: NO];
+
+            [window setAccessibilityLabel: juceStringToNS (JUCEApplicationBase::getInstance()->getApplicationName())];
 
            #if defined (MAC_OS_X_VERSION_10_13) && (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_13)
             if ([window respondsToSelector: @selector (setTabbingMode:)])
@@ -254,6 +236,10 @@ public:
             {
                 [window orderOut: nil];
             }
+
+            if (auto* handler = getComponent().getAccessibilityHandler())
+                handler->notifyAccessibilityEvent (shouldBeVisible ? AccessibilityEvent::windowOpened
+                                                                   : AccessibilityEvent::windowClosed);
         }
     }
 
@@ -1610,65 +1596,74 @@ struct JuceNSViewClass   : public ObjCClass<NSView>
     {
         addIvar<NSViewComponentPeer*> ("owner");
 
-        addMethod (@selector (isOpaque),                      isOpaque,                   "c@:");
-        addMethod (@selector (drawRect:),                     drawRect,                   "v@:", @encode (NSRect));
-        addMethod (@selector (mouseDown:),                    mouseDown,                  "v@:@");
-        addMethod (@selector (asyncMouseDown:),               asyncMouseDown,             "v@:@");
-        addMethod (@selector (mouseUp:),                      mouseUp,                    "v@:@");
-        addMethod (@selector (asyncMouseUp:),                 asyncMouseUp,               "v@:@");
-        addMethod (@selector (mouseDragged:),                 mouseDragged,               "v@:@");
-        addMethod (@selector (mouseMoved:),                   mouseMoved,                 "v@:@");
-        addMethod (@selector (mouseEntered:),                 mouseEntered,               "v@:@");
-        addMethod (@selector (mouseExited:),                  mouseExited,                "v@:@");
-        addMethod (@selector (rightMouseDown:),               mouseDown,                  "v@:@");
-        addMethod (@selector (rightMouseDragged:),            mouseDragged,               "v@:@");
-        addMethod (@selector (rightMouseUp:),                 mouseUp,                    "v@:@");
-        addMethod (@selector (otherMouseDown:),               mouseDown,                  "v@:@");
-        addMethod (@selector (otherMouseDragged:),            mouseDragged,               "v@:@");
-        addMethod (@selector (otherMouseUp:),                 mouseUp,                    "v@:@");
-        addMethod (@selector (scrollWheel:),                  scrollWheel,                "v@:@");
-        addMethod (@selector (magnifyWithEvent:),             magnify,                    "v@:@");
-        addMethod (@selector (acceptsFirstMouse:),            acceptsFirstMouse,          "c@:@");
-        addMethod (@selector (frameChanged:),                 frameChanged,               "v@:@");
-        addMethod (@selector (windowWillMiniaturize:),        windowWillMiniaturize,      "v@:@");
-        addMethod (@selector (windowDidDeminiaturize:),       windowDidDeminiaturize,     "v@:@");
-        addMethod (@selector (wantsDefaultClipping:),         wantsDefaultClipping,       "c@:");
-        addMethod (@selector (worksWhenModal),                worksWhenModal,             "c@:");
-        addMethod (@selector (viewDidMoveToWindow),           viewDidMoveToWindow,        "v@:");
-        addMethod (@selector (keyDown:),                      keyDown,                    "v@:@");
-        addMethod (@selector (keyUp:),                        keyUp,                      "v@:@");
-        addMethod (@selector (insertText:),                   insertText,                 "v@:@");
-        addMethod (@selector (doCommandBySelector:),          doCommandBySelector,        "v@::");
-        addMethod (@selector (setMarkedText:selectedRange:),  setMarkedText,              "v@:@", @encode (NSRange));
-        addMethod (@selector (unmarkText),                    unmarkText,                 "v@:");
-        addMethod (@selector (hasMarkedText),                 hasMarkedText,              "c@:");
-        addMethod (@selector (conversationIdentifier),        conversationIdentifier,     "l@:");
-        addMethod (@selector (attributedSubstringFromRange:), attributedSubstringFromRange, "@@:", @encode (NSRange));
-        addMethod (@selector (markedRange),                   markedRange,                @encode (NSRange), "@:");
-        addMethod (@selector (selectedRange),                 selectedRange,              @encode (NSRange), "@:");
-        addMethod (@selector (firstRectForCharacterRange:),   firstRectForCharacterRange, @encode (NSRect), "@:", @encode (NSRange));
-        addMethod (@selector (characterIndexForPoint:),       characterIndexForPoint,     "L@:", @encode (NSPoint));
-        addMethod (@selector (validAttributesForMarkedText),  validAttributesForMarkedText, "@@:");
-        addMethod (@selector (flagsChanged:),                 flagsChanged,               "v@:@");
+        addMethod (@selector (isOpaque),                       isOpaque,                          "c@:");
+        addMethod (@selector (drawRect:),                      drawRect,                          "v@:", @encode (NSRect));
+        addMethod (@selector (mouseDown:),                     mouseDown,                         "v@:@");
+        addMethod (@selector (asyncMouseDown:),                asyncMouseDown,                    "v@:@");
+        addMethod (@selector (mouseUp:),                       mouseUp,                           "v@:@");
+        addMethod (@selector (asyncMouseUp:),                  asyncMouseUp,                      "v@:@");
+        addMethod (@selector (mouseDragged:),                  mouseDragged,                      "v@:@");
+        addMethod (@selector (mouseMoved:),                    mouseMoved,                        "v@:@");
+        addMethod (@selector (mouseEntered:),                  mouseEntered,                      "v@:@");
+        addMethod (@selector (mouseExited:),                   mouseExited,                       "v@:@");
+        addMethod (@selector (rightMouseDown:),                mouseDown,                         "v@:@");
+        addMethod (@selector (rightMouseDragged:),             mouseDragged,                      "v@:@");
+        addMethod (@selector (rightMouseUp:),                  mouseUp,                           "v@:@");
+        addMethod (@selector (otherMouseDown:),                mouseDown,                         "v@:@");
+        addMethod (@selector (otherMouseDragged:),             mouseDragged,                      "v@:@");
+        addMethod (@selector (otherMouseUp:),                  mouseUp,                           "v@:@");
+        addMethod (@selector (scrollWheel:),                   scrollWheel,                       "v@:@");
+        addMethod (@selector (magnifyWithEvent:),              magnify,                           "v@:@");
+        addMethod (@selector (acceptsFirstMouse:),             acceptsFirstMouse,                 "c@:@");
+        addMethod (@selector (frameChanged:),                  frameChanged,                      "v@:@");
+        addMethod (@selector (windowWillMiniaturize:),         windowWillMiniaturize,             "v@:@");
+        addMethod (@selector (windowDidDeminiaturize:),        windowDidDeminiaturize,            "v@:@");
+        addMethod (@selector (wantsDefaultClipping:),          wantsDefaultClipping,              "c@:");
+        addMethod (@selector (worksWhenModal),                 worksWhenModal,                    "c@:");
+        addMethod (@selector (viewDidMoveToWindow),            viewDidMoveToWindow,               "v@:");
+        addMethod (@selector (keyDown:),                       keyDown,                           "v@:@");
+        addMethod (@selector (keyUp:),                         keyUp,                             "v@:@");
+        addMethod (@selector (insertText:),                    insertText,                        "v@:@");
+        addMethod (@selector (doCommandBySelector:),           doCommandBySelector,               "v@::");
+        addMethod (@selector (setMarkedText:selectedRange:),   setMarkedText,                     "v@:@", @encode (NSRange));
+        addMethod (@selector (unmarkText),                     unmarkText,                        "v@:");
+        addMethod (@selector (hasMarkedText),                  hasMarkedText,                     "c@:");
+        addMethod (@selector (conversationIdentifier),         conversationIdentifier,            "l@:");
+        addMethod (@selector (attributedSubstringFromRange:),  attributedSubstringFromRange,      "@@:", @encode (NSRange));
+        addMethod (@selector (markedRange),                    markedRange,                       @encode (NSRange), "@:");
+        addMethod (@selector (selectedRange),                  selectedRange,                     @encode (NSRange), "@:");
+        addMethod (@selector (firstRectForCharacterRange:),    firstRectForCharacterRange,        @encode (NSRect), "@:", @encode (NSRange));
+        addMethod (@selector (characterIndexForPoint:),        characterIndexForPoint,            "L@:", @encode (NSPoint));
+        addMethod (@selector (validAttributesForMarkedText),   validAttributesForMarkedText,      "@@:");
+        addMethod (@selector (flagsChanged:),                  flagsChanged,                      "v@:@");
 
-        addMethod (@selector (becomeFirstResponder),          becomeFirstResponder,       "c@:");
-        addMethod (@selector (resignFirstResponder),          resignFirstResponder,       "c@:");
-        addMethod (@selector (acceptsFirstResponder),         acceptsFirstResponder,      "c@:");
+        addMethod (@selector (becomeFirstResponder),           becomeFirstResponder,              "c@:");
+        addMethod (@selector (resignFirstResponder),           resignFirstResponder,              "c@:");
+        addMethod (@selector (acceptsFirstResponder),          acceptsFirstResponder,             "c@:");
 
-        addMethod (@selector (draggingEntered:),              draggingEntered,            @encode (NSDragOperation), "@:@");
-        addMethod (@selector (draggingUpdated:),              draggingUpdated,            @encode (NSDragOperation), "@:@");
-        addMethod (@selector (draggingEnded:),                draggingEnded,              "v@:@");
-        addMethod (@selector (draggingExited:),               draggingExited,             "v@:@");
-        addMethod (@selector (prepareForDragOperation:),      prepareForDragOperation,    "c@:@");
-        addMethod (@selector (performDragOperation:),         performDragOperation,       "c@:@");
-        addMethod (@selector (concludeDragOperation:),        concludeDragOperation,      "v@:@");
+        addMethod (@selector (draggingEntered:),               draggingEntered,                   @encode (NSDragOperation), "@:@");
+        addMethod (@selector (draggingUpdated:),               draggingUpdated,                   @encode (NSDragOperation), "@:@");
+        addMethod (@selector (draggingEnded:),                 draggingEnded,                     "v@:@");
+        addMethod (@selector (draggingExited:),                draggingExited,                    "v@:@");
+        addMethod (@selector (prepareForDragOperation:),       prepareForDragOperation,           "c@:@");
+        addMethod (@selector (performDragOperation:),          performDragOperation,              "c@:@");
+        addMethod (@selector (concludeDragOperation:),         concludeDragOperation,             "v@:@");
 
-        addMethod (@selector (paste:),                        paste,                      "v@:@");
-        addMethod (@selector (copy:),                         copy,                       "v@:@");
-        addMethod (@selector (cut:),                          cut,                        "v@:@");
-        addMethod (@selector (selectAll:),                    selectAll,                  "v@:@");
+        addMethod (@selector (paste:),                         paste,                             "v@:@");
+        addMethod (@selector (copy:),                          copy,                              "v@:@");
+        addMethod (@selector (cut:),                           cut,                               "v@:@");
+        addMethod (@selector (selectAll:),                     selectAll,                         "v@:@");
 
-        addMethod (@selector (viewWillMoveToWindow:),         willMoveToWindow,           "v@:@");
+        addMethod (@selector (viewWillMoveToWindow:),          willMoveToWindow,                  "v@:@");
+
+        addMethod (@selector (isAccessibilityElement),         getIsAccessibilityElement,         "c@:");
+        addMethod (@selector (accessibilityChildren),          getAccessibilityChildren,          "@@:");
+        addMethod (@selector (accessibilityHitTest:),          accessibilityHitTest,              "@@:", @encode (NSPoint));
+        addMethod (@selector (accessibilityFocusedUIElement),  getAccessibilityFocusedUIElement,  "@@:");
+
+        // deprecated methods required for backwards compatibility
+        addMethod (@selector (accessibilityIsIgnored),         getAccessibilityIsIgnored,         "c@:");
+        addMethod (@selector (accessibilityAttributeValue:),   getAccessibilityAttributeValue,    "@@:@");
 
         addProtocol (@protocol (NSTextInput));
 
@@ -1975,6 +1970,49 @@ private:
     }
 
     static void concludeDragOperation (id, SEL, id<NSDraggingInfo>) {}
+
+    //==============================================================================
+    static id getAccessibleChild (id self)
+    {
+        if (auto* owner = getOwner (self))
+            if (auto* handler = owner->getComponent().getAccessibilityHandler())
+                return (id) handler->getNativeImplementation();
+
+        return nil;
+    }
+
+    static BOOL getIsAccessibilityElement (id, SEL)
+    {
+        return NO;
+    }
+
+    static NSArray* getAccessibilityChildren (id self, SEL)
+    {
+        return NSAccessibilityUnignoredChildrenForOnlyChild (getAccessibleChild (self));
+    }
+
+    static id accessibilityHitTest (id self, SEL, NSPoint point)
+    {
+        return [getAccessibleChild (self) accessibilityHitTest: point];
+    }
+
+    static id getAccessibilityFocusedUIElement (id self, SEL)
+    {
+        return [getAccessibleChild (self) accessibilityFocusedUIElement];
+    }
+
+    static BOOL getAccessibilityIsIgnored (id, SEL)
+    {
+        return YES;
+    }
+
+    static id getAccessibilityAttributeValue (id self, SEL, NSString* attribute)
+    {
+        if ([attribute isEqualToString: NSAccessibilityChildrenAttribute])
+            return getAccessibilityChildren (self, {});
+
+        return sendSuperclassMessage<id> (self, @selector (accessibilityAttributeValue:), attribute);
+    }
 };
 
 //==============================================================================
@@ -1997,6 +2035,9 @@ struct JuceNSWindowClass   : public ObjCClass<NSWindow>
         addMethod (@selector (windowWillStartLiveResize:),          windowWillStartLiveResize, "v@:@");
         addMethod (@selector (windowDidEndLiveResize:),             windowDidEndLiveResize,    "v@:@");
         addMethod (@selector (window:shouldPopUpDocumentPathMenu:), shouldPopUpPathMenu, "B@:@", @encode (NSMenu*));
+
+        addMethod (@selector (accessibilityTopLevelUIElement),      getAccessibilityWindow,    "@@:");
+        addMethod (@selector (accessibilityWindow),                 getAccessibilityWindow,    "@@:");
 
         addMethod (@selector (window:shouldDragDocumentWithEvent:from:withPasteboard:),
                    shouldAllowIconDrag, "B@:@", @encode (NSEvent*), @encode (NSPoint), @encode (NSPasteboard*));
@@ -2149,6 +2190,11 @@ private:
             return owner->windowRepresentsFile;
 
         return false;
+    }
+
+    static id getAccessibilityWindow (id self, SEL)
+    {
+        return self;
     }
 };
 

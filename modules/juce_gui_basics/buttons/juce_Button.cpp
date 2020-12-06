@@ -692,4 +692,10 @@ void Button::repeatTimerCallback()
     }
 }
 
+//==============================================================================
+std::unique_ptr<AccessibilityHandler> Button::createAccessibilityHandler()
+{
+    return std::make_unique<ButtonAccessibilityHandler> (*this);
+}
+
 } // namespace juce
