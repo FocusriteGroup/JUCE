@@ -129,6 +129,10 @@
 			isa = PBXBuildFile;
 			fileRef = 84B287BB2AD252B7D69AC47E;
 		};
+		955BFA77ACA237C15AAFDDD1 = {
+			isa = PBXBuildFile;
+			fileRef = EE518E092E76616D5231ABE8;
+		};
 		3717B9F9A0F7C9CB95F1BE7F = {
 			isa = PBXBuildFile;
 			fileRef = 7BE6330821794919A88ED8ED;
@@ -505,6 +509,13 @@
 			path = System/Library/Frameworks/WebKit.framework;
 			sourceTree = SDKROOT;
 		};
+		EE518E092E76616D5231ABE8 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.objcpp;
+			name = "include_juce_gui_basics_native.mm";
+			path = "../../JuceLibraryCode/include_juce_gui_basics_native.mm";
+			sourceTree = "SOURCE_ROOT";
+		};
 		F3292E3563DB7ABB076DB400 = {
 			isa = PBXFileReference;
 			lastKnownFileType = wrapper.framework;
@@ -600,6 +611,7 @@
 				33AA348465F512DBA8778DAF,
 				A7FF2B353C8568B5A7A80117,
 				84B287BB2AD252B7D69AC47E,
+				EE518E092E76616D5231ABE8,
 				7BE6330821794919A88ED8ED,
 				660F1970CF687A7AE8371C6D,
 				3BF06B70407FFDBE9534F942,
@@ -939,6 +951,7 @@
 				C5E7BAD864E02CF37F7BD707,
 				CBC8F7E5225C73CEDFB3B72E,
 				CADEA83EAAC94E0011C07908,
+				955BFA77ACA237C15AAFDDD1,
 				3717B9F9A0F7C9CB95F1BE7F,
 				61B523C52EBA17F738FFE31A,
 				C6348C6B1D0312580E97EA19,

@@ -54,6 +54,7 @@ add_library( ${BINARY_NAME}
     "../../../../../modules/juce_accessibility/native/juce_mac_AccessibilityElement.mm"
     "../../../../../modules/juce_accessibility/native/juce_win32_Accessibility.cpp"
     "../../../../../modules/juce_accessibility/native/juce_win32_AccessibilityElement.cpp"
+    "../../../../../modules/juce_accessibility/native/juce_win32_AccessibilityElement.h"
     "../../../../../modules/juce_accessibility/native/juce_win32_UIAExpandCollapseProvider.h"
     "../../../../../modules/juce_accessibility/native/juce_win32_UIAGridItemProvider.h"
     "../../../../../modules/juce_accessibility/native/juce_win32_UIAGridProvider.h"
@@ -1163,7 +1164,6 @@ add_library( ${BINARY_NAME}
     "../../../../../modules/juce_gui_basics/accessibility/juce_ComponentAccessibilityHandler.h"
     "../../../../../modules/juce_gui_basics/accessibility/juce_DocumentWindowAccessibilityHandler.h"
     "../../../../../modules/juce_gui_basics/accessibility/juce_LabelAccessibilityHandler.h"
-    "../../../../../modules/juce_gui_basics/accessibility/juce_ListBoxAccessibilityHandler.h"
     "../../../../../modules/juce_gui_basics/accessibility/juce_SliderAccessibilityHandler.h"
     "../../../../../modules/juce_gui_basics/accessibility/juce_TableListBoxAccessibilityHandler.h"
     "../../../../../modules/juce_gui_basics/accessibility/juce_TextEditorAccessibilityHandler.h"
@@ -1203,6 +1203,7 @@ add_library( ${BINARY_NAME}
     "../../../../../modules/juce_gui_basics/components/juce_ComponentListener.h"
     "../../../../../modules/juce_gui_basics/components/juce_ModalComponentManager.cpp"
     "../../../../../modules/juce_gui_basics/components/juce_ModalComponentManager.h"
+    "../../../../../modules/juce_gui_basics/components/juce_ScalingHelpers.h"
     "../../../../../modules/juce_gui_basics/desktop/juce_Desktop.cpp"
     "../../../../../modules/juce_gui_basics/desktop/juce_Desktop.h"
     "../../../../../modules/juce_gui_basics/desktop/juce_Displays.cpp"
@@ -1349,6 +1350,7 @@ add_library( ${BINARY_NAME}
     "../../../../../modules/juce_gui_basics/mouse/juce_TextDragAndDropTarget.h"
     "../../../../../modules/juce_gui_basics/mouse/juce_TooltipClient.h"
     "../../../../../modules/juce_gui_basics/native/x11/juce_linux_X11_DragAndDrop.cpp"
+    "../../../../../modules/juce_gui_basics/native/x11/juce_linux_X11_Headers.h"
     "../../../../../modules/juce_gui_basics/native/x11/juce_linux_X11_Symbols.cpp"
     "../../../../../modules/juce_gui_basics/native/x11/juce_linux_X11_Symbols.h"
     "../../../../../modules/juce_gui_basics/native/x11/juce_linux_XWindowSystem.cpp"
@@ -1365,7 +1367,6 @@ add_library( ${BINARY_NAME}
     "../../../../../modules/juce_gui_basics/native/juce_linux_Windowing.cpp"
     "../../../../../modules/juce_gui_basics/native/juce_mac_FileChooser.mm"
     "../../../../../modules/juce_gui_basics/native/juce_mac_MainMenu.mm"
-    "../../../../../modules/juce_gui_basics/native/juce_mac_MouseCursor.mm"
     "../../../../../modules/juce_gui_basics/native/juce_mac_NSViewComponentPeer.mm"
     "../../../../../modules/juce_gui_basics/native/juce_mac_Windowing.mm"
     "../../../../../modules/juce_gui_basics/native/juce_MultiTouchMapper.h"
@@ -1450,6 +1451,8 @@ add_library( ${BINARY_NAME}
     "../../../../../modules/juce_gui_basics/windows/juce_TopLevelWindow.h"
     "../../../../../modules/juce_gui_basics/juce_gui_basics.cpp"
     "../../../../../modules/juce_gui_basics/juce_gui_basics.mm"
+    "../../../../../modules/juce_gui_basics/juce_gui_basics_native.cpp"
+    "../../../../../modules/juce_gui_basics/juce_gui_basics_native.mm"
     "../../../../../modules/juce_gui_basics/juce_gui_basics.h"
     "../../../../../modules/juce_gui_extra/code_editor/juce_CodeDocument.cpp"
     "../../../../../modules/juce_gui_extra/code_editor/juce_CodeDocument.h"
@@ -1580,6 +1583,7 @@ add_library( ${BINARY_NAME}
     "../../../JuceLibraryCode/include_juce_events.cpp"
     "../../../JuceLibraryCode/include_juce_graphics.cpp"
     "../../../JuceLibraryCode/include_juce_gui_basics.cpp"
+    "../../../JuceLibraryCode/include_juce_gui_basics_native.cpp"
     "../../../JuceLibraryCode/include_juce_gui_extra.cpp"
     "../../../JuceLibraryCode/include_juce_opengl.cpp"
     "../../../JuceLibraryCode/include_juce_osc.cpp"
@@ -1605,6 +1609,7 @@ set_source_files_properties("../../../../../modules/juce_accessibility/native/ju
 set_source_files_properties("../../../../../modules/juce_accessibility/native/juce_mac_AccessibilityElement.mm" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../../../modules/juce_accessibility/native/juce_win32_Accessibility.cpp" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../../../modules/juce_accessibility/native/juce_win32_AccessibilityElement.cpp" PROPERTIES HEADER_FILE_ONLY TRUE)
+set_source_files_properties("../../../../../modules/juce_accessibility/native/juce_win32_AccessibilityElement.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../../../modules/juce_accessibility/native/juce_win32_UIAExpandCollapseProvider.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../../../modules/juce_accessibility/native/juce_win32_UIAGridItemProvider.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../../../modules/juce_accessibility/native/juce_win32_UIAGridProvider.h" PROPERTIES HEADER_FILE_ONLY TRUE)
@@ -2714,7 +2719,6 @@ set_source_files_properties("../../../../../modules/juce_gui_basics/accessibilit
 set_source_files_properties("../../../../../modules/juce_gui_basics/accessibility/juce_ComponentAccessibilityHandler.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../../../modules/juce_gui_basics/accessibility/juce_DocumentWindowAccessibilityHandler.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../../../modules/juce_gui_basics/accessibility/juce_LabelAccessibilityHandler.h" PROPERTIES HEADER_FILE_ONLY TRUE)
-set_source_files_properties("../../../../../modules/juce_gui_basics/accessibility/juce_ListBoxAccessibilityHandler.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../../../modules/juce_gui_basics/accessibility/juce_SliderAccessibilityHandler.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../../../modules/juce_gui_basics/accessibility/juce_TableListBoxAccessibilityHandler.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../../../modules/juce_gui_basics/accessibility/juce_TextEditorAccessibilityHandler.h" PROPERTIES HEADER_FILE_ONLY TRUE)
@@ -2754,6 +2758,7 @@ set_source_files_properties("../../../../../modules/juce_gui_basics/components/j
 set_source_files_properties("../../../../../modules/juce_gui_basics/components/juce_ComponentListener.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../../../modules/juce_gui_basics/components/juce_ModalComponentManager.cpp" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../../../modules/juce_gui_basics/components/juce_ModalComponentManager.h" PROPERTIES HEADER_FILE_ONLY TRUE)
+set_source_files_properties("../../../../../modules/juce_gui_basics/components/juce_ScalingHelpers.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../../../modules/juce_gui_basics/desktop/juce_Desktop.cpp" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../../../modules/juce_gui_basics/desktop/juce_Desktop.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../../../modules/juce_gui_basics/desktop/juce_Displays.cpp" PROPERTIES HEADER_FILE_ONLY TRUE)
@@ -2900,6 +2905,7 @@ set_source_files_properties("../../../../../modules/juce_gui_basics/mouse/juce_S
 set_source_files_properties("../../../../../modules/juce_gui_basics/mouse/juce_TextDragAndDropTarget.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../../../modules/juce_gui_basics/mouse/juce_TooltipClient.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../../../modules/juce_gui_basics/native/x11/juce_linux_X11_DragAndDrop.cpp" PROPERTIES HEADER_FILE_ONLY TRUE)
+set_source_files_properties("../../../../../modules/juce_gui_basics/native/x11/juce_linux_X11_Headers.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../../../modules/juce_gui_basics/native/x11/juce_linux_X11_Symbols.cpp" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../../../modules/juce_gui_basics/native/x11/juce_linux_X11_Symbols.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../../../modules/juce_gui_basics/native/x11/juce_linux_XWindowSystem.cpp" PROPERTIES HEADER_FILE_ONLY TRUE)
@@ -2916,7 +2922,6 @@ set_source_files_properties("../../../../../modules/juce_gui_basics/native/juce_
 set_source_files_properties("../../../../../modules/juce_gui_basics/native/juce_linux_Windowing.cpp" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../../../modules/juce_gui_basics/native/juce_mac_FileChooser.mm" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../../../modules/juce_gui_basics/native/juce_mac_MainMenu.mm" PROPERTIES HEADER_FILE_ONLY TRUE)
-set_source_files_properties("../../../../../modules/juce_gui_basics/native/juce_mac_MouseCursor.mm" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../../../modules/juce_gui_basics/native/juce_mac_NSViewComponentPeer.mm" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../../../modules/juce_gui_basics/native/juce_mac_Windowing.mm" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../../../modules/juce_gui_basics/native/juce_MultiTouchMapper.h" PROPERTIES HEADER_FILE_ONLY TRUE)
@@ -3001,6 +3006,8 @@ set_source_files_properties("../../../../../modules/juce_gui_basics/windows/juce
 set_source_files_properties("../../../../../modules/juce_gui_basics/windows/juce_TopLevelWindow.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../../../modules/juce_gui_basics/juce_gui_basics.cpp" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../../../modules/juce_gui_basics/juce_gui_basics.mm" PROPERTIES HEADER_FILE_ONLY TRUE)
+set_source_files_properties("../../../../../modules/juce_gui_basics/juce_gui_basics_native.cpp" PROPERTIES HEADER_FILE_ONLY TRUE)
+set_source_files_properties("../../../../../modules/juce_gui_basics/juce_gui_basics_native.mm" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../../../modules/juce_gui_basics/juce_gui_basics.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../../../modules/juce_gui_extra/code_editor/juce_CodeDocument.cpp" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../../../modules/juce_gui_extra/code_editor/juce_CodeDocument.h" PROPERTIES HEADER_FILE_ONLY TRUE)

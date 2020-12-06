@@ -165,6 +165,10 @@
 			isa = PBXBuildFile;
 			fileRef = 8FE7B37CDE0818DB27BDDEBD;
 		};
+		298D962A7FD6B024309FE5CF = {
+			isa = PBXBuildFile;
+			fileRef = D7627A214D6C30263D0CE1D8;
+		};
 		C38D14DC58F1941DD5E4BF60 = {
 			isa = PBXBuildFile;
 			fileRef = 2BE6C2DFD6EBB9A89109AEB5;
@@ -586,6 +590,13 @@
 			path = System/Library/Frameworks/AudioToolbox.framework;
 			sourceTree = SDKROOT;
 		};
+		D7627A214D6C30263D0CE1D8 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.objcpp;
+			name = "include_juce_gui_basics_native.mm";
+			path = "../../JuceLibraryCode/include_juce_gui_basics_native.mm";
+			sourceTree = "SOURCE_ROOT";
+		};
 		E68018DE199135B7F738FB17 = {
 			isa = PBXFileReference;
 			lastKnownFileType = wrapper.framework;
@@ -726,6 +737,7 @@
 				8290D7BAC160B3A56B66891A,
 				82800DBA287EF4BAB13B42FB,
 				8FE7B37CDE0818DB27BDDEBD,
+				D7627A214D6C30263D0CE1D8,
 				2BE6C2DFD6EBB9A89109AEB5,
 				37E4D5C341406B7072120006,
 				A5E7CA8A71D049BE2BD33861,
@@ -1107,6 +1119,7 @@
 				7DE202DC1D876F49266D9E7D,
 				075C54DDDBDEA5AAD2F60154,
 				2C3D221D2AA87F07B3F1044D,
+				298D962A7FD6B024309FE5CF,
 				C38D14DC58F1941DD5E4BF60,
 				2727A191DB1BAAC9C04B9081,
 			);

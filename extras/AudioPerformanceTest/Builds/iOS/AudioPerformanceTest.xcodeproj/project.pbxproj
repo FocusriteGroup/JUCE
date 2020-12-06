@@ -121,6 +121,10 @@
 			isa = PBXBuildFile;
 			fileRef = 0BC3C6A4F4FC1DD30DD8E17C;
 		};
+		132F5A9C0A27FF022178CBF0 = {
+			isa = PBXBuildFile;
+			fileRef = D906A7B25F710C7851B6C08B;
+		};
 		9D47995A33BBA693ED435B31 = {
 			isa = PBXBuildFile;
 			fileRef = B06AE97C86D27E7FEBCB4631;
@@ -405,6 +409,13 @@
 			path = "../../../../modules/juce_audio_processors";
 			sourceTree = "SOURCE_ROOT";
 		};
+		D906A7B25F710C7851B6C08B = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.objcpp;
+			name = "include_juce_gui_basics_native.mm";
+			path = "../../JuceLibraryCode/include_juce_gui_basics_native.mm";
+			sourceTree = "SOURCE_ROOT";
+		};
 		E1BB9D521BF6C055F5B88628 = {
 			isa = PBXFileReference;
 			lastKnownFileType = wrapper.framework;
@@ -490,6 +501,7 @@
 				248FAA119A4FC24C522165EF,
 				7E951216B6138C76653B1460,
 				0BC3C6A4F4FC1DD30DD8E17C,
+				D906A7B25F710C7851B6C08B,
 				B06AE97C86D27E7FEBCB4631,
 				26FE7BE182FBB9E7228A082D,
 			);
@@ -823,6 +835,7 @@
 				7E870C094BAE67D7EB149F1C,
 				65FC2E13B65977FED63BDDE3,
 				699954AF666E644C7B688381,
+				132F5A9C0A27FF022178CBF0,
 				9D47995A33BBA693ED435B31,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

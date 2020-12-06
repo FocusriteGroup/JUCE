@@ -1642,9 +1642,6 @@
     <ClCompile Include="..\..\..\..\modules\juce_gui_basics\native\juce_mac_MainMenu.mm">
       <Filter>JUCE Modules\juce_gui_basics\native</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\modules\juce_gui_basics\native\juce_mac_MouseCursor.mm">
-      <Filter>JUCE Modules\juce_gui_basics\native</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\modules\juce_gui_basics\native\juce_mac_NSViewComponentPeer.mm">
       <Filter>JUCE Modules\juce_gui_basics\native</Filter>
     </ClCompile>
@@ -1777,6 +1774,12 @@
     <ClCompile Include="..\..\..\..\modules\juce_gui_basics\juce_gui_basics.mm">
       <Filter>JUCE Modules\juce_gui_basics</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\modules\juce_gui_basics\juce_gui_basics_native.cpp">
+      <Filter>JUCE Modules\juce_gui_basics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\modules\juce_gui_basics\juce_gui_basics_native.mm">
+      <Filter>JUCE Modules\juce_gui_basics</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\..\modules\juce_gui_extra\code_editor\juce_CodeDocument.cpp">
       <Filter>JUCE Modules\juce_gui_extra\code_editor</Filter>
     </ClCompile>
@@ -1907,6 +1910,9 @@
       <Filter>JUCE Library Code</Filter>
     </ClCompile>
     <ClCompile Include="..\..\JuceLibraryCode\include_juce_gui_basics.cpp">
+      <Filter>JUCE Library Code</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\JuceLibraryCode\include_juce_gui_basics_native.cpp">
       <Filter>JUCE Library Code</Filter>
     </ClCompile>
     <ClCompile Include="..\..\JuceLibraryCode\include_juce_gui_extra.cpp">
@@ -2480,6 +2486,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\modules\juce_accessibility\interfaces\juce_AccessibilityValueInterface.h">
       <Filter>JUCE Modules\juce_accessibility\interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\modules\juce_accessibility\native\juce_win32_AccessibilityElement.h">
+      <Filter>JUCE Modules\juce_accessibility\native</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\modules\juce_accessibility\native\juce_win32_UIAExpandCollapseProvider.h">
       <Filter>JUCE Modules\juce_accessibility\native</Filter>
@@ -3291,9 +3300,6 @@
     <ClInclude Include="..\..\..\..\modules\juce_gui_basics\accessibility\juce_LabelAccessibilityHandler.h">
       <Filter>JUCE Modules\juce_gui_basics\accessibility</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\modules\juce_gui_basics\accessibility\juce_ListBoxAccessibilityHandler.h">
-      <Filter>JUCE Modules\juce_gui_basics\accessibility</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\modules\juce_gui_basics\accessibility\juce_SliderAccessibilityHandler.h">
       <Filter>JUCE Modules\juce_gui_basics\accessibility</Filter>
     </ClInclude>
@@ -3358,6 +3364,9 @@
       <Filter>JUCE Modules\juce_gui_basics\components</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\modules\juce_gui_basics\components\juce_ModalComponentManager.h">
+      <Filter>JUCE Modules\juce_gui_basics\components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\modules\juce_gui_basics\components\juce_ScalingHelpers.h">
       <Filter>JUCE Modules\juce_gui_basics\components</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\modules\juce_gui_basics\desktop\juce_Desktop.h">
@@ -3596,6 +3605,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\modules\juce_gui_basics\mouse\juce_TooltipClient.h">
       <Filter>JUCE Modules\juce_gui_basics\mouse</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\modules\juce_gui_basics\native\x11\juce_linux_X11_Headers.h">
+      <Filter>JUCE Modules\juce_gui_basics\native\x11</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\modules\juce_gui_basics\native\x11\juce_linux_X11_Symbols.h">
       <Filter>JUCE Modules\juce_gui_basics\native\x11</Filter>

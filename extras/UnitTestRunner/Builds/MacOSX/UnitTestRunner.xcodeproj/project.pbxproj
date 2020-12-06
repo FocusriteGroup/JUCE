@@ -145,6 +145,10 @@
 			isa = PBXBuildFile;
 			fileRef = 583EA0E5C4B75A629AEF1157;
 		};
+		11E9DA1E25A4E5B8CF28B232 = {
+			isa = PBXBuildFile;
+			fileRef = C07230E7C90AEA54DD681692;
+		};
 		AF1FE82A4A20DCB8944B35C7 = {
 			isa = PBXBuildFile;
 			fileRef = 4195CB317C364D778AE2ADB1;
@@ -515,6 +519,13 @@
 			path = System/Library/Frameworks/CoreAudio.framework;
 			sourceTree = SDKROOT;
 		};
+		C07230E7C90AEA54DD681692 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.objcpp;
+			name = "include_juce_gui_basics_native.mm";
+			path = "../../JuceLibraryCode/include_juce_gui_basics_native.mm";
+			sourceTree = "SOURCE_ROOT";
+		};
 		CC27F53A76BFB2675D2683A1 = {
 			isa = PBXFileReference;
 			lastKnownFileType = file;
@@ -653,6 +664,7 @@
 				3D169C5EFBF6304F5CE4C35E,
 				EECBAA403D2D6AEEA8CB05EB,
 				583EA0E5C4B75A629AEF1157,
+				C07230E7C90AEA54DD681692,
 				4195CB317C364D778AE2ADB1,
 				1CA82C74AEC08421812BDCAC,
 				A59D9064C3A2D7EC3DC45420,
@@ -1008,6 +1020,7 @@
 				A4C15593F5B4E1BE338F4F63,
 				A1A39E64F9E03EFFA10B0A10,
 				D43289CF624A7B068237C192,
+				11E9DA1E25A4E5B8CF28B232,
 				AF1FE82A4A20DCB8944B35C7,
 				1D06F1A254F84A7AE3E90DF2,
 				7164274FE42C7EC423455E05,

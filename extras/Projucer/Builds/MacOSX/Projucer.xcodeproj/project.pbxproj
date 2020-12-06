@@ -329,6 +329,10 @@
 			isa = PBXBuildFile;
 			fileRef = 0462692BAA9CD1BE6DFBCC33;
 		};
+		FC1DEAED81F2791184DE8F55 = {
+			isa = PBXBuildFile;
+			fileRef = AA7F5F9A088E4E5AF2182FD5;
+		};
 		B18248959DDC44EF4E85320A = {
 			isa = PBXBuildFile;
 			fileRef = AECE3914F5119A3D586A5635;
@@ -1782,6 +1786,13 @@
 			path = "../../../../modules/juce_cryptography";
 			sourceTree = "SOURCE_ROOT";
 		};
+		AA7F5F9A088E4E5AF2182FD5 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.objcpp;
+			name = "include_juce_gui_basics_native.mm";
+			path = "../../JuceLibraryCode/include_juce_gui_basics_native.mm";
+			sourceTree = "SOURCE_ROOT";
+		};
 		AAF90697C0F171EFC3984A5D = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.c.h;
@@ -3119,6 +3130,7 @@
 				5867DC4E39DF8539B54C0D59,
 				1B9B5A37F079FE3B3CF8FAB6,
 				0462692BAA9CD1BE6DFBCC33,
+				AA7F5F9A088E4E5AF2182FD5,
 				AECE3914F5119A3D586A5635,
 				364D1A9B113320407A7E57B9,
 			);
@@ -3511,6 +3523,7 @@
 				234B6BA2952CBC7C61EF70EF,
 				254A7C08594A152C2C646334,
 				F15F0512666FF8CDC0D08905,
+				FC1DEAED81F2791184DE8F55,
 				B18248959DDC44EF4E85320A,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
