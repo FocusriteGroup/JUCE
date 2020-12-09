@@ -656,126 +656,117 @@ const Point<float> MouseInputSource::offscreenMousePos { -10.0f, -10.0f };
 bool MouseInputSource::hasMouseMovedSignificantlySincePressed() const noexcept  { return pimpl->hasMouseMovedSignificantlySincePressed(); }
 
 //==============================================================================
-struct MouseInputSource::SourceList  : public Timer
+MouseInputSource::SourceList::SourceList()
 {
-    SourceList()
-    {
-       #if JUCE_ANDROID || JUCE_IOS
-        auto mainMouseInputType = MouseInputSource::InputSourceType::touch;
-       #else
-        auto mainMouseInputType = MouseInputSource::InputSourceType::mouse;
-       #endif
+   #if JUCE_ANDROID || JUCE_IOS
+    auto mainMouseInputType = MouseInputSource::InputSourceType::touch;
+   #else
+    auto mainMouseInputType = MouseInputSource::InputSourceType::mouse;
+   #endif
 
-        addSource (0, mainMouseInputType);
+    addSource (0, mainMouseInputType);
+}
+
+MouseInputSource* MouseInputSource::SourceList::addSource (int index, MouseInputSource::InputSourceType type)
+{
+    auto* s = new MouseInputSourceInternal (index, type);
+    sources.add (s);
+    sourceArray.add (MouseInputSource (s));
+
+    return &sourceArray.getReference (sourceArray.size() - 1);
+}
+
+MouseInputSource* MouseInputSource::SourceList::getMouseSource (int index) noexcept
+{
+    return isPositiveAndBelow (index, sourceArray.size()) ? &sourceArray.getReference (index)
+                                                          : nullptr;
+}
+
+MouseInputSource* MouseInputSource::SourceList::getOrCreateMouseInputSource (MouseInputSource::InputSourceType type, int touchIndex)
+{
+    if (type == MouseInputSource::InputSourceType::mouse || type == MouseInputSource::InputSourceType::pen)
+    {
+        for (auto& m : sourceArray)
+            if (type == m.getType())
+                return &m;
+
+        addSource (0, type);
+    }
+    else if (type == MouseInputSource::InputSourceType::touch)
+    {
+        jassert (touchIndex >= 0 && touchIndex < 100); // sanity-check on number of fingers
+
+        for (auto& m : sourceArray)
+            if (type == m.getType() && touchIndex == m.getIndex())
+                return &m;
+
+        if (canUseTouch())
+            return addSource (touchIndex, type);
     }
 
-    bool addSource();
-    bool canUseTouch();
+    return nullptr;
+}
 
-    MouseInputSource* addSource (int index, MouseInputSource::InputSourceType type)
+int MouseInputSource::SourceList::getNumDraggingMouseSources() const noexcept
+{
+    int num = 0;
+
+    for (auto* s : sources)
+        if (s->isDragging())
+            ++num;
+
+    return num;
+}
+
+MouseInputSource* MouseInputSource::SourceList::getDraggingMouseSource (int index) noexcept
+{
+    int num = 0;
+
+    for (auto& s : sourceArray)
     {
-        auto* s = new MouseInputSourceInternal (index, type);
-        sources.add (s);
-        sourceArray.add (MouseInputSource (s));
-
-        return &sourceArray.getReference (sourceArray.size() - 1);
-    }
-
-    MouseInputSource* getMouseSource (int index) noexcept
-    {
-        return isPositiveAndBelow (index, sourceArray.size()) ? &sourceArray.getReference (index)
-                                                              : nullptr;
-    }
-
-    MouseInputSource* getOrCreateMouseInputSource (MouseInputSource::InputSourceType type, int touchIndex = 0)
-    {
-        if (type == MouseInputSource::InputSourceType::mouse || type == MouseInputSource::InputSourceType::pen)
+        if (s.isDragging())
         {
-            for (auto& m : sourceArray)
-                if (type == m.getType())
-                    return &m;
+            if (index == num)
+                return &s;
 
-            addSource (0, type);
-        }
-        else if (type == MouseInputSource::InputSourceType::touch)
-        {
-            jassert (touchIndex >= 0 && touchIndex < 100); // sanity-check on number of fingers
-
-            for (auto& m : sourceArray)
-                if (type == m.getType() && touchIndex == m.getIndex())
-                    return &m;
-
-            if (canUseTouch())
-                return addSource (touchIndex, type);
-        }
-
-        return nullptr;
-    }
-
-    int getNumDraggingMouseSources() const noexcept
-    {
-        int num = 0;
-
-        for (auto* s : sources)
-            if (s->isDragging())
-                ++num;
-
-        return num;
-    }
-
-    MouseInputSource* getDraggingMouseSource (int index) noexcept
-    {
-        int num = 0;
-
-        for (auto& s : sourceArray)
-        {
-            if (s.isDragging())
-            {
-                if (index == num)
-                    return &s;
-
-                ++num;
-            }
-        }
-
-        return nullptr;
-    }
-
-    void beginDragAutoRepeat (int interval)
-    {
-        if (interval > 0)
-        {
-            if (getTimerInterval() != interval)
-                startTimer (interval);
-        }
-        else
-        {
-            stopTimer();
+            ++num;
         }
     }
 
-    void timerCallback() override
+    return nullptr;
+}
+
+void MouseInputSource::SourceList::beginDragAutoRepeat (int interval)
+{
+    if (interval > 0)
     {
-        bool anyDragging = false;
+        if (getTimerInterval() != interval)
+            startTimer (interval);
+    }
+    else
+    {
+        stopTimer();
+    }
+}
 
-        for (auto* s : sources)
+void MouseInputSource::SourceList::timerCallback()
+{
+    bool anyDragging = false;
+
+    for (auto* s : sources)
+    {
+        // NB: when doing auto-repeat, we need to force an update of the current position and button state,
+        // because on some OSes the queue can get overloaded with messages so that mouse-events don't get through..
+        if (s->isDragging() && ComponentPeer::getCurrentModifiersRealtime().isAnyMouseButtonDown())
         {
-            // NB: when doing auto-repeat, we need to force an update of the current position and button state,
-            // because on some OSes the queue can get overloaded with messages so that mouse-events don't get through..
-            if (s->isDragging() && ComponentPeer::getCurrentModifiersRealtime().isAnyMouseButtonDown())
-            {
-                s->lastScreenPos = s->getRawScreenPosition();
-                s->triggerFakeMove();
-                anyDragging = true;
-            }
+            s->lastScreenPos = s->getRawScreenPosition();
+            s->triggerFakeMove();
+            anyDragging = true;
         }
-
-        if (! anyDragging)
-            stopTimer();
     }
 
-    OwnedArray<MouseInputSourceInternal> sources;
-    Array<MouseInputSource> sourceArray;
-};
+    if (! anyDragging)
+        stopTimer();
+}
 
 } // namespace juce

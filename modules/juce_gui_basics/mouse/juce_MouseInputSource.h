@@ -255,7 +255,26 @@ private:
     friend class MouseInputSourceInternal;
     MouseInputSourceInternal* pimpl;
 
-    struct SourceList;
+    struct SourceList  : public Timer
+    {
+        SourceList();
+
+        bool addSource();
+        bool canUseTouch();
+
+        MouseInputSource* addSource (int index, MouseInputSource::InputSourceType type);
+        MouseInputSource* getMouseSource (int index) noexcept;
+        MouseInputSource* getOrCreateMouseInputSource (MouseInputSource::InputSourceType type, int touchIndex = 0);
+
+        int getNumDraggingMouseSources() const noexcept;
+        MouseInputSource* getDraggingMouseSource (int index) noexcept;
+        void beginDragAutoRepeat (int interval);
+
+        void timerCallback() override;
+
+        OwnedArray<MouseInputSourceInternal> sources;
+        Array<MouseInputSource> sourceArray;
+    };
 
     explicit MouseInputSource (MouseInputSourceInternal*) noexcept;
     void handleEvent (ComponentPeer&, Point<float>, int64 time, ModifierKeys, float, float, const PenDetails&);

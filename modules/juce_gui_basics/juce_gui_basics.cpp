@@ -32,77 +32,16 @@
  #error "Incorrect use of JUCE cpp file"
 #endif
 
-#define NS_FORMAT_FUNCTION(F,A) // To avoid spurious warnings from GCC
-
-#define JUCE_CORE_INCLUDE_OBJC_HELPERS 1
-#define JUCE_CORE_INCLUDE_COM_SMART_PTR 1
-#define JUCE_CORE_INCLUDE_JNI_HELPERS 1
-#define JUCE_CORE_INCLUDE_NATIVE_HEADERS 1
-#define JUCE_EVENTS_INCLUDE_WIN32_MESSAGE_WINDOW 1
-#define JUCE_GRAPHICS_INCLUDE_COREGRAPHICS_HELPERS 1
-#define JUCE_GUI_BASICS_INCLUDE_XHEADERS 1
-
 #include "juce_gui_basics.h"
 
 //==============================================================================
-#if JUCE_MAC
- #import <WebKit/WebKit.h>
- #import <IOKit/pwr_mgt/IOPMLib.h>
-
- #if JUCE_SUPPORT_CARBON
-  #import <Carbon/Carbon.h> // still needed for SetSystemUIMode()
- #endif
-
-#elif JUCE_IOS
- #if JUCE_PUSH_NOTIFICATIONS && defined (__IPHONE_10_0) && __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_10_0
-  #import <UserNotifications/UserNotifications.h>
- #endif
-
- #import <UIKit/UIActivityViewController.h>
-
-//==============================================================================
-#elif JUCE_WINDOWS
- #include <windowsx.h>
- #include <vfw.h>
- #include <commdlg.h>
-
- #if JUCE_WEB_BROWSER
-  #include <exdisp.h>
-  #include <exdispid.h>
- #endif
-
- #if JUCE_MINGW
-  #include <imm.h>
- #elif ! JUCE_DONT_AUTOLINK_TO_WIN32_LIBRARIES
-  #pragma comment(lib, "vfw32.lib")
-  #pragma comment(lib, "imm32.lib")
-
-  #if JUCE_OPENGL
-   #pragma comment(lib, "OpenGL32.Lib")
-   #pragma comment(lib, "GlU32.Lib")
-  #endif
-
-  #if JUCE_DIRECT2D
-   #pragma comment (lib, "Dwrite.lib")
-   #pragma comment (lib, "D2d1.lib")
-  #endif
- #endif
-#endif
-
-#include <set>
-
-//==============================================================================
-#define JUCE_ASSERT_MESSAGE_MANAGER_IS_LOCKED_OR_OFFSCREEN \
-    jassert ((MessageManager::getInstanceWithoutCreating() != nullptr \
-               && MessageManager::getInstanceWithoutCreating()->currentThreadHasLockedMessageManager()) \
-              || getPeer() == nullptr);
-
 namespace juce
 {
     extern bool juce_areThereAnyAlwaysOnTopWindows();
 }
 
 #include "accessibility/juce_ComponentAccessibilityHandler.cpp"
+#include "components/juce_ScalingHelpers.h"
 #include "components/juce_Component.cpp"
 #include "components/juce_ComponentListener.cpp"
 #include "mouse/juce_MouseInputSource.cpp"
@@ -153,6 +92,9 @@ namespace juce
 #include "layout/juce_ComponentBuilder.cpp"
 #include "layout/juce_ComponentMovementWatcher.cpp"
 #include "layout/juce_ConcertinaPanel.cpp"
+#include "layout/juce_FlexBox.cpp"
+#include "layout/juce_GridItem.cpp"
+#include "layout/juce_Grid.cpp"
 #include "layout/juce_GroupComponent.cpp"
 #include "layout/juce_MultiDocumentPanel.cpp"
 #include "layout/juce_ResizableBorderComponent.cpp"
@@ -220,63 +162,3 @@ namespace juce
 #include "misc/juce_BubbleComponent.cpp"
 #include "misc/juce_DropShadower.cpp"
 #include "misc/juce_JUCESplashScreen.cpp"
-
-#include "layout/juce_FlexBox.cpp"
-#include "layout/juce_GridItem.cpp"
-#include "layout/juce_Grid.cpp"
-
-#if JUCE_IOS || JUCE_WINDOWS
- #include "native/juce_MultiTouchMapper.h"
-#endif
-
-#if JUCE_MAC || JUCE_IOS
- JUCE_BEGIN_IGNORE_WARNINGS_GCC_LIKE ("-Wundeclared-selector")
-
- #if JUCE_IOS
-  #include "native/juce_ios_UIViewComponentPeer.mm"
-  #include "native/juce_ios_Windowing.mm"
-  #include "native/juce_ios_FileChooser.mm"
-
-  #if JUCE_CONTENT_SHARING
-   #include "native/juce_ios_ContentSharer.cpp"
-  #endif
-
- #else
-  #include "native/juce_mac_NSViewComponentPeer.mm"
-  #include "native/juce_mac_Windowing.mm"
-  #include "native/juce_mac_MainMenu.mm"
-  #include "native/juce_mac_FileChooser.mm"
- #endif
-
- JUCE_END_IGNORE_WARNINGS_GCC_LIKE
-
- #include "native/juce_mac_MouseCursor.mm"
-
-#elif JUCE_WINDOWS
- #include "native/juce_win32_Windowing.cpp"
- #include "native/juce_win32_DragAndDrop.cpp"
- #include "native/juce_win32_FileChooser.cpp"
-
-#elif JUCE_LINUX
- #include "native/x11/juce_linux_X11_Symbols.cpp"
- #include "native/x11/juce_linux_X11_DragAndDrop.cpp"
-
- JUCE_BEGIN_IGNORE_WARNINGS_GCC_LIKE ("-Wzero-as-null-pointer-constant")
-
- #include "native/juce_linux_Windowing.cpp"
- #include "native/x11/juce_linux_XWindowSystem.cpp"
-
- JUCE_END_IGNORE_WARNINGS_GCC_LIKE
-
- #include "native/juce_linux_FileChooser.cpp"
-
-#elif JUCE_ANDROID
- #include "native/juce_android_Windowing.cpp"
- #include "native/juce_common_MimeTypes.cpp"
- #include "native/juce_android_FileChooser.cpp"
-
- #if JUCE_CONTENT_SHARING
-  #include "native/juce_android_ContentSharer.cpp"
- #endif
-
-#endif

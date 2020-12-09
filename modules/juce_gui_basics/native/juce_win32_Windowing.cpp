@@ -55,6 +55,7 @@ JUCE_BEGIN_IGNORE_WARNINGS_GCC_LIKE ("-Wcast-function-type")
 
 void juce_repeatLastProcessPriority();
 bool juce_isRunningInWine();
+void juce_checkCurrentlyFocusedTopLevelWindow();
 
 using CheckEventBlockedByModalComps = bool (*) (const MSG&);
 extern CheckEventBlockedByModalComps isEventBlockedByModalComps;
@@ -4659,8 +4660,10 @@ Image juce_createIconForFile (const File& file)
 }
 
 //==============================================================================
-void* CustomMouseCursorInfo::create() const
+void* MouseCursor::createNativeMouseCursor (Image image, Point<int> hotspot, float scale)
 {
+    ignoreUnused (scale);
+
     const int maxW = GetSystemMetrics (SM_CXCURSOR);
     const int maxH = GetSystemMetrics (SM_CYCURSOR);
 
@@ -4731,7 +4734,7 @@ void* MouseCursor::createStandardMouseCursor (const MouseCursor::StandardCursorT
                       16,0,0,2,52,148,47,0,200,185,16,130,90,12,74,139,107,84,123,39,132,117,151,116,132,146,248,60,209,138,
                       98,22,203,114,34,236,37,52,77,217,247,154,191,119,110,240,193,128,193,95,163,56,60,234,98,135,2,0,59 };
 
-                dragHandCursor = CustomMouseCursorInfo (ImageFileFormat::loadFrom (dragHandData, sizeof (dragHandData)), { 8, 7 }).create();
+                dragHandCursor = MouseCursor::createNativeMouseCursor (ImageFileFormat::loadFrom (dragHandData, sizeof (dragHandData)), { 8, 7 });
             }
 
             return dragHandCursor;
@@ -4751,7 +4754,7 @@ void* MouseCursor::createStandardMouseCursor (const MouseCursor::StandardCursorT
                 };
                 const int copyCursorSize = 119;
 
-                copyCursor = CustomMouseCursorInfo (ImageFileFormat::loadFrom (copyCursorData, copyCursorSize), { 1, 3 }).create();
+                copyCursor = MouseCursor::createNativeMouseCursor (ImageFileFormat::loadFrom (copyCursorData, copyCursorSize), { 1, 3 });
             }
 
             return copyCursor;

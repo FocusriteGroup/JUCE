@@ -155,7 +155,6 @@ namespace juce
     class ApplicationCommandManagerListener;
     class DrawableButton;
     class Displays;
-
     class FlexBox;
     class Grid;
 }
@@ -206,6 +205,10 @@ namespace juce
 #include "layout/juce_ComponentBuilder.h"
 #include "layout/juce_ComponentMovementWatcher.h"
 #include "layout/juce_ConcertinaPanel.h"
+#include "layout/juce_FlexItem.h"
+#include "layout/juce_FlexBox.h"
+#include "layout/juce_GridItem.h"
+#include "layout/juce_Grid.h"
 #include "layout/juce_GroupComponent.h"
 #include "layout/juce_ResizableBorderComponent.h"
 #include "layout/juce_ResizableCornerComponent.h"
@@ -302,56 +305,8 @@ namespace juce
 #include "accessibility/juce_TableListBoxAccessibilityHandler.h"
 #include "accessibility/juce_TextEditorAccessibilityHandler.h"
 
-#if JUCE_LINUX
- #if JUCE_GUI_BASICS_INCLUDE_XHEADERS
-  // If you're missing these headers, you need to install the libx11-dev package
-  #include <X11/Xlib.h>
-  #include <X11/Xatom.h>
-  #include <X11/Xresource.h>
-  #include <X11/Xutil.h>
-  #include <X11/Xmd.h>
-  #include <X11/keysym.h>
-  #include <X11/XKBlib.h>
-  #include <X11/cursorfont.h>
-  #include <unistd.h>
-
-  #if JUCE_USE_XRANDR
-   // If you're missing this header, you need to install the libxrandr-dev package
-   #include <X11/extensions/Xrandr.h>
-  #endif
-
-  #if JUCE_USE_XINERAMA
-   // If you're missing this header, you need to install the libxinerama-dev package
-   #include <X11/extensions/Xinerama.h>
-  #endif
-
-  #if JUCE_USE_XSHM
-   #include <X11/extensions/XShm.h>
-   #include <sys/shm.h>
-   #include <sys/ipc.h>
-  #endif
-
-  #if JUCE_USE_XRENDER
-   // If you're missing these headers, you need to install the libxrender-dev and libxcomposite-dev packages
-   #include <X11/extensions/Xrender.h>
-   #include <X11/extensions/Xcomposite.h>
-  #endif
-
-  #if JUCE_USE_XCURSOR
-   // If you're missing this header, you need to install the libxcursor-dev package
-   #include <X11/Xcursor/Xcursor.h>
-  #endif
-
-  #undef SIZEOF
-  #undef KeyPress
-
-  #include "native/x11/juce_linux_XWindowSystem.h"
-  #include "native/x11/juce_linux_X11_Symbols.h"
- #endif
+#if JUCE_LINUX && JUCE_GUI_BASICS_INCLUDE_XHEADERS
+ #include "native/x11/juce_linux_X11_Headers.h"
+ #include "native/x11/juce_linux_XWindowSystem.h"
+ #include "native/x11/juce_linux_X11_Symbols.h"
 #endif
-
-#include "layout/juce_FlexItem.h"
-#include "layout/juce_FlexBox.h"
-
-#include "layout/juce_GridItem.h"
-#include "layout/juce_Grid.h"

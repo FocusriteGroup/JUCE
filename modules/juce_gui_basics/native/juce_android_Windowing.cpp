@@ -1534,9 +1534,9 @@ Image juce_createIconForFile (const File& /*file*/)
 }
 
 //==============================================================================
-void* CustomMouseCursorInfo::create() const                                         { return nullptr; }
-void* MouseCursor::createStandardMouseCursor (MouseCursor::StandardCursorType)      { return nullptr; }
-void MouseCursor::deleteMouseCursor (void* /*cursorHandle*/, bool /*isStandard*/)   {}
+void* MouseCursor::createNativeMouseCursor (Image, Point<int>, float)              { return nullptr; }
+void* MouseCursor::createStandardMouseCursor (MouseCursor::StandardCursorType)     { return nullptr; }
+void MouseCursor::deleteMouseCursor (void* /*cursorHandle*/, bool /*isStandard*/)  {}
 
 //==============================================================================
 void MouseCursor::showInWindow (ComponentPeer*) const   {}

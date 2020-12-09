@@ -543,8 +543,9 @@ void MouseInputSource::setRawMousePosition (Point<float> newPosition)
 }
 
 //==============================================================================
-void* CustomMouseCursorInfo::create() const
+void* MouseCursor::createNativeMouseCursor (Image image, Point<int> hotspot, float scale)
 {
+    ignoreUnused (scale);
     return XWindowSystem::getInstance()->createCustomMouseCursorInfo (image, hotspot);
 }
 

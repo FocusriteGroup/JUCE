@@ -52,22 +52,32 @@
 
 //==============================================================================
 #if JUCE_MAC
- #import <WebKit/WebKit.h>
  #import <IOKit/IOKitLib.h>
  #import <IOKit/IOCFPlugIn.h>
  #import <IOKit/hid/IOHIDLib.h>
  #import <IOKit/hid/IOHIDKeys.h>
  #import <IOKit/pwr_mgt/IOPMLib.h>
 
+ JUCE_BEGIN_IGNORE_WARNINGS_GCC_LIKE ("-Wundeclared-selector")
+
+ #include "native/juce_mac_NSViewComponent.mm"
+ #include "native/juce_mac_AppleRemote.mm"
+ #include "native/juce_mac_SystemTrayIcon.cpp"
+
  #if JUCE_PUSH_NOTIFICATIONS
   #import <Foundation/NSUserNotification.h>
-
   #include "native/juce_mac_PushNotifications.cpp"
  #endif
 
-//==============================================================================
+ #if JUCE_WEB_BROWSER
+  #import <WebKit/WebKit.h>
+  #include "native/juce_mac_WebBrowserComponent.mm"
+ #endif
+
+ JUCE_END_IGNORE_WARNINGS_GCC_LIKE
+
 #elif JUCE_IOS
- #import <WebKit/WebKit.h>
+ #include "native/juce_ios_UIViewComponent.mm"
 
  #if JUCE_PUSH_NOTIFICATIONS
   #if defined (__IPHONE_10_0) && __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_10_0
@@ -77,17 +87,32 @@
   #include "native/juce_ios_PushNotifications.cpp"
  #endif
 
-//==============================================================================
+ #if JUCE_WEB_BROWSER
+  #import <WebKit/WebKit.h>
+  JUCE_BEGIN_IGNORE_WARNINGS_GCC_LIKE ("-Wundeclared-selector")
+  #include "native/juce_mac_WebBrowserComponent.mm"
+  JUCE_END_IGNORE_WARNINGS_GCC_LIKE
+ #endif
+
 #elif JUCE_ANDROID
+ #include "native/juce_AndroidViewComponent.cpp"
+
  #if JUCE_PUSH_NOTIFICATIONS
   #include "native/juce_android_PushNotifications.cpp"
  #endif
 
-//==============================================================================
+ #if JUCE_WEB_BROWSER
+  #include "native/juce_android_WebBrowserComponent.cpp"
+ #endif
+
 #elif JUCE_WINDOWS
  #include <windowsx.h>
  #include <vfw.h>
  #include <commdlg.h>
+
+ #include "native/juce_win32_ActiveXComponent.cpp"
+ #include "native/juce_win32_HWNDComponent.cpp"
+ #include "native/juce_win32_SystemTrayIcon.cpp"
 
  #if JUCE_WEB_BROWSER
   #include <exdisp.h>
@@ -111,21 +136,32 @@
    #pragma warning (pop)
   #endif
 
+  #include "native/juce_win32_WebBrowserComponent.cpp"
  #endif
 
-//==============================================================================
-#elif JUCE_LINUX && JUCE_WEB_BROWSER
- JUCE_BEGIN_IGNORE_WARNINGS_GCC_LIKE ("-Wzero-as-null-pointer-constant", "-Wparentheses")
-
- // If you're missing this header, you need to install the webkit2gtk-4.0 package
- #include <gtk/gtk.h>
-
+#elif JUCE_LINUX
+ JUCE_BEGIN_IGNORE_WARNINGS_GCC_LIKE ("-Wzero-as-null-pointer-constant")
+ #include "native/juce_linux_XEmbedComponent.cpp"
  JUCE_END_IGNORE_WARNINGS_GCC_LIKE
 
- // If you're missing these headers, you need to install the webkit2gtk-4.0 package
- #include <gtk/gtkx.h>
- #include <glib-unix.h>
- #include <webkit2/webkit2.h>
+ #include "native/juce_linux_X11_SystemTrayIcon.cpp"
+
+ #if JUCE_WEB_BROWSER
+  JUCE_BEGIN_IGNORE_WARNINGS_GCC_LIKE ("-Wzero-as-null-pointer-constant", "-Wparentheses")
+  // If you're missing this header, you need to install the webkit2gtk-4.0 package
+  #include <gtk/gtk.h>
+  JUCE_END_IGNORE_WARNINGS_GCC_LIKE
+
+  // If you're missing these headers, you need to install the webkit2gtk-4.0 package
+  #include <gtk/gtkx.h>
+  #include <glib-unix.h>
+  #include <webkit2/webkit2.h>
+
+  #include "native/juce_linux_X11_WebBrowserComponent.cpp"
+ #endif
+
+ #undef KeyPress
+
 #endif
 
 //==============================================================================
@@ -145,56 +181,3 @@
 #include "misc/juce_SystemTrayIconComponent.cpp"
 #include "misc/juce_LiveConstantEditor.cpp"
 #include "misc/juce_AnimatedAppComponent.cpp"
-
-//==============================================================================
-#if JUCE_MAC || JUCE_IOS
-
- JUCE_BEGIN_IGNORE_WARNINGS_GCC_LIKE ("-Wundeclared-selector")
-
- #if JUCE_MAC
-  #include "native/juce_mac_NSViewComponent.mm"
-  #include "native/juce_mac_AppleRemote.mm"
-  #include "native/juce_mac_SystemTrayIcon.cpp"
- #endif
-
- #if JUCE_IOS
-  #include "native/juce_ios_UIViewComponent.mm"
- #endif
-
- #if JUCE_WEB_BROWSER
-  #include "native/juce_mac_WebBrowserComponent.mm"
- #endif
-
- JUCE_END_IGNORE_WARNINGS_GCC_LIKE
-
-//==============================================================================
-#elif JUCE_WINDOWS
- #include "native/juce_win32_ActiveXComponent.cpp"
- #include "native/juce_win32_HWNDComponent.cpp"
- #if JUCE_WEB_BROWSER
-  #include "native/juce_win32_WebBrowserComponent.cpp"
- #endif
- #include "native/juce_win32_SystemTrayIcon.cpp"
-
-//==============================================================================
-#elif JUCE_LINUX
- JUCE_BEGIN_IGNORE_WARNINGS_GCC_LIKE ("-Wzero-as-null-pointer-constant")
-
- #include "native/juce_linux_XEmbedComponent.cpp"
-
- #if JUCE_WEB_BROWSER
-  #include "native/juce_linux_X11_WebBrowserComponent.cpp"
- #endif
-
- JUCE_END_IGNORE_WARNINGS_GCC_LIKE
-
- #include "native/juce_linux_X11_SystemTrayIcon.cpp"
-
-//==============================================================================
-#elif JUCE_ANDROID
- #include "native/juce_AndroidViewComponent.cpp"
-
- #if JUCE_WEB_BROWSER
-  #include "native/juce_android_WebBrowserComponent.cpp"
- #endif
-#endif

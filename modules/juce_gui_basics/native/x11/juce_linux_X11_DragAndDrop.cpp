@@ -26,7 +26,6 @@
 namespace juce
 {
 
-extern void* createDraggingHandCursor();
 extern ComponentPeer* getPeerFor (::Window);
 
 //==============================================================================
@@ -333,7 +332,10 @@ public:
                                                      GrabModeAsync, GrabModeAsync, None, None, CurrentTime) == GrabSuccess)
         {
             // No other method of changing the pointer seems to work, this call is needed from this very context
-            X11Symbols::getInstance()->xChangeActivePointerGrab (getDisplay(), pointerGrabMask, (Cursor) createDraggingHandCursor(), CurrentTime);
+            X11Symbols::getInstance()->xChangeActivePointerGrab (getDisplay(),
+                                                                 pointerGrabMask,
+                                                                 (Cursor) XWindowSystem::getInstance()->createStandardMouseCursor (MouseCursor::DraggingHandCursor),
+                                                                 CurrentTime);
 
             X11Symbols::getInstance()->xSetSelectionOwner (getDisplay(), getAtoms().XdndSelection, windowH, CurrentTime);
 

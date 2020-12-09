@@ -26,21 +26,6 @@
 namespace juce
 {
 
-struct CustomMouseCursorInfo
-{
-    CustomMouseCursorInfo (const Image& im, Point<int> hs, float scale = 1.0f) noexcept
-        : image (im), hotspot (hs), scaleFactor (scale)
-    {}
-
-    void* create() const;
-
-    Image image;
-    const Point<int> hotspot;
-    const float scaleFactor;
-
-    JUCE_DECLARE_NON_COPYABLE (CustomMouseCursorInfo)
-};
-
 class MouseCursor::SharedCursorHandle
 {
 public:
@@ -52,8 +37,7 @@ public:
     }
 
     SharedCursorHandle (const Image& image, Point<int> hotSpot, float scaleFactor)
-        : info (new CustomMouseCursorInfo (image, hotSpot, scaleFactor)),
-          handle (info->create()),
+        : handle (createNativeMouseCursor (image, hotSpot, scaleFactor)),
           standardType (MouseCursor::NormalCursor),
           isStandard (false)
     {
@@ -110,10 +94,8 @@ public:
     void setHandle (void* newHandle)                            { handle = newHandle; }
 
     MouseCursor::StandardCursorType getType() const noexcept    { return standardType; }
-    CustomMouseCursorInfo* getCustomInfo() const noexcept       { return info.get(); }
 
 private:
-    std::unique_ptr<CustomMouseCursorInfo> info;
     void* handle;
     Atomic<int> refCount { 1 };
     const MouseCursor::StandardCursorType standardType;

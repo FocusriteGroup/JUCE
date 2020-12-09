@@ -2038,18 +2038,6 @@ void XWindowSystem::deleteMouseCursor (void* cursorHandle) const
     }
 }
 
-void* createDraggingHandCursor()
-{
-    static unsigned char dragHandData[] = {
-        71,73,70,56,57,97,16,0,16,0,145,2,0,0,0,0,255,255,255,0,0,0,0,0,0,33,249,4,1,0,0,2,0,44,0,0,0,0,16,0,16,0,
-        0,2,52,148,47,0,200,185,16,130,90,12,74,139,107,84,123,39,132,117,151,116,132,146,248,60,209,138,98,22,203,
-        114,34,236,37,52,77,217, 247,154,191,119,110,240,193,128,193,95,163,56,60,234,98,135,2,0,59
-    };
-    size_t dragHandDataSize = 99;
-
-    return CustomMouseCursorInfo (ImageFileFormat::loadFrom (dragHandData, dragHandDataSize), { 8, 7 }).create();
-}
-
 void* XWindowSystem::createStandardMouseCursor (MouseCursor::StandardCursorType type) const
 {
     if (display == nullptr)
@@ -2061,7 +2049,7 @@ void* XWindowSystem::createStandardMouseCursor (MouseCursor::StandardCursorType 
     {
         case MouseCursor::NormalCursor:
         case MouseCursor::ParentCursor:                  return None; // Use parent cursor
-        case MouseCursor::NoCursor:                      return CustomMouseCursorInfo (Image (Image::ARGB, 16, 16, true), {}).create();
+        case MouseCursor::NoCursor:                      return createCustomMouseCursorInfo (Image (Image::ARGB, 16, 16, true), {});
 
         case MouseCursor::WaitCursor:                    shape = XC_watch; break;
         case MouseCursor::IBeamCursor:                   shape = XC_xterm; break;
@@ -2078,7 +2066,18 @@ void* XWindowSystem::createStandardMouseCursor (MouseCursor::StandardCursorType 
         case MouseCursor::BottomLeftCornerResizeCursor:  shape = XC_bottom_left_corner; break;
         case MouseCursor::BottomRightCornerResizeCursor: shape = XC_bottom_right_corner; break;
         case MouseCursor::CrosshairCursor:               shape = XC_crosshair; break;
-        case MouseCursor::DraggingHandCursor:            return createDraggingHandCursor();
+
+        case MouseCursor::DraggingHandCursor:
+        {
+            static unsigned char dragHandData[] = {
+                71,73,70,56,57,97,16,0,16,0,145,2,0,0,0,0,255,255,255,0,0,0,0,0,0,33,249,4,1,0,0,2,0,44,0,0,0,0,16,0,16,0,
+                0,2,52,148,47,0,200,185,16,130,90,12,74,139,107,84,123,39,132,117,151,116,132,146,248,60,209,138,98,22,203,
+                114,34,236,37,52,77,217, 247,154,191,119,110,240,193,128,193,95,163,56,60,234,98,135,2,0,59
+            };
+            static constexpr int dragHandDataSize = 99;
+
+            return createCustomMouseCursorInfo (ImageFileFormat::loadFrom (dragHandData, dragHandDataSize), { 8, 7 });
+        }
 
         case MouseCursor::CopyingCursor:
         {
@@ -2090,7 +2089,7 @@ void* XWindowSystem::createStandardMouseCursor (MouseCursor::StandardCursorType 
             };
             static constexpr int copyCursorSize = 119;
 
-            return CustomMouseCursorInfo (ImageFileFormat::loadFrom (copyCursorData, copyCursorSize), { 1, 3 }).create();
+            return createCustomMouseCursorInfo (ImageFileFormat::loadFrom (copyCursorData, copyCursorSize), { 1, 3 });
         }
 
         case MouseCursor::NumStandardCursorTypes:

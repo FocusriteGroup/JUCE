@@ -169,6 +169,10 @@ JUCE_END_IGNORE_WARNINGS_GCC_LIKE
  #include <windows.h>
 #endif
 
+#if JUCE_LINUX
+ #include <sys/utsname.h>
+#endif
+
 //==============================================================================
 #undef ASSERT
 #undef WARNING

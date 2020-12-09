@@ -1026,6 +1026,11 @@ void Desktop::allowedOrientationsChanged()
     }
 }
 
+void* MouseCursor::createNativeMouseCursor (Image, Point<int>, float)           { return nullptr; }
+void* MouseCursor::createStandardMouseCursor (MouseCursor::StandardCursorType)  { return nullptr; }
+void MouseCursor::deleteMouseCursor (void*, bool)                               {}
+void MouseCursor::showInWindow (ComponentPeer*) const                           {}
+
 //==============================================================================
 void UIViewComponentPeer::repaint (const Rectangle<int>& area)
 {

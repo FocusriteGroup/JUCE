@@ -173,6 +173,7 @@ private:
     void showInWindow (ComponentPeer*) const;
     void* getHandle() const noexcept;
 
+    static void* createNativeMouseCursor (Image image, Point<int> hotspot, float scale = 1.0f);
     static void* createStandardMouseCursor (MouseCursor::StandardCursorType);
     static void deleteMouseCursor (void* cursorHandle, bool isStandard);
 

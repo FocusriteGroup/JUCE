@@ -57,6 +57,7 @@
 
 #include <juce_gui_extra/juce_gui_extra.h>
 
+//==============================================================================
 #undef JUCE_OPENGL
 #define JUCE_OPENGL 1
 
@@ -69,6 +70,7 @@
   #define APIENTRY __stdcall
   #define CLEAR_TEMP_APIENTRY 1
  #endif
+
  #ifndef WINGDIAPI
   #define WINGDIAPI __declspec(dllimport)
   #define CLEAR_TEMP_WINGDIAPI 1
@@ -84,18 +86,23 @@
   #undef WINGDIAPI
   #undef CLEAR_TEMP_WINGDIAPI
  #endif
+
  #ifdef CLEAR_TEMP_APIENTRY
   #undef APIENTRY
   #undef CLEAR_TEMP_APIENTRY
  #endif
+
 #elif JUCE_LINUX
  #include <GL/gl.h>
  #undef KeyPress
+
 #elif JUCE_IOS
  #if defined (__IPHONE_12_0) && __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_12_0
   #define GLES_SILENCE_DEPRECATION 1
  #endif
+
  #include <OpenGLES/ES3/gl.h>
+
 #elif JUCE_MAC
  #define JUCE_OPENGL3 1
  #if defined (MAC_OS_X_VERSION_10_14) && MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_14
@@ -103,9 +110,11 @@
  #endif
  #include <OpenGL/gl3.h>
  #include <OpenGL/gl3ext.h>
+
 #elif JUCE_ANDROID
  #include <android/native_window.h>
  #include <android/native_window_jni.h>
+
  #if JUCE_ANDROID_GL_ES_VERSION_3_0
   #define JUCE_OPENGL3 1
   #include <GLES3/gl3.h>

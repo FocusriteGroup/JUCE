@@ -44,7 +44,6 @@
 #if JUCE_IOS
  #import <QuartzCore/QuartzCore.h>
 
-//==============================================================================
 #elif JUCE_WINDOWS
  #include <windowsx.h>
 
@@ -52,21 +51,14 @@
   #pragma comment(lib, "OpenGL32.Lib")
  #endif
 
-//==============================================================================
 #elif JUCE_LINUX
- /* Got an include error here?
-
-    If you want to install OpenGL support, the packages to get are "mesa-common-dev"
-    and "freeglut3-dev".
- */
+ // If you're missing this header, you need to install the libglu1-mesa-dev and mesa-common-dev packages
  #include <GL/glx.h>
 
-//==============================================================================
 #elif JUCE_MAC
  #include <OpenGL/CGLCurrent.h> // These are both just needed with the 10.5 SDK
  #include <OpenGL/OpenGL.h>
 
-//==============================================================================
 #elif JUCE_ANDROID
  #ifndef GL_GLEXT_PROTOTYPES
   #define GL_GLEXT_PROTOTYPES 1
