@@ -30,28 +30,55 @@ namespace juce
 namespace
 {
     template <class RectType>
-    Rectangle<int> convertToRectInt (RectType r) noexcept
+    inline Rectangle<int> convertToRectInt (RectType r) noexcept
     {
         return Rectangle<int> ((int) r.origin.x, (int) r.origin.y, (int) r.size.width, (int) r.size.height);
     }
 
     template <class RectType>
-    Rectangle<float> convertToRectFloat (RectType r) noexcept
+    inline Rectangle<float> convertToRectFloat (RectType r) noexcept
     {
         return Rectangle<float> (r.origin.x, r.origin.y, r.size.width, r.size.height);
     }
 
     template <class RectType>
-    CGRect convertToCGRect (RectType r) noexcept
+    inline CGRect convertToCGRect (RectType r) noexcept
     {
         return CGRectMake ((CGFloat) r.getX(), (CGFloat) r.getY(), (CGFloat) r.getWidth(), (CGFloat) r.getHeight());
     }
 
     template <typename PointType>
-    CGPoint convertToCGPoint (PointType p) noexcept
+    inline CGPoint convertToCGPoint (PointType p) noexcept
     {
         return CGPointMake ((CGFloat) p.x, (CGFloat) p.y);
     }
+
+   #if JUCE_MAC
+    inline CGFloat getMainScreenHeight() noexcept
+    {
+        if ([[NSScreen screens] count] == 0)
+            return 0.0f;
+
+        return [[[NSScreen screens] objectAtIndex: 0] frame].size.height;
+    }
+
+    inline void flipScreenRect (NSRect& r) noexcept
+    {
+        r.origin.y = getMainScreenHeight() - (r.origin.y + r.size.height);
+    }
+
+    inline NSRect flippedScreenRect (NSRect r) noexcept
+    {
+        flipScreenRect (r);
+        return r;
+    }
+
+    inline NSPoint flippedScreenPoint (NSPoint p) noexcept
+    {
+        p.y = getMainScreenHeight() - p.y;
+        return p;
+    }
+   #endif
 }
 
 CGImageRef juce_createCoreGraphicsImage (const Image&, CGColorSpaceRef, bool mustOutliveSource);
