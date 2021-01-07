@@ -205,7 +205,10 @@ bool ComponentPeer::handleKeyPress (const KeyPress& keyInfo)
 
         if (keyWasUsed || deletionChecker == nullptr)
             break;
-
+    }
+    
+    if (! keyWasUsed)
+    {
         if (auto* currentlyFocused = Component::getCurrentlyFocusedComponent())
         {
             const bool isTab      = (keyInfo == KeyPress::tabKey);
@@ -215,9 +218,6 @@ bool ComponentPeer::handleKeyPress (const KeyPress& keyInfo)
             {
                 currentlyFocused->moveKeyboardFocusToSibling (isTab);
                 keyWasUsed = (currentlyFocused != Component::getCurrentlyFocusedComponent());
-
-                if (keyWasUsed || deletionChecker == nullptr)
-                    break;
             }
         }
     }
