@@ -25,6 +25,10 @@ endif (NOT CMAKE_BUILD_TYPE)
         
 file(GLOB_RECURSE JUCE_MODULE_HEADERS CONFIGURE_DEPENDS modules/*.h)
 file(GLOB_RECURSE JUCE_MODULE_SOURCES CONFIGURE_DEPENDS modules/*.cpp)
+if (APPLE)
+    file(GLOB_RECURSE JUCE_OBJC_SOURCES CONFIGURE_DEPENDS modules/*.mm)
+    set(JUCE_MODULE_SOURCES ${JUCE_MODULE_SOURCES} ${JUCE_OBJC_SOURCES})
+endif()
 
 # These files are added to the IDE, but are not compiled, since they are included
 # by the JuceLibraryCode/ versions
@@ -48,6 +52,7 @@ set(JUCE_LIBRARY_CODE
 if (APPLE)
     set(JUCE_LIBRARY_CODE
         ${JUCE_LIBRARY_CODE}
+        JuceLibraryCode/juce/include_juce_accessibility.mm
         JuceLibraryCode/juce/include_juce_analytics.cpp
         JuceLibraryCode/juce/include_juce_audio_basics.mm
         JuceLibraryCode/juce/include_juce_audio_devices.mm
@@ -60,11 +65,13 @@ if (APPLE)
         JuceLibraryCode/juce/include_juce_events.mm
         JuceLibraryCode/juce/include_juce_graphics.mm
         JuceLibraryCode/juce/include_juce_gui_basics.mm
+        JuceLibraryCode/juce/include_juce_gui_basics_native.mm
         JuceLibraryCode/juce/include_juce_gui_extra.mm
     )
 else()
     set(JUCE_LIBRARY_CODE
         ${JUCE_LIBRARY_CODE}
+        JuceLibraryCode/juce/include_juce_accessibility.cpp
         JuceLibraryCode/juce/include_juce_analytics.cpp
         JuceLibraryCode/juce/include_juce_audio_basics.cpp
         JuceLibraryCode/juce/include_juce_audio_devices.cpp
@@ -77,6 +84,7 @@ else()
         JuceLibraryCode/juce/include_juce_events.cpp
         JuceLibraryCode/juce/include_juce_graphics.cpp
         JuceLibraryCode/juce/include_juce_gui_basics.cpp
+        JuceLibraryCode/juce/include_juce_gui_basics_native.cpp
         JuceLibraryCode/juce/include_juce_gui_extra.cpp
     )
 endif()
