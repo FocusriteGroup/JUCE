@@ -63,8 +63,8 @@
     <ClCompile>
       <Optimization>Disabled</Optimization>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <AdditionalIncludeDirectories>..\..\JuceLibraryCode;..\..\..\..\modules;..\..\..\Build;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;DEBUG;_DEBUG;JUCE_DISPLAY_SPLASH_SCREEN=0;JUCE_USE_DARK_SPLASH_SCREEN=1;JUCE_PROJUCER_VERSION=0x60005;JUCE_MODULE_AVAILABLE_juce_accessibility=1;JUCE_MODULE_AVAILABLE_juce_build_tools=1;JUCE_MODULE_AVAILABLE_juce_core=1;JUCE_MODULE_AVAILABLE_juce_cryptography=1;JUCE_MODULE_AVAILABLE_juce_data_structures=1;JUCE_MODULE_AVAILABLE_juce_events=1;JUCE_MODULE_AVAILABLE_juce_graphics=1;JUCE_MODULE_AVAILABLE_juce_gui_basics=1;JUCE_MODULE_AVAILABLE_juce_gui_extra=1;JUCE_GLOBAL_MODULE_SETTINGS_INCLUDED=1;JUCE_LOG_ASSERTIONS=1;JUCE_USE_CURL=1;JUCE_LOAD_CURL_SYMBOLS_LAZILY=1;JUCE_ALLOW_STATIC_NULL_VARIABLES=0;JUCE_STRICT_REFCOUNTEDPOINTER=1;JUCE_WEB_BROWSER=0;JUCE_STANDALONE_APPLICATION=1;JUCER_VS2019_78A5026=1;JUCE_APP_VERSION=6.0.5;JUCE_APP_VERSION_HEX=0x60005;JucePlugin_Build_VST=0;JucePlugin_Build_VST3=0;JucePlugin_Build_AU=0;JucePlugin_Build_AUv3=0;JucePlugin_Build_RTAS=0;JucePlugin_Build_AAX=0;JucePlugin_Build_Standalone=0;JucePlugin_Build_Unity=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\JuceLibraryCode;..\..\..\Build;..\..\..\..\modules;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;DEBUG;_DEBUG;JUCE_DISPLAY_SPLASH_SCREEN=0;JUCE_USE_DARK_SPLASH_SCREEN=1;JUCE_PROJUCER_VERSION=0x60005;JUCE_MODULE_AVAILABLE_juce_build_tools=1;JUCE_MODULE_AVAILABLE_juce_core=1;JUCE_MODULE_AVAILABLE_juce_cryptography=1;JUCE_MODULE_AVAILABLE_juce_data_structures=1;JUCE_MODULE_AVAILABLE_juce_events=1;JUCE_MODULE_AVAILABLE_juce_graphics=1;JUCE_MODULE_AVAILABLE_juce_gui_basics=1;JUCE_MODULE_AVAILABLE_juce_gui_extra=1;JUCE_GLOBAL_MODULE_SETTINGS_INCLUDED=1;JUCE_LOG_ASSERTIONS=1;JUCE_USE_CURL=1;JUCE_LOAD_CURL_SYMBOLS_LAZILY=1;JUCE_ALLOW_STATIC_NULL_VARIABLES=0;JUCE_STRICT_REFCOUNTEDPOINTER=1;JUCE_WEB_BROWSER=0;JUCE_STANDALONE_APPLICATION=1;JUCER_VS2019_78A5026=1;JUCE_APP_VERSION=6.0.5;JUCE_APP_VERSION_HEX=0x60005;JucePlugin_Build_VST=0;JucePlugin_Build_VST3=0;JucePlugin_Build_AU=0;JucePlugin_Build_AUv3=0;JucePlugin_Build_RTAS=0;JucePlugin_Build_AAX=0;JucePlugin_Build_Standalone=0;JucePlugin_Build_Unity=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
@@ -105,8 +105,8 @@
     </Midl>
     <ClCompile>
       <Optimization>Full</Optimization>
-      <AdditionalIncludeDirectories>..\..\JuceLibraryCode;..\..\..\..\modules;..\..\..\Build;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;NDEBUG;JUCE_DISPLAY_SPLASH_SCREEN=0;JUCE_USE_DARK_SPLASH_SCREEN=1;JUCE_PROJUCER_VERSION=0x60005;JUCE_MODULE_AVAILABLE_juce_accessibility=1;JUCE_MODULE_AVAILABLE_juce_build_tools=1;JUCE_MODULE_AVAILABLE_juce_core=1;JUCE_MODULE_AVAILABLE_juce_cryptography=1;JUCE_MODULE_AVAILABLE_juce_data_structures=1;JUCE_MODULE_AVAILABLE_juce_events=1;JUCE_MODULE_AVAILABLE_juce_graphics=1;JUCE_MODULE_AVAILABLE_juce_gui_basics=1;JUCE_MODULE_AVAILABLE_juce_gui_extra=1;JUCE_GLOBAL_MODULE_SETTINGS_INCLUDED=1;JUCE_LOG_ASSERTIONS=1;JUCE_USE_CURL=1;JUCE_LOAD_CURL_SYMBOLS_LAZILY=1;JUCE_ALLOW_STATIC_NULL_VARIABLES=0;JUCE_STRICT_REFCOUNTEDPOINTER=1;JUCE_WEB_BROWSER=0;JUCE_STANDALONE_APPLICATION=1;JUCER_VS2019_78A5026=1;JUCE_APP_VERSION=6.0.5;JUCE_APP_VERSION_HEX=0x60005;JucePlugin_Build_VST=0;JucePlugin_Build_VST3=0;JucePlugin_Build_AU=0;JucePlugin_Build_AUv3=0;JucePlugin_Build_RTAS=0;JucePlugin_Build_AAX=0;JucePlugin_Build_Standalone=0;JucePlugin_Build_Unity=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\JuceLibraryCode;..\..\..\Build;..\..\..\..\modules;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;NDEBUG;JUCE_DISPLAY_SPLASH_SCREEN=0;JUCE_USE_DARK_SPLASH_SCREEN=1;JUCE_PROJUCER_VERSION=0x60005;JUCE_MODULE_AVAILABLE_juce_build_tools=1;JUCE_MODULE_AVAILABLE_juce_core=1;JUCE_MODULE_AVAILABLE_juce_cryptography=1;JUCE_MODULE_AVAILABLE_juce_data_structures=1;JUCE_MODULE_AVAILABLE_juce_events=1;JUCE_MODULE_AVAILABLE_juce_graphics=1;JUCE_MODULE_AVAILABLE_juce_gui_basics=1;JUCE_MODULE_AVAILABLE_juce_gui_extra=1;JUCE_GLOBAL_MODULE_SETTINGS_INCLUDED=1;JUCE_LOG_ASSERTIONS=1;JUCE_USE_CURL=1;JUCE_LOAD_CURL_SYMBOLS_LAZILY=1;JUCE_ALLOW_STATIC_NULL_VARIABLES=0;JUCE_STRICT_REFCOUNTEDPOINTER=1;JUCE_WEB_BROWSER=0;JUCE_STANDALONE_APPLICATION=1;JUCER_VS2019_78A5026=1;JUCE_APP_VERSION=6.0.5;JUCE_APP_VERSION_HEX=0x60005;JucePlugin_Build_VST=0;JucePlugin_Build_VST3=0;JucePlugin_Build_AU=0;JucePlugin_Build_AUv3=0;JucePlugin_Build_RTAS=0;JucePlugin_Build_AAX=0;JucePlugin_Build_Standalone=0;JucePlugin_Build_Unity=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
@@ -237,18 +237,6 @@
     <ClCompile Include="..\..\Source\Utility\UI\jucer_JucerTreeViewBase.cpp"/>
     <ClCompile Include="..\..\Source\Utility\UI\jucer_ProjucerLookAndFeel.cpp"/>
     <ClCompile Include="..\..\Source\Utility\UI\jucer_SlidingPanelComponent.cpp"/>
-    <ClCompile Include="..\..\..\..\modules\juce_accessibility\handler\juce_AccessibilityHandler.cpp">
-      <ExcludedFromBuild>true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\modules\juce_accessibility\native\juce_win32_Accessibility.cpp">
-      <ExcludedFromBuild>true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\modules\juce_accessibility\native\juce_win32_AccessibilityElement.cpp">
-      <ExcludedFromBuild>true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\modules\juce_accessibility\juce_accessibility.cpp">
-      <ExcludedFromBuild>true</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="..\..\..\Build\juce_build_tools\utils\juce_BinaryResourceFile.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
@@ -996,9 +984,6 @@
     <ClCompile Include="..\..\..\..\modules\juce_graphics\juce_graphics.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\modules\juce_gui_basics\accessibility\juce_ComponentAccessibilityHandler.cpp">
-      <ExcludedFromBuild>true</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\modules\juce_gui_basics\application\juce_Application.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
@@ -1401,9 +1386,6 @@
     <ClCompile Include="..\..\..\..\modules\juce_gui_basics\juce_gui_basics.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\modules\juce_gui_basics\juce_gui_basics_native.cpp">
-      <ExcludedFromBuild>true</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\modules\juce_gui_extra\code_editor\juce_CodeDocument.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
@@ -1495,7 +1477,6 @@
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\JuceLibraryCode\BinaryData.cpp"/>
-    <ClCompile Include="..\..\JuceLibraryCode\include_juce_accessibility.cpp"/>
     <ClCompile Include="..\..\JuceLibraryCode\include_juce_build_tools.cpp"/>
     <ClCompile Include="..\..\JuceLibraryCode\include_juce_core.cpp"/>
     <ClCompile Include="..\..\JuceLibraryCode\include_juce_cryptography.cpp"/>
@@ -1503,7 +1484,6 @@
     <ClCompile Include="..\..\JuceLibraryCode\include_juce_events.cpp"/>
     <ClCompile Include="..\..\JuceLibraryCode\include_juce_graphics.cpp"/>
     <ClCompile Include="..\..\JuceLibraryCode\include_juce_gui_basics.cpp"/>
-    <ClCompile Include="..\..\JuceLibraryCode\include_juce_gui_basics_native.cpp"/>
     <ClCompile Include="..\..\JuceLibraryCode\include_juce_gui_extra.cpp"/>
   </ItemGroup>
   <ItemGroup>
@@ -1687,30 +1667,6 @@
     <ClInclude Include="..\..\Source\Utility\UI\jucer_JucerTreeViewBase.h"/>
     <ClInclude Include="..\..\Source\Utility\UI\jucer_ProjucerLookAndFeel.h"/>
     <ClInclude Include="..\..\Source\Utility\UI\jucer_SlidingPanelComponent.h"/>
-    <ClInclude Include="..\..\..\..\modules\juce_accessibility\enums\juce_AccessibilityActions.h"/>
-    <ClInclude Include="..\..\..\..\modules\juce_accessibility\enums\juce_AccessibilityEvent.h"/>
-    <ClInclude Include="..\..\..\..\modules\juce_accessibility\enums\juce_AccessibilityRole.h"/>
-    <ClInclude Include="..\..\..\..\modules\juce_accessibility\handler\juce_AccessibilityHandler.h"/>
-    <ClInclude Include="..\..\..\..\modules\juce_accessibility\handler\juce_AccessibilityState.h"/>
-    <ClInclude Include="..\..\..\..\modules\juce_accessibility\interfaces\juce_AccessibilityCellInterface.h"/>
-    <ClInclude Include="..\..\..\..\modules\juce_accessibility\interfaces\juce_AccessibilityTableInterface.h"/>
-    <ClInclude Include="..\..\..\..\modules\juce_accessibility\interfaces\juce_AccessibilityTextInterface.h"/>
-    <ClInclude Include="..\..\..\..\modules\juce_accessibility\interfaces\juce_AccessibilityValueInterface.h"/>
-    <ClInclude Include="..\..\..\..\modules\juce_accessibility\native\juce_win32_AccessibilityElement.h"/>
-    <ClInclude Include="..\..\..\..\modules\juce_accessibility\native\juce_win32_UIAExpandCollapseProvider.h"/>
-    <ClInclude Include="..\..\..\..\modules\juce_accessibility\native\juce_win32_UIAGridItemProvider.h"/>
-    <ClInclude Include="..\..\..\..\modules\juce_accessibility\native\juce_win32_UIAGridProvider.h"/>
-    <ClInclude Include="..\..\..\..\modules\juce_accessibility\native\juce_win32_UIAHelpers.h"/>
-    <ClInclude Include="..\..\..\..\modules\juce_accessibility\native\juce_win32_UIAInvokeProvider.h"/>
-    <ClInclude Include="..\..\..\..\modules\juce_accessibility\native\juce_win32_UIAProviders.h"/>
-    <ClInclude Include="..\..\..\..\modules\juce_accessibility\native\juce_win32_UIARangeValueProvider.h"/>
-    <ClInclude Include="..\..\..\..\modules\juce_accessibility\native\juce_win32_UIASelectionProvider.h"/>
-    <ClInclude Include="..\..\..\..\modules\juce_accessibility\native\juce_win32_UIATextProvider.h"/>
-    <ClInclude Include="..\..\..\..\modules\juce_accessibility\native\juce_win32_UIAToggleProvider.h"/>
-    <ClInclude Include="..\..\..\..\modules\juce_accessibility\native\juce_win32_UIAValueProvider.h"/>
-    <ClInclude Include="..\..\..\..\modules\juce_accessibility\native\juce_win32_UIAWindowProvider.h"/>
-    <ClInclude Include="..\..\..\..\modules\juce_accessibility\native\juce_win32_WindowsUIAWrapper.h"/>
-    <ClInclude Include="..\..\..\..\modules\juce_accessibility\juce_accessibility.h"/>
     <ClInclude Include="..\..\..\Build\juce_build_tools\utils\juce_BinaryResourceFile.h"/>
     <ClInclude Include="..\..\..\Build\juce_build_tools\utils\juce_BuildHelperFunctions.h"/>
     <ClInclude Include="..\..\..\Build\juce_build_tools\utils\juce_Entitlements.h"/>
@@ -1962,14 +1918,6 @@
     <ClInclude Include="..\..\..\..\modules\juce_graphics\placement\juce_Justification.h"/>
     <ClInclude Include="..\..\..\..\modules\juce_graphics\placement\juce_RectanglePlacement.h"/>
     <ClInclude Include="..\..\..\..\modules\juce_graphics\juce_graphics.h"/>
-    <ClInclude Include="..\..\..\..\modules\juce_gui_basics\accessibility\juce_ButtonAccessibilityHandler.h"/>
-    <ClInclude Include="..\..\..\..\modules\juce_gui_basics\accessibility\juce_ComboBoxAccessibilityHandler.h"/>
-    <ClInclude Include="..\..\..\..\modules\juce_gui_basics\accessibility\juce_ComponentAccessibilityHandler.h"/>
-    <ClInclude Include="..\..\..\..\modules\juce_gui_basics\accessibility\juce_DocumentWindowAccessibilityHandler.h"/>
-    <ClInclude Include="..\..\..\..\modules\juce_gui_basics\accessibility\juce_LabelAccessibilityHandler.h"/>
-    <ClInclude Include="..\..\..\..\modules\juce_gui_basics\accessibility\juce_SliderAccessibilityHandler.h"/>
-    <ClInclude Include="..\..\..\..\modules\juce_gui_basics\accessibility\juce_TableListBoxAccessibilityHandler.h"/>
-    <ClInclude Include="..\..\..\..\modules\juce_gui_basics\accessibility\juce_TextEditorAccessibilityHandler.h"/>
     <ClInclude Include="..\..\..\..\modules\juce_gui_basics\application\juce_Application.h"/>
     <ClInclude Include="..\..\..\..\modules\juce_gui_basics\buttons\juce_ArrowButton.h"/>
     <ClInclude Include="..\..\..\..\modules\juce_gui_basics\buttons\juce_Button.h"/>
@@ -1989,7 +1937,6 @@
     <ClInclude Include="..\..\..\..\modules\juce_gui_basics\components\juce_Component.h"/>
     <ClInclude Include="..\..\..\..\modules\juce_gui_basics\components\juce_ComponentListener.h"/>
     <ClInclude Include="..\..\..\..\modules\juce_gui_basics\components\juce_ModalComponentManager.h"/>
-    <ClInclude Include="..\..\..\..\modules\juce_gui_basics\components\juce_ScalingHelpers.h"/>
     <ClInclude Include="..\..\..\..\modules\juce_gui_basics\desktop\juce_Desktop.h"/>
     <ClInclude Include="..\..\..\..\modules\juce_gui_basics\desktop\juce_Displays.h"/>
     <ClInclude Include="..\..\..\..\modules\juce_gui_basics\drawables\juce_Drawable.h"/>
@@ -2069,7 +2016,6 @@
     <ClInclude Include="..\..\..\..\modules\juce_gui_basics\mouse\juce_SelectedItemSet.h"/>
     <ClInclude Include="..\..\..\..\modules\juce_gui_basics\mouse\juce_TextDragAndDropTarget.h"/>
     <ClInclude Include="..\..\..\..\modules\juce_gui_basics\mouse\juce_TooltipClient.h"/>
-    <ClInclude Include="..\..\..\..\modules\juce_gui_basics\native\x11\juce_linux_X11_Headers.h"/>
     <ClInclude Include="..\..\..\..\modules\juce_gui_basics\native\x11\juce_linux_X11_Symbols.h"/>
     <ClInclude Include="..\..\..\..\modules\juce_gui_basics\native\x11\juce_linux_XWindowSystem.h"/>
     <ClInclude Include="..\..\..\..\modules\juce_gui_basics\native\juce_MultiTouchMapper.h"/>

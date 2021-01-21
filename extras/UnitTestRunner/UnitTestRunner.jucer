@@ -37,7 +37,6 @@
         <MODULEPATH id="juce_blocks_basics" path="../../modules"/>
         <MODULEPATH id="juce_product_unlocking" path="../../modules"/>
         <MODULEPATH id="juce_analytics" path="../../modules"/>
-        <MODULEPATH id="juce_accessibility" path="../../modules"/>
       </MODULEPATHS>
     </XCODE_MAC>
     <LINUX_MAKE targetFolder="Builds/LinuxMakefile">
@@ -65,7 +64,6 @@
         <MODULEPATH id="juce_blocks_basics" path="../../modules"/>
         <MODULEPATH id="juce_product_unlocking" path="../../modules"/>
         <MODULEPATH id="juce_analytics" path="../../modules"/>
-        <MODULEPATH id="juce_accessibility" path="../../modules"/>
       </MODULEPATHS>
     </LINUX_MAKE>
     <VS2017 targetFolder="Builds/VisualStudio2017" extraCompilerFlags="/w44265 /w45038 /w44062">
@@ -94,7 +92,6 @@
         <MODULEPATH id="juce_audio_devices" path="../../modules"/>
         <MODULEPATH id="juce_audio_basics" path="../../modules"/>
         <MODULEPATH id="juce_analytics" path="../../modules"/>
-        <MODULEPATH id="juce_accessibility" path="../../modules"/>
       </MODULEPATHS>
     </VS2017>
     <VS2019 targetFolder="Builds/VisualStudio2019" extraCompilerFlags="/w44265 /w45038 /w44062">
@@ -123,12 +120,10 @@
         <MODULEPATH id="juce_audio_devices" path="../../modules"/>
         <MODULEPATH id="juce_audio_basics" path="../../modules"/>
         <MODULEPATH id="juce_analytics" path="../../modules"/>
-        <MODULEPATH id="juce_accessibility" path="../../modules"/>
       </MODULEPATHS>
     </VS2019>
   </EXPORTFORMATS>
   <MODULES>
-    <MODULE id="juce_accessibility" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
     <MODULE id="juce_analytics" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
     <MODULES id="juce_audio_basics" showAllCode="1" useLocalCopy="0"/>
     <MODULES id="juce_audio_devices" showAllCode="1" useLocalCopy="0"/>

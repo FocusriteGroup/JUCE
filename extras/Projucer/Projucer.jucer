@@ -25,7 +25,6 @@
         <MODULEPATH id="juce_cryptography" path="../../modules"/>
         <MODULEPATH id="juce_core" path="../../modules"/>
         <MODULEPATH id="juce_build_tools" path="../Build"/>
-        <MODULEPATH id="juce_accessibility" path="../../modules"/>
       </MODULEPATHS>
     </XCODE_MAC>
     <VS2015 targetFolder="Builds/VisualStudio2015" bigIcon="Zrx1Gl" extraCompilerFlags="/bigobj"
@@ -45,7 +44,6 @@
         <MODULEPATH id="juce_cryptography" path="../../modules"/>
         <MODULEPATH id="juce_core" path="../../modules"/>
         <MODULEPATH id="juce_build_tools" path="../Build"/>
-        <MODULEPATH id="juce_accessibility" path="../../modules"/>
       </MODULEPATHS>
     </VS2015>
     <VS2017 targetFolder="Builds/VisualStudio2017" bigIcon="Zrx1Gl" extraCompilerFlags="/w44265 /w45038 /w44062"
@@ -64,7 +62,6 @@
         <MODULEPATH id="juce_cryptography" path="../../modules"/>
         <MODULEPATH id="juce_core" path="../../modules"/>
         <MODULEPATH id="juce_build_tools" path="../Build"/>
-        <MODULEPATH id="juce_accessibility" path="../../modules"/>
       </MODULEPATHS>
     </VS2017>
     <VS2019 targetFolder="Builds/VisualStudio2019" bigIcon="Zrx1Gl" extraCompilerFlags="/w44265 /w45038 /w44062"
@@ -83,7 +80,6 @@
         <MODULEPATH id="juce_cryptography" path="../../modules"/>
         <MODULEPATH id="juce_core" path="../../modules"/>
         <MODULEPATH id="juce_build_tools" path="../Build"/>
-        <MODULEPATH id="juce_accessibility" path="../../modules"/>
       </MODULEPATHS>
     </VS2019>
     <LINUX_MAKE targetFolder="Builds/LinuxMakefile" bigIcon="Zrx1Gl" smallIcon="Zrx1Gl">
@@ -100,7 +96,6 @@
         <MODULEPATH id="juce_cryptography" path="../../modules"/>
         <MODULEPATH id="juce_core" path="../../modules"/>
         <MODULEPATH id="juce_build_tools" path="../Build"/>
-        <MODULEPATH id="juce_accessibility" path="../../modules"/>
       </MODULEPATHS>
     </LINUX_MAKE>
   </EXPORTFORMATS>
@@ -295,8 +290,8 @@
             file="Source/BinaryData/colourscheme_dark.xml"/>
       <FILE id="bvFank" name="colourscheme_light.xml" compile="0" resource="1"
             file="Source/BinaryData/colourscheme_light.xml"/>
-      <FILE id="SDFoQY" name="juce_runtime_arch_detection.cpp" compile="0"
-            resource="1" file="../Build/CMake/juce_runtime_arch_detection.cpp"/>
+      <FILE id="SDFoQY" name="juce_runtime_arch_detection.cpp" compile="0" resource="1"
+            file="../Build/CMake/juce_runtime_arch_detection.cpp"/>
     </GROUP>
     <GROUP id="{A5AE7471-B900-FD9D-8DE7-2FB68D11AE30}" name="CodeEditor">
       <FILE id="w3ka6n" name="jucer_DocumentEditorComponent.cpp" compile="1"
@@ -710,7 +705,6 @@
                JUCE_STRICT_REFCOUNTEDPOINTER="1" JUCE_LOAD_CURL_SYMBOLS_LAZILY="1"
                JUCE_WEB_BROWSER="0"/>
   <MODULES>
-    <MODULE id="juce_accessibility" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
     <MODULE id="juce_build_tools" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
     <MODULE id="juce_core" showAllCode="1"/>
     <MODULE id="juce_cryptography" showAllCode="1"/>

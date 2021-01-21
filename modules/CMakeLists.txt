@@ -24,7 +24,6 @@
 juce_add_modules(
     INSTALL_PATH "include/JUCE-${JUCE_VERSION}/modules"
     ALIAS_NAMESPACE juce
-    juce_accessibility
     juce_analytics
     juce_audio_basics
     juce_audio_devices

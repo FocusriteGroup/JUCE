@@ -30,9 +30,9 @@
  description:      Showcases push notifications features. To run this demo you must enable the
                    "Push Notifications Capability" option in the Projucer exporter.
 
- dependencies:     juce_accessibility, juce_audio_basics, juce_audio_devices,
-                   juce_audio_formats, juce_audio_processors, juce_audio_utils,
-                   juce_core, juce_data_structures, juce_events, juce_graphics,
+ dependencies:     juce_audio_basics, juce_audio_devices, juce_audio_formats,
+                   juce_audio_processors, juce_audio_utils, juce_core,
+                   juce_data_structures, juce_events, juce_graphics,
                    juce_gui_basics, juce_gui_extra
  exporters:        xcode_mac, xcode_iphone, androidstudio
 

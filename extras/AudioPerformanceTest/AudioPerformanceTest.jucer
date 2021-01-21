@@ -29,7 +29,6 @@
         <MODULEPATH id="juce_audio_formats" path="../../modules"/>
         <MODULEPATH id="juce_audio_processors" path="../../modules"/>
         <MODULEPATH id="juce_audio_utils" path="../../modules"/>
-        <MODULEPATH id="juce_accessibility" path="../../modules"/>
       </MODULEPATHS>
     </XCODE_MAC>
     <XCODE_IPHONE targetFolder="Builds/iOS">
@@ -49,7 +48,6 @@
         <MODULEPATH id="juce_audio_formats" path="../../modules"/>
         <MODULEPATH id="juce_audio_processors" path="../../modules"/>
         <MODULEPATH id="juce_audio_utils" path="../../modules"/>
-        <MODULEPATH id="juce_accessibility" path="../../modules"/>
       </MODULEPATHS>
     </XCODE_IPHONE>
     <VS2019 targetFolder="Builds/VisualStudio2019">
@@ -69,7 +67,6 @@
         <MODULEPATH id="juce_audio_formats" path="../../modules"/>
         <MODULEPATH id="juce_audio_devices" path="../../modules"/>
         <MODULEPATH id="juce_audio_basics" path="../../modules"/>
-        <MODULEPATH id="juce_accessibility" path="../../modules"/>
       </MODULEPATHS>
     </VS2019>
     <LINUX_MAKE targetFolder="Builds/LinuxMakefile">
@@ -89,7 +86,6 @@
         <MODULEPATH id="juce_audio_formats" path="../../modules"/>
         <MODULEPATH id="juce_audio_processors" path="../../modules"/>
         <MODULEPATH id="juce_audio_utils" path="../../modules"/>
-        <MODULEPATH id="juce_accessibility" path="../../modules"/>
       </MODULEPATHS>
     </LINUX_MAKE>
     <ANDROIDSTUDIO androidActivityClass="com.juce.audioperformancetest.AudioPerformanceTest"
@@ -112,12 +108,10 @@
         <MODULEPATH id="juce_audio_formats" path="../../modules"/>
         <MODULEPATH id="juce_audio_processors" path="../../modules"/>
         <MODULEPATH id="juce_audio_utils" path="../../modules"/>
-        <MODULEPATH id="juce_accessibility" path="../../modules"/>
       </MODULEPATHS>
     </ANDROIDSTUDIO>
   </EXPORTFORMATS>
   <MODULES>
-    <MODULE id="juce_accessibility" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
     <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="0"/>
     <MODULE id="juce_audio_devices" showAllCode="1" useLocalCopy="0"/>
     <MODULE id="juce_audio_formats" showAllCode="1" useLocalCopy="0"/>
