@@ -164,7 +164,7 @@ Path DrawableComposite::getOutlineAsPath() const
 //==============================================================================
 std::unique_ptr<AccessibilityHandler> DrawableComposite::createAccessibilityHandler()
 {
-    return std::make_unique<ComponentAccessibilityHandler> (*this, AccessibilityRole::group);
+    return std::make_unique<AccessibilityHandler> (*this, AccessibilityRole::group);
 }
 
 } // namespace juce

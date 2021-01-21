@@ -27,10 +27,10 @@ namespace juce
 {
 
 //==============================================================================
-struct CodeEditorComponent::CodeEditorComponentAccessibilityHandler  : public ComponentAccessibilityHandler
+struct CodeEditorComponent::CodeEditorAccessibilityHandler  : public AccessibilityHandler
 {
-    explicit CodeEditorComponentAccessibilityHandler (CodeEditorComponent& codeEditorComponentToWrap)
-        : ComponentAccessibilityHandler (codeEditorComponentToWrap,
+    explicit CodeEditorAccessibilityHandler (CodeEditorComponent& codeEditorComponentToWrap)
+        : AccessibilityHandler (codeEditorComponentToWrap,
                                          codeEditorComponentToWrap.isReadOnly() ? AccessibilityRole::staticText
                                                                                 : AccessibilityRole::editableText,
                                          {}, {},
@@ -147,7 +147,7 @@ private:
     CodeEditorComponent& codeEditorComponent;
 
     //==============================================================================
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (CodeEditorComponentAccessibilityHandler)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (CodeEditorAccessibilityHandler)
 };
 
 //==============================================================================
@@ -1823,7 +1823,7 @@ String CodeEditorComponent::State::toString() const
 //==============================================================================
 std::unique_ptr<AccessibilityHandler> CodeEditorComponent::createAccessibilityHandler()
 {
-    return std::make_unique<CodeEditorComponentAccessibilityHandler> (*this);
+    return std::make_unique<CodeEditorAccessibilityHandler> (*this);
 }
 
 } // namespace juce

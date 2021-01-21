@@ -296,7 +296,7 @@ void BurgerMenuComponent::lookAndFeelChanged()
 //==============================================================================
 std::unique_ptr<AccessibilityHandler> BurgerMenuComponent::createAccessibilityHandler()
 {
-    return std::make_unique<ComponentAccessibilityHandler> (*this, AccessibilityRole::menuBar);
+    return std::make_unique<AccessibilityHandler> (*this, AccessibilityRole::menuBar);
 }
 
 } // namespace juce

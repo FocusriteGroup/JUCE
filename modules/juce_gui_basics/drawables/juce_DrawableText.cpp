@@ -209,10 +209,10 @@ bool DrawableText::replaceColour (Colour originalColour, Colour replacementColou
 }
 
 //==============================================================================
-struct DrawableTextAccessibilityHandler  : public ComponentAccessibilityHandler
+struct DrawableTextAccessibilityHandler  : public AccessibilityHandler
 {
     DrawableTextAccessibilityHandler (DrawableText& drawableTextToWrap)
-        : ComponentAccessibilityHandler (drawableTextToWrap, AccessibilityRole::staticText),
+        : AccessibilityHandler (drawableTextToWrap, AccessibilityRole::staticText),
           drawableText (drawableTextToWrap)
     {
     }

@@ -30,12 +30,12 @@ namespace juce
 
     @tags{Accessibility}
 */
-struct ComboBoxAccessibilityHandler  : public ComponentAccessibilityHandler
+struct ComboBoxAccessibilityHandler  : public AccessibilityHandler
 {
     explicit ComboBoxAccessibilityHandler (ComboBox& comboBoxToWrap)
-        : ComponentAccessibilityHandler (comboBoxToWrap,
-                                         AccessibilityRole::comboBox,
-                                         buildAccessibilityActions (comboBoxToWrap)),
+        : AccessibilityHandler (comboBoxToWrap,
+                                AccessibilityRole::comboBox,
+                                buildAccessibilityActions (comboBoxToWrap)),
           comboBox (comboBoxToWrap)
     {
     }

@@ -26,37 +26,31 @@
 namespace juce
 {
 
-/** Basic accessible interface for a Label which can also show a TextEditor
-    when clicked.
-
-    @tags{Accessibility}
-*/
-struct LabelAccessibilityHandler  : public ComponentAccessibilityHandler
+//==============================================================================
+class UIAInvokeProvider  : public ComBaseClassHelper<IInvokeProvider>
 {
-    LabelAccessibilityHandler (Label& labelToWrap)
-        : ComponentAccessibilityHandler (labelToWrap,
-                                         AccessibilityRole::staticText,
-                                         buildAccessibilityActions (labelToWrap)),
-          label (labelToWrap)
-    {
-    }
+public:
+    UIAInvokeProvider (AccessibilityHandler& handler)  : accessibilityHandler (handler)  {}
 
-    String getTitle() const override  { return label.getText(); }
+    JUCE_COMRESULT Invoke() override
+    {
+        if (! isValid (accessibilityHandler))
+            return UIA_E_ELEMENTNOTAVAILABLE;
+
+        if (auto actionCallback = accessibilityHandler.getActions().get (AccessibilityActionType::press))
+        {
+            actionCallback();
+            return S_OK;
+        }
+
+        return UIA_E_NOTSUPPORTED;
+    }
 
 private:
-    static AccessibilityActions buildAccessibilityActions (Label& label)
-    {
-        if (label.isEditable())
-            return AccessibilityActions().addAction (AccessibilityActionType::press,  [&label] { label.showEditor(); })
-                                         .addAction (AccessibilityActionType::cancel, [&label] { label.hideEditor (true); });
-
-        return {};
-    }
-
-    Label& label;
+    AccessibilityHandler& accessibilityHandler;
 
     //==============================================================================
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (LabelAccessibilityHandler)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (UIAInvokeProvider)
 };
 
 } // namespace juce

@@ -209,7 +209,7 @@ void TooltipWindow::timerCallback()
 //==============================================================================
 std::unique_ptr<AccessibilityHandler> TooltipWindow::createAccessibilityHandler()
 {
-    return std::make_unique<ComponentAccessibilityHandler> (*this, AccessibilityRole::tooltip);
+    return std::make_unique<AccessibilityHandler> (*this, AccessibilityRole::tooltip);
 }
 
 } // namespace juce

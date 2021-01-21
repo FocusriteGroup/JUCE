@@ -323,7 +323,7 @@ protected:
     /** @internal */
     void enablementChanged() override;
     /** @internal */
-    std::unique_ptr<KeyboardFocusTraverser> createFocusTraverser() override;
+    std::unique_ptr<ComponentTraverser> createKeyboardFocusTraverser() override;
     /** @internal */
     void textEditorTextChanged (TextEditor&) override;
     /** @internal */

@@ -40,10 +40,11 @@ namespace juce
     extern bool juce_areThereAnyAlwaysOnTopWindows();
 }
 
-#include "accessibility/juce_ComponentAccessibilityHandler.cpp"
+#include "accessibility/juce_AccessibilityHandler.cpp"
 #include "components/juce_ScalingHelpers.h"
 #include "components/juce_Component.cpp"
 #include "components/juce_ComponentListener.cpp"
+#include "components/juce_FocusTraverser.cpp"
 #include "mouse/juce_MouseInputSource.cpp"
 #include "desktop/juce_Displays.cpp"
 #include "desktop/juce_Desktop.cpp"

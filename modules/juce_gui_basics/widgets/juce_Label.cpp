@@ -405,7 +405,7 @@ public:
     }
 };
 
-std::unique_ptr<KeyboardFocusTraverser> Label::createFocusTraverser()
+std::unique_ptr<ComponentTraverser> Label::createKeyboardFocusTraverser()
 {
     return std::make_unique<LabelKeyboardFocusTraverser>();
 }

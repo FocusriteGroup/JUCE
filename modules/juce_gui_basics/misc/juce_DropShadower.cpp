@@ -67,6 +67,11 @@ public:
         return Component::getDesktopScaleFactor();
     }
 
+    std::unique_ptr<AccessibilityHandler> createAccessibilityHandler() override
+    {
+        return std::make_unique<AccessibilityHandler> (*this, AccessibilityRole::ignored);
+    }
+
 private:
     WeakReference<Component> target;
     DropShadow shadow;

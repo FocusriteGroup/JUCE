@@ -41,7 +41,7 @@
   website:            http://www.juce.com/juce
   license:            GPL/Commercial
 
-  dependencies:       juce_accessibility juce_data_structures
+  dependencies:       juce_graphics juce_data_structures
   OSXFrameworks:      Cocoa Carbon QuartzCore
   iOSFrameworks:      UIKit CoreServices
 
@@ -53,7 +53,7 @@
 #pragma once
 #define JUCE_GUI_BASICS_H_INCLUDED
 
-#include <juce_accessibility/juce_accessibility.h>
+#include <juce_graphics/juce_graphics.h>
 #include <juce_data_structures/juce_data_structures.h>
 
 //==============================================================================
@@ -157,6 +157,8 @@ namespace juce
     class Displays;
     class FlexBox;
     class Grid;
+    class AccessibilityHandler;
+    class KeyboardFocusTraverser;
 }
 
 #include "mouse/juce_MouseCursor.h"
@@ -166,7 +168,8 @@ namespace juce
 #include "mouse/juce_MouseEvent.h"
 #include "keyboard/juce_KeyPress.h"
 #include "keyboard/juce_KeyListener.h"
-#include "keyboard/juce_KeyboardFocusTraverser.h"
+#include "components/juce_ComponentTraverser.h"
+#include "components/juce_FocusTraverser.h"
 #include "components/juce_ModalComponentManager.h"
 #include "components/juce_ComponentListener.h"
 #include "components/juce_CachedComponentImage.h"
@@ -184,6 +187,7 @@ namespace juce
 #include "mouse/juce_TextDragAndDropTarget.h"
 #include "mouse/juce_TooltipClient.h"
 #include "keyboard/juce_CaretComponent.h"
+#include "keyboard/juce_KeyboardFocusTraverser.h"
 #include "keyboard/juce_SystemClipboard.h"
 #include "keyboard/juce_TextEditorKeyMapper.h"
 #include "keyboard/juce_TextInputTarget.h"
@@ -296,14 +300,21 @@ namespace juce
 #include "lookandfeel/juce_LookAndFeel_V3.h"
 #include "lookandfeel/juce_LookAndFeel_V4.h"
 #include "mouse/juce_LassoComponent.h"
-#include "accessibility/juce_ComponentAccessibilityHandler.h"
-#include "accessibility/juce_ButtonAccessibilityHandler.h"
-#include "accessibility/juce_ComboBoxAccessibilityHandler.h"
-#include "accessibility/juce_DocumentWindowAccessibilityHandler.h"
-#include "accessibility/juce_LabelAccessibilityHandler.h"
-#include "accessibility/juce_SliderAccessibilityHandler.h"
-#include "accessibility/juce_TableListBoxAccessibilityHandler.h"
-#include "accessibility/juce_TextEditorAccessibilityHandler.h"
+#include "accessibility/interfaces/juce_AccessibilityCellInterface.h"
+#include "accessibility/interfaces/juce_AccessibilityTableInterface.h"
+#include "accessibility/interfaces/juce_AccessibilityTextInterface.h"
+#include "accessibility/interfaces/juce_AccessibilityValueInterface.h"
+#include "accessibility/enums/juce_AccessibilityActions.h"
+#include "accessibility/enums/juce_AccessibilityEvent.h"
+#include "accessibility/enums/juce_AccessibilityRole.h"
+#include "accessibility/juce_AccessibilityState.h"
+#include "accessibility/juce_AccessibilityHandler.h"
+#include "accessibility/widget_handlers/juce_ButtonAccessibilityHandler.h"
+#include "accessibility/widget_handlers/juce_ComboBoxAccessibilityHandler.h"
+#include "accessibility/widget_handlers/juce_LabelAccessibilityHandler.h"
+#include "accessibility/widget_handlers/juce_SliderAccessibilityHandler.h"
+#include "accessibility/widget_handlers/juce_TableListBoxAccessibilityHandler.h"
+#include "accessibility/widget_handlers/juce_TextEditorAccessibilityHandler.h"
 
 #if JUCE_LINUX && JUCE_GUI_BASICS_INCLUDE_XHEADERS
  #include "native/x11/juce_linux_X11_Headers.h"

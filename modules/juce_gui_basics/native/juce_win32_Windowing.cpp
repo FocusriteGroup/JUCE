@@ -1290,14 +1290,17 @@ public:
           parentToAddTo (parent),
           currentRenderingEngine (softwareRenderingEngine)
     {
+        // make sure that the UIA wrapper singleton is loaded
+        WindowsAccessibility::initialiseUIAWrapper();
+
         callFunctionIfNotLocked (&createWindowCallback, this);
+
+        if (auto* handler = component.getAccessibilityHandler())
+            handler->notifyAccessibilityEvent (AccessibilityEvent::windowOpened);
 
         setTitle (component.getName());
         updateShadower();
 
-        // make sure that the UIA wrapper singleton is loaded before the on-screen keyboard
-        // singleton as the uiautomationcore dll must outlive the ITipInvocation class
-        WindowsAccessibility::initialiseUIAWrapper();
         OnScreenKeyboard::getInstance();
 
         getNativeRealtimeModifiers = []
@@ -1317,14 +1320,19 @@ public:
 
     ~HWNDComponentPeer()
     {
+        // do this first to avoid messages arriving for this window before it's destroyed
+        JuceWindowIdentifier::setAsJUCEWindow (hwnd, false);
+
+        if (isAccessibilityActive)
+            WindowsAccessibility::revokeUIAMapEntriesForWindow (hwnd);
+
         shadower = nullptr;
         currentTouches.deleteAllTouchesForPeer (this);
 
-        // do this before the next bit to avoid messages arriving for this window
-        // before it's destroyed
-        JuceWindowIdentifier::setAsJUCEWindow (hwnd, false);
-
         callFunctionIfNotLocked (&destroyWindowCallback, (void*) hwnd);
+
+        if (auto* handler = component.getAccessibilityHandler())
+            handler->notifyAccessibilityEvent (AccessibilityEvent::windowClosed);
 
         if (currentWindowIcon != nullptr)
             DestroyIcon (currentWindowIcon);
@@ -1352,11 +1360,6 @@ public:
             InvalidateRect (hwnd, nullptr, 0);
         else
             lastPaintTime = 0;
-
-        if ((styleFlags & windowIsTemporary) == 0)
-            if (auto* handler = getComponent().getAccessibilityHandler())
-                handler->notifyAccessibilityEvent (shouldBeVisible ? AccessibilityEvent::windowOpened
-                                                                   : AccessibilityEvent::windowClosed);
     }
 
     void setTitle (const String& title) override
@@ -1950,6 +1953,8 @@ private:
     double scaleFactor = 1.0;
     bool isInDPIChange = false;
 
+    bool isAccessibilityActive = false;
+
     //==============================================================================
     static MultiTouchMapper<DWORD> currentTouches;
 
@@ -2231,7 +2236,6 @@ private:
         if (IsWindow (hwnd))
         {
             RevokeDragDrop (hwnd);
-            WindowsAccessibility::revokeUIAMapEntriesForWindow (hwnd);
 
             // NB: we need to do this before DestroyWindow() as child HWNDs will be invalid after
             EnumChildWindows (hwnd, revokeChildDragDropCallback, 0);
@@ -3857,12 +3861,15 @@ private:
             {
                 if (static_cast<long> (lParam) == WindowsAccessibility::getUiaRootObjectId())
                 {
-                    LRESULT res = 0;
-
-                    if (WindowsAccessibility::handleWmGetObject (getComponent().getAccessibilityHandler(),
-                                                                 wParam, lParam, &res))
+                    if (auto* handler = component.getAccessibilityHandler())
                     {
-                        return res;
+                        LRESULT res = 0;
+
+                        if (WindowsAccessibility::handleWmGetObject (handler, wParam, lParam, &res))
+                        {
+                            isAccessibilityActive = true;
+                            return res;
+                        }
                     }
                 }
 

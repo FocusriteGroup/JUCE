@@ -207,7 +207,7 @@ std::unique_ptr<Drawable> Drawable::createFromImageFile (const File& file)
 //==============================================================================
 std::unique_ptr<AccessibilityHandler> Drawable::createAccessibilityHandler()
 {
-    return std::make_unique<ComponentAccessibilityHandler> (*this, AccessibilityRole::image);
+    return std::make_unique<AccessibilityHandler> (*this, AccessibilityRole::image);
 }
 
 } // namespace juce

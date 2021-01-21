@@ -293,7 +293,7 @@ bool SidePanel::isMouseEventInThisOrChildren (Component* eventComponent)
 //==============================================================================
 std::unique_ptr<AccessibilityHandler> SidePanel::createAccessibilityHandler()
 {
-    return std::make_unique<ComponentAccessibilityHandler> (*this, AccessibilityRole::group);
+    return std::make_unique<AccessibilityHandler> (*this, AccessibilityRole::group);
 }
 
 } // namespace juce

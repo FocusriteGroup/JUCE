@@ -83,7 +83,7 @@ void ImageComponent::paint (Graphics& g)
 //==============================================================================
 std::unique_ptr<AccessibilityHandler> ImageComponent::createAccessibilityHandler()
 {
-    return std::make_unique<ComponentAccessibilityHandler> (*this, AccessibilityRole::image);
+    return std::make_unique<AccessibilityHandler> (*this, AccessibilityRole::image);
 }
 
 } // namespace juce

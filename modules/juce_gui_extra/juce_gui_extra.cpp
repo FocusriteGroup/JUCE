@@ -58,8 +58,6 @@
  #import <IOKit/hid/IOHIDKeys.h>
  #import <IOKit/pwr_mgt/IOPMLib.h>
 
- JUCE_BEGIN_IGNORE_WARNINGS_GCC_LIKE ("-Wundeclared-selector")
-
  #include "native/juce_mac_NSViewComponent.mm"
  #include "native/juce_mac_AppleRemote.mm"
  #include "native/juce_mac_SystemTrayIcon.cpp"
@@ -74,8 +72,6 @@
   #include "native/juce_mac_WebBrowserComponent.mm"
  #endif
 
- JUCE_END_IGNORE_WARNINGS_GCC_LIKE
-
 #elif JUCE_IOS
  #include "native/juce_ios_UIViewComponent.mm"
 
@@ -89,9 +85,7 @@
 
  #if JUCE_WEB_BROWSER
   #import <WebKit/WebKit.h>
-  JUCE_BEGIN_IGNORE_WARNINGS_GCC_LIKE ("-Wundeclared-selector")
   #include "native/juce_mac_WebBrowserComponent.mm"
-  JUCE_END_IGNORE_WARNINGS_GCC_LIKE
  #endif
 
 #elif JUCE_ANDROID

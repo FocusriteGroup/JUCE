@@ -2,21 +2,6 @@
 
 <Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="JUCE Modules\juce_accessibility\enums">
-      <UniqueIdentifier>{9FEDCAC6-9F64-CB83-131D-F38535048432}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="JUCE Modules\juce_accessibility\handler">
-      <UniqueIdentifier>{0A610CDD-341D-2BD8-6BB3-AD2F10D6D8E3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="JUCE Modules\juce_accessibility\interfaces">
-      <UniqueIdentifier>{893CFA3F-824B-79CD-4252-088EA7C450A2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="JUCE Modules\juce_accessibility\native">
-      <UniqueIdentifier>{5817199C-0E9E-9FDF-4C53-0181D7538BEE}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="JUCE Modules\juce_accessibility">
-      <UniqueIdentifier>{E81F0AEF-2E8E-C167-430F-29461940115B}</UniqueIdentifier>
-    </Filter>
     <Filter Include="JUCE Modules\juce_audio_basics\audio_play_head">
       <UniqueIdentifier>{EB58F05A-A968-CEBE-40C4-107CDD8F240F}</UniqueIdentifier>
     </Filter>
@@ -46,9 +31,6 @@
     </Filter>
     <Filter Include="JUCE Modules\juce_audio_devices\audio_io">
       <UniqueIdentifier>{BF23FC10-1D57-2A9B-706F-6DD8A7B593D4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="JUCE Modules\juce_audio_devices\midi_io\ump">
-      <UniqueIdentifier>{386862D5-4DCC-A4B3-5642-60A201E303EF}</UniqueIdentifier>
     </Filter>
     <Filter Include="JUCE Modules\juce_audio_devices\midi_io">
       <UniqueIdentifier>{092EFC17-7C95-7E04-0ACA-0D61A462EE81}</UniqueIdentifier>
@@ -356,6 +338,15 @@
     <Filter Include="JUCE Modules\juce_graphics">
       <UniqueIdentifier>{4CED05DA-E0A2-E548-F753-1F2EF299A8E3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="JUCE Modules\juce_gui_basics\accessibility\enums">
+      <UniqueIdentifier>{46AE69B8-AD58-4381-6CDE-25C8D75B01D2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="JUCE Modules\juce_gui_basics\accessibility\interfaces">
+      <UniqueIdentifier>{E56CB4FC-32E8-8740-A3BB-B323CD937A99}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="JUCE Modules\juce_gui_basics\accessibility\widget_handlers">
+      <UniqueIdentifier>{057BD667-001C-9B86-6D0E-ADF7E048DB54}</UniqueIdentifier>
+    </Filter>
     <Filter Include="JUCE Modules\juce_gui_basics\accessibility">
       <UniqueIdentifier>{4ECDCA0C-BB38-0729-A6B6-2FB0B4D0863B}</UniqueIdentifier>
     </Filter>
@@ -397,6 +388,9 @@
     </Filter>
     <Filter Include="JUCE Modules\juce_gui_basics\mouse">
       <UniqueIdentifier>{FE3CB19C-EF43-5CF5-DAF0-09D4E43D0AB9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="JUCE Modules\juce_gui_basics\native\accessibility">
+      <UniqueIdentifier>{C0E5DD5D-F8F1-DD25-67D7-291946AB3828}</UniqueIdentifier>
     </Filter>
     <Filter Include="JUCE Modules\juce_gui_basics\native\x11">
       <UniqueIdentifier>{FE7E6CD5-C7A0-DB20-4E7E-D6E7F08C4578}</UniqueIdentifier>
@@ -472,27 +466,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\modules\juce_accessibility\handler\juce_AccessibilityHandler.cpp">
-      <Filter>JUCE Modules\juce_accessibility\handler</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\modules\juce_accessibility\native\juce_mac_Accessibility.mm">
-      <Filter>JUCE Modules\juce_accessibility\native</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\modules\juce_accessibility\native\juce_mac_AccessibilityElement.mm">
-      <Filter>JUCE Modules\juce_accessibility\native</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\modules\juce_accessibility\native\juce_win32_Accessibility.cpp">
-      <Filter>JUCE Modules\juce_accessibility\native</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\modules\juce_accessibility\native\juce_win32_AccessibilityElement.cpp">
-      <Filter>JUCE Modules\juce_accessibility\native</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\modules\juce_accessibility\juce_accessibility.cpp">
-      <Filter>JUCE Modules\juce_accessibility</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\modules\juce_accessibility\juce_accessibility.mm">
-      <Filter>JUCE Modules\juce_accessibility</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\modules\juce_audio_basics\buffers\juce_AudioChannelSet.cpp">
       <Filter>JUCE Modules\juce_audio_basics\buffers</Filter>
     </ClCompile>
@@ -606,21 +579,6 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\modules\juce_audio_devices\audio_io\juce_AudioIODeviceType.cpp">
       <Filter>JUCE Modules\juce_audio_devices\audio_io</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\modules\juce_audio_devices\midi_io\ump\juce_UMPMidi1ToMidi2DefaultTranslator.cpp">
-      <Filter>JUCE Modules\juce_audio_devices\midi_io\ump</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\modules\juce_audio_devices\midi_io\ump\juce_UMPSysEx7.cpp">
-      <Filter>JUCE Modules\juce_audio_devices\midi_io\ump</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\modules\juce_audio_devices\midi_io\ump\juce_UMPTests.cpp">
-      <Filter>JUCE Modules\juce_audio_devices\midi_io\ump</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\modules\juce_audio_devices\midi_io\ump\juce_UMPUtils.cpp">
-      <Filter>JUCE Modules\juce_audio_devices\midi_io\ump</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\modules\juce_audio_devices\midi_io\ump\juce_UMPView.cpp">
-      <Filter>JUCE Modules\juce_audio_devices\midi_io\ump</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\modules\juce_audio_devices\midi_io\juce_MidiDevices.cpp">
       <Filter>JUCE Modules\juce_audio_devices\midi_io</Filter>
@@ -805,7 +763,7 @@
     <ClCompile Include="..\..\..\..\modules\juce_audio_devices\native\juce_mac_CoreAudio.cpp">
       <Filter>JUCE Modules\juce_audio_devices\native</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\modules\juce_audio_devices\native\juce_mac_CoreMidi.mm">
+    <ClCompile Include="..\..\..\..\modules\juce_audio_devices\native\juce_mac_CoreMidi.cpp">
       <Filter>JUCE Modules\juce_audio_devices\native</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\modules\juce_audio_devices\native\juce_win32_ASIO.cpp">
@@ -1978,7 +1936,7 @@
     <ClCompile Include="..\..\..\..\modules\juce_graphics\juce_graphics.mm">
       <Filter>JUCE Modules\juce_graphics</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\modules\juce_gui_basics\accessibility\juce_ComponentAccessibilityHandler.cpp">
+    <ClCompile Include="..\..\..\..\modules\juce_gui_basics\accessibility\juce_AccessibilityHandler.cpp">
       <Filter>JUCE Modules\juce_gui_basics\accessibility</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\modules\juce_gui_basics\application\juce_Application.cpp">
@@ -2027,6 +1985,9 @@
       <Filter>JUCE Modules\juce_gui_basics\components</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\modules\juce_gui_basics\components\juce_ComponentListener.cpp">
+      <Filter>JUCE Modules\juce_gui_basics\components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\modules\juce_gui_basics\components\juce_FocusTraverser.cpp">
       <Filter>JUCE Modules\juce_gui_basics\components</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\modules\juce_gui_basics\components\juce_ModalComponentManager.cpp">
@@ -2229,6 +2190,15 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\modules\juce_gui_basics\mouse\juce_MouseListener.cpp">
       <Filter>JUCE Modules\juce_gui_basics\mouse</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\modules\juce_gui_basics\native\accessibility\juce_mac_Accessibility.mm">
+      <Filter>JUCE Modules\juce_gui_basics\native\accessibility</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\modules\juce_gui_basics\native\accessibility\juce_win32_Accessibility.cpp">
+      <Filter>JUCE Modules\juce_gui_basics\native\accessibility</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\modules\juce_gui_basics\native\accessibility\juce_win32_AccessibilityElement.cpp">
+      <Filter>JUCE Modules\juce_gui_basics\native\accessibility</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\modules\juce_gui_basics\native\x11\juce_linux_X11_DragAndDrop.cpp">
       <Filter>JUCE Modules\juce_gui_basics\native\x11</Filter>
@@ -2563,9 +2533,6 @@
     <ClCompile Include="..\..\..\..\modules\juce_video\juce_video.mm">
       <Filter>JUCE Modules\juce_video</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\JuceLibraryCode\include_juce_accessibility.cpp">
-      <Filter>JUCE Library Code</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\JuceLibraryCode\include_juce_audio_basics.cpp">
       <Filter>JUCE Library Code</Filter>
     </ClCompile>
@@ -2613,78 +2580,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\modules\juce_accessibility\enums\juce_AccessibilityActions.h">
-      <Filter>JUCE Modules\juce_accessibility\enums</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\modules\juce_accessibility\enums\juce_AccessibilityEvent.h">
-      <Filter>JUCE Modules\juce_accessibility\enums</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\modules\juce_accessibility\enums\juce_AccessibilityRole.h">
-      <Filter>JUCE Modules\juce_accessibility\enums</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\modules\juce_accessibility\handler\juce_AccessibilityHandler.h">
-      <Filter>JUCE Modules\juce_accessibility\handler</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\modules\juce_accessibility\handler\juce_AccessibilityState.h">
-      <Filter>JUCE Modules\juce_accessibility\handler</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\modules\juce_accessibility\interfaces\juce_AccessibilityCellInterface.h">
-      <Filter>JUCE Modules\juce_accessibility\interfaces</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\modules\juce_accessibility\interfaces\juce_AccessibilityTableInterface.h">
-      <Filter>JUCE Modules\juce_accessibility\interfaces</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\modules\juce_accessibility\interfaces\juce_AccessibilityTextInterface.h">
-      <Filter>JUCE Modules\juce_accessibility\interfaces</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\modules\juce_accessibility\interfaces\juce_AccessibilityValueInterface.h">
-      <Filter>JUCE Modules\juce_accessibility\interfaces</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\modules\juce_accessibility\native\juce_win32_AccessibilityElement.h">
-      <Filter>JUCE Modules\juce_accessibility\native</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\modules\juce_accessibility\native\juce_win32_UIAExpandCollapseProvider.h">
-      <Filter>JUCE Modules\juce_accessibility\native</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\modules\juce_accessibility\native\juce_win32_UIAGridItemProvider.h">
-      <Filter>JUCE Modules\juce_accessibility\native</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\modules\juce_accessibility\native\juce_win32_UIAGridProvider.h">
-      <Filter>JUCE Modules\juce_accessibility\native</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\modules\juce_accessibility\native\juce_win32_UIAHelpers.h">
-      <Filter>JUCE Modules\juce_accessibility\native</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\modules\juce_accessibility\native\juce_win32_UIAInvokeProvider.h">
-      <Filter>JUCE Modules\juce_accessibility\native</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\modules\juce_accessibility\native\juce_win32_UIAProviders.h">
-      <Filter>JUCE Modules\juce_accessibility\native</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\modules\juce_accessibility\native\juce_win32_UIARangeValueProvider.h">
-      <Filter>JUCE Modules\juce_accessibility\native</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\modules\juce_accessibility\native\juce_win32_UIASelectionProvider.h">
-      <Filter>JUCE Modules\juce_accessibility\native</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\modules\juce_accessibility\native\juce_win32_UIATextProvider.h">
-      <Filter>JUCE Modules\juce_accessibility\native</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\modules\juce_accessibility\native\juce_win32_UIAToggleProvider.h">
-      <Filter>JUCE Modules\juce_accessibility\native</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\modules\juce_accessibility\native\juce_win32_UIAValueProvider.h">
-      <Filter>JUCE Modules\juce_accessibility\native</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\modules\juce_accessibility\native\juce_win32_UIAWindowProvider.h">
-      <Filter>JUCE Modules\juce_accessibility\native</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\modules\juce_accessibility\native\juce_win32_WindowsUIAWrapper.h">
-      <Filter>JUCE Modules\juce_accessibility\native</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\modules\juce_accessibility\juce_accessibility.h">
-      <Filter>JUCE Modules\juce_accessibility</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\modules\juce_audio_basics\audio_play_head\juce_AudioPlayHead.h">
       <Filter>JUCE Modules\juce_audio_basics\audio_play_head</Filter>
     </ClInclude>
@@ -2819,54 +2714,6 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\modules\juce_audio_devices\audio_io\juce_SystemAudioVolume.h">
       <Filter>JUCE Modules\juce_audio_devices\audio_io</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\modules\juce_audio_devices\midi_io\ump\juce_UMPacket.h">
-      <Filter>JUCE Modules\juce_audio_devices\midi_io\ump</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\modules\juce_audio_devices\midi_io\ump\juce_UMPackets.h">
-      <Filter>JUCE Modules\juce_audio_devices\midi_io\ump</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\modules\juce_audio_devices\midi_io\ump\juce_UMPBytestreamInputHandler.h">
-      <Filter>JUCE Modules\juce_audio_devices\midi_io\ump</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\modules\juce_audio_devices\midi_io\ump\juce_UMPConversion.h">
-      <Filter>JUCE Modules\juce_audio_devices\midi_io\ump</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\modules\juce_audio_devices\midi_io\ump\juce_UMPConverters.h">
-      <Filter>JUCE Modules\juce_audio_devices\midi_io\ump</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\modules\juce_audio_devices\midi_io\ump\juce_UMPDispatcher.h">
-      <Filter>JUCE Modules\juce_audio_devices\midi_io\ump</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\modules\juce_audio_devices\midi_io\ump\juce_UMPFactory.h">
-      <Filter>JUCE Modules\juce_audio_devices\midi_io\ump</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\modules\juce_audio_devices\midi_io\ump\juce_UMPIterator.h">
-      <Filter>JUCE Modules\juce_audio_devices\midi_io\ump</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\modules\juce_audio_devices\midi_io\ump\juce_UMPMidi1ToBytestreamTranslator.h">
-      <Filter>JUCE Modules\juce_audio_devices\midi_io\ump</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\modules\juce_audio_devices\midi_io\ump\juce_UMPMidi1ToMidi2DefaultTranslator.h">
-      <Filter>JUCE Modules\juce_audio_devices\midi_io\ump</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\modules\juce_audio_devices\midi_io\ump\juce_UMPProtocols.h">
-      <Filter>JUCE Modules\juce_audio_devices\midi_io\ump</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\modules\juce_audio_devices\midi_io\ump\juce_UMPReceiver.h">
-      <Filter>JUCE Modules\juce_audio_devices\midi_io\ump</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\modules\juce_audio_devices\midi_io\ump\juce_UMPSysEx7.h">
-      <Filter>JUCE Modules\juce_audio_devices\midi_io\ump</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\modules\juce_audio_devices\midi_io\ump\juce_UMPU32InputHandler.h">
-      <Filter>JUCE Modules\juce_audio_devices\midi_io\ump</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\modules\juce_audio_devices\midi_io\ump\juce_UMPUtils.h">
-      <Filter>JUCE Modules\juce_audio_devices\midi_io\ump</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\modules\juce_audio_devices\midi_io\ump\juce_UMPView.h">
-      <Filter>JUCE Modules\juce_audio_devices\midi_io\ump</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\modules\juce_audio_devices\midi_io\juce_MidiDevices.h">
       <Filter>JUCE Modules\juce_audio_devices\midi_io</Filter>
@@ -4413,28 +4260,49 @@
     <ClInclude Include="..\..\..\..\modules\juce_graphics\juce_graphics.h">
       <Filter>JUCE Modules\juce_graphics</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\modules\juce_gui_basics\accessibility\juce_ButtonAccessibilityHandler.h">
+    <ClInclude Include="..\..\..\..\modules\juce_gui_basics\accessibility\enums\juce_AccessibilityActions.h">
+      <Filter>JUCE Modules\juce_gui_basics\accessibility\enums</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\modules\juce_gui_basics\accessibility\enums\juce_AccessibilityEvent.h">
+      <Filter>JUCE Modules\juce_gui_basics\accessibility\enums</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\modules\juce_gui_basics\accessibility\enums\juce_AccessibilityRole.h">
+      <Filter>JUCE Modules\juce_gui_basics\accessibility\enums</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\modules\juce_gui_basics\accessibility\interfaces\juce_AccessibilityCellInterface.h">
+      <Filter>JUCE Modules\juce_gui_basics\accessibility\interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\modules\juce_gui_basics\accessibility\interfaces\juce_AccessibilityTableInterface.h">
+      <Filter>JUCE Modules\juce_gui_basics\accessibility\interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\modules\juce_gui_basics\accessibility\interfaces\juce_AccessibilityTextInterface.h">
+      <Filter>JUCE Modules\juce_gui_basics\accessibility\interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\modules\juce_gui_basics\accessibility\interfaces\juce_AccessibilityValueInterface.h">
+      <Filter>JUCE Modules\juce_gui_basics\accessibility\interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\modules\juce_gui_basics\accessibility\widget_handlers\juce_ButtonAccessibilityHandler.h">
+      <Filter>JUCE Modules\juce_gui_basics\accessibility\widget_handlers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\modules\juce_gui_basics\accessibility\widget_handlers\juce_ComboBoxAccessibilityHandler.h">
+      <Filter>JUCE Modules\juce_gui_basics\accessibility\widget_handlers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\modules\juce_gui_basics\accessibility\widget_handlers\juce_LabelAccessibilityHandler.h">
+      <Filter>JUCE Modules\juce_gui_basics\accessibility\widget_handlers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\modules\juce_gui_basics\accessibility\widget_handlers\juce_SliderAccessibilityHandler.h">
+      <Filter>JUCE Modules\juce_gui_basics\accessibility\widget_handlers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\modules\juce_gui_basics\accessibility\widget_handlers\juce_TableListBoxAccessibilityHandler.h">
+      <Filter>JUCE Modules\juce_gui_basics\accessibility\widget_handlers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\modules\juce_gui_basics\accessibility\widget_handlers\juce_TextEditorAccessibilityHandler.h">
+      <Filter>JUCE Modules\juce_gui_basics\accessibility\widget_handlers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\modules\juce_gui_basics\accessibility\juce_AccessibilityHandler.h">
       <Filter>JUCE Modules\juce_gui_basics\accessibility</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\modules\juce_gui_basics\accessibility\juce_ComboBoxAccessibilityHandler.h">
-      <Filter>JUCE Modules\juce_gui_basics\accessibility</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\modules\juce_gui_basics\accessibility\juce_ComponentAccessibilityHandler.h">
-      <Filter>JUCE Modules\juce_gui_basics\accessibility</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\modules\juce_gui_basics\accessibility\juce_DocumentWindowAccessibilityHandler.h">
-      <Filter>JUCE Modules\juce_gui_basics\accessibility</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\modules\juce_gui_basics\accessibility\juce_LabelAccessibilityHandler.h">
-      <Filter>JUCE Modules\juce_gui_basics\accessibility</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\modules\juce_gui_basics\accessibility\juce_SliderAccessibilityHandler.h">
-      <Filter>JUCE Modules\juce_gui_basics\accessibility</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\modules\juce_gui_basics\accessibility\juce_TableListBoxAccessibilityHandler.h">
-      <Filter>JUCE Modules\juce_gui_basics\accessibility</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\modules\juce_gui_basics\accessibility\juce_TextEditorAccessibilityHandler.h">
+    <ClInclude Include="..\..\..\..\modules\juce_gui_basics\accessibility\juce_AccessibilityState.h">
       <Filter>JUCE Modules\juce_gui_basics\accessibility</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\modules\juce_gui_basics\application\juce_Application.h">
@@ -4489,6 +4357,12 @@
       <Filter>JUCE Modules\juce_gui_basics\components</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\modules\juce_gui_basics\components\juce_ComponentListener.h">
+      <Filter>JUCE Modules\juce_gui_basics\components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\modules\juce_gui_basics\components\juce_ComponentTraverser.h">
+      <Filter>JUCE Modules\juce_gui_basics\components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\modules\juce_gui_basics\components\juce_FocusTraverser.h">
       <Filter>JUCE Modules\juce_gui_basics\components</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\modules\juce_gui_basics\components\juce_ModalComponentManager.h">
@@ -4733,6 +4607,51 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\modules\juce_gui_basics\mouse\juce_TooltipClient.h">
       <Filter>JUCE Modules\juce_gui_basics\mouse</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\modules\juce_gui_basics\native\accessibility\juce_win32_AccessibilityElement.h">
+      <Filter>JUCE Modules\juce_gui_basics\native\accessibility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\modules\juce_gui_basics\native\accessibility\juce_win32_UIAExpandCollapseProvider.h">
+      <Filter>JUCE Modules\juce_gui_basics\native\accessibility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\modules\juce_gui_basics\native\accessibility\juce_win32_UIAGridItemProvider.h">
+      <Filter>JUCE Modules\juce_gui_basics\native\accessibility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\modules\juce_gui_basics\native\accessibility\juce_win32_UIAGridProvider.h">
+      <Filter>JUCE Modules\juce_gui_basics\native\accessibility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\modules\juce_gui_basics\native\accessibility\juce_win32_UIAHelpers.h">
+      <Filter>JUCE Modules\juce_gui_basics\native\accessibility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\modules\juce_gui_basics\native\accessibility\juce_win32_UIAInvokeProvider.h">
+      <Filter>JUCE Modules\juce_gui_basics\native\accessibility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\modules\juce_gui_basics\native\accessibility\juce_win32_UIAProviders.h">
+      <Filter>JUCE Modules\juce_gui_basics\native\accessibility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\modules\juce_gui_basics\native\accessibility\juce_win32_UIARangeValueProvider.h">
+      <Filter>JUCE Modules\juce_gui_basics\native\accessibility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\modules\juce_gui_basics\native\accessibility\juce_win32_UIASelectionProvider.h">
+      <Filter>JUCE Modules\juce_gui_basics\native\accessibility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\modules\juce_gui_basics\native\accessibility\juce_win32_UIATextProvider.h">
+      <Filter>JUCE Modules\juce_gui_basics\native\accessibility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\modules\juce_gui_basics\native\accessibility\juce_win32_UIAToggleProvider.h">
+      <Filter>JUCE Modules\juce_gui_basics\native\accessibility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\modules\juce_gui_basics\native\accessibility\juce_win32_UIATransformProvider.h">
+      <Filter>JUCE Modules\juce_gui_basics\native\accessibility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\modules\juce_gui_basics\native\accessibility\juce_win32_UIAValueProvider.h">
+      <Filter>JUCE Modules\juce_gui_basics\native\accessibility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\modules\juce_gui_basics\native\accessibility\juce_win32_UIAWindowProvider.h">
+      <Filter>JUCE Modules\juce_gui_basics\native\accessibility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\modules\juce_gui_basics\native\accessibility\juce_win32_WindowsUIAWrapper.h">
+      <Filter>JUCE Modules\juce_gui_basics\native\accessibility</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\modules\juce_gui_basics\native\x11\juce_linux_X11_Headers.h">
       <Filter>JUCE Modules\juce_gui_basics\native\x11</Filter>

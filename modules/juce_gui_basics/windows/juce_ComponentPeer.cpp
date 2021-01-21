@@ -340,7 +340,7 @@ void ComponentPeer::handleFocusGain()
     {
         Component::currentlyFocusedComponent = lastFocusedComponent;
         Desktop::getInstance().triggerFocusCallback();
-        lastFocusedComponent->internalFocusGain (Component::focusChangedDirectly);
+        lastFocusedComponent->internalKeyboardFocusGain (Component::focusChangedDirectly);
     }
     else
     {
@@ -361,7 +361,7 @@ void ComponentPeer::handleFocusLoss()
         {
             Component::currentlyFocusedComponent = nullptr;
             Desktop::getInstance().triggerFocusCallback();
-            lastFocusedComponent->internalFocusLoss (Component::focusChangedByMouseClick);
+            lastFocusedComponent->internalKeyboardFocusLoss (Component::focusChangedByMouseClick);
         }
     }
 }

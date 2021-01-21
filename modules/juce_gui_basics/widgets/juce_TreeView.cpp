@@ -1914,7 +1914,7 @@ TreeViewItem::OpennessRestorer::~OpennessRestorer()
 //==============================================================================
 std::unique_ptr<AccessibilityHandler> TreeView::createAccessibilityHandler()
 {
-    return std::make_unique<ComponentAccessibilityHandler> (*this, AccessibilityRole::tree);
+    return std::make_unique<AccessibilityHandler> (*this, AccessibilityRole::tree);
 }
 
 } // namespace juce

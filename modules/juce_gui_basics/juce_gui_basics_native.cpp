@@ -59,14 +59,11 @@
   #import <Carbon/Carbon.h> // still needed for SetSystemUIMode()
  #endif
 
- JUCE_BEGIN_IGNORE_WARNINGS_GCC_LIKE ("-Wundeclared-selector")
-
+ #include "native/accessibility/juce_mac_Accessibility.mm"
  #include "native/juce_mac_NSViewComponentPeer.mm"
  #include "native/juce_mac_Windowing.mm"
  #include "native/juce_mac_MainMenu.mm"
  #include "native/juce_mac_FileChooser.mm"
-
- JUCE_END_IGNORE_WARNINGS_GCC_LIKE
 
 #elif JUCE_IOS
  #if JUCE_PUSH_NOTIFICATIONS && defined (__IPHONE_10_0) && __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_10_0
@@ -74,8 +71,6 @@
  #endif
 
  #import <UIKit/UIActivityViewController.h>
-
- JUCE_BEGIN_IGNORE_WARNINGS_GCC_LIKE ("-Wundeclared-selector")
 
  #include "native/juce_ios_UIViewComponentPeer.mm"
  #include "native/juce_ios_Windowing.mm"
@@ -85,12 +80,11 @@
   #include "native/juce_ios_ContentSharer.cpp"
  #endif
 
- JUCE_END_IGNORE_WARNINGS_GCC_LIKE
-
 #elif JUCE_WINDOWS
  #include <windowsx.h>
  #include <vfw.h>
  #include <commdlg.h>
+ #include <UIAutomation.h>
 
  #if JUCE_MINGW
   #include <imm.h>
@@ -109,6 +103,12 @@
   #endif
  #endif
 
+ #include "native/accessibility/juce_win32_WindowsUIAWrapper.h"
+ #include "native/accessibility/juce_win32_AccessibilityElement.h"
+ #include "native/accessibility/juce_win32_UIAHelpers.h"
+ #include "native/accessibility/juce_win32_UIAProviders.h"
+ #include "native/accessibility/juce_win32_AccessibilityElement.cpp"
+ #include "native/accessibility/juce_win32_Accessibility.cpp"
  #include "native/juce_win32_Windowing.cpp"
  #include "native/juce_win32_DragAndDrop.cpp"
  #include "native/juce_win32_FileChooser.cpp"

@@ -30,13 +30,13 @@ namespace juce
 
     @tags{Accessibility}
 */
-struct TextEditorAccessibilityHandler  : public ComponentAccessibilityHandler
+struct TextEditorAccessibilityHandler  : public AccessibilityHandler
 {
     explicit TextEditorAccessibilityHandler (TextEditor& textEditorToWrap)
-        : ComponentAccessibilityHandler (textEditorToWrap,
-                                         textEditorToWrap.isReadOnly() ? AccessibilityRole::staticText : AccessibilityRole::editableText,
-                                         {}, {},
-                                         textEditorToWrap.isReadOnly() ? nullptr : std::make_unique<TextEditorTextInterface> (textEditorToWrap)),
+        : AccessibilityHandler (textEditorToWrap,
+                                textEditorToWrap.isReadOnly() ? AccessibilityRole::staticText : AccessibilityRole::editableText,
+                                {}, {},
+                                textEditorToWrap.isReadOnly() ? nullptr : std::make_unique<TextEditorTextInterface> (textEditorToWrap)),
           textEditor (textEditorToWrap)
     {
     }

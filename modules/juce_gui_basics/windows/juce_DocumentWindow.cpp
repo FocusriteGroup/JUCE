@@ -357,9 +357,4 @@ void DocumentWindow::userTriedToCloseWindow()
     closeButtonPressed();
 }
 
-std::unique_ptr<AccessibilityHandler> DocumentWindow::createAccessibilityHandler()
-{
-    return std::make_unique<DocumentWindowAccessibilityHandler> (*this);
-}
-
 } // namespace juce

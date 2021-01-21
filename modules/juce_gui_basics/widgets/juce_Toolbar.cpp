@@ -812,7 +812,7 @@ void Toolbar::showCustomisationDialog (ToolbarItemFactory& factory, const int op
 //==============================================================================
 std::unique_ptr<AccessibilityHandler> Toolbar::createAccessibilityHandler()
 {
-    return std::make_unique<ComponentAccessibilityHandler> (*this, AccessibilityRole::group);
+    return std::make_unique<AccessibilityHandler> (*this, AccessibilityRole::group);
 }
 
 } // namespace juce

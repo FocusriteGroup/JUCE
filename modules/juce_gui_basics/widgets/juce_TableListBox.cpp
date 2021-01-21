@@ -221,12 +221,12 @@ public:
 
     std::unique_ptr<AccessibilityHandler> createAccessibilityHandler() override
     {
-        return std::make_unique<RowComponentAccessibilityHandler> (*this);
+        return std::make_unique<RowAccessibilityHandler> (*this);
     }
 
 private:
     //==============================================================================
-    struct RowComponentAccessibilityHandler  : public ComponentAccessibilityHandler
+    struct RowAccessibilityHandler  : public AccessibilityHandler
     {
         static AccessibilityActions buildAccessibilityActions (RowComp& rowComponent)
         {
@@ -239,12 +239,12 @@ private:
                                          .addAction (AccessibilityActionType::deselect, [updateSelection] { updateSelection (false); });
         }
 
-        RowComponentAccessibilityHandler (RowComp& rowComp)
-            : ComponentAccessibilityHandler (rowComp,
-                                             AccessibilityRole::cell,
-                                             buildAccessibilityActions (rowComp),
-                                             {}, {}, {},
-                                             std::make_unique<RowComponentCellInterface> (*this)),
+        RowAccessibilityHandler (RowComp& rowComp)
+            : AccessibilityHandler (rowComp,
+                                    AccessibilityRole::cell,
+                                    buildAccessibilityActions (rowComp),
+                                    {}, {}, {},
+                                    std::make_unique<RowComponentCellInterface> (*this)),
               rowComponent (rowComp)
         {
         }
@@ -263,17 +263,15 @@ private:
                 if (rowComponent.row >= m->getNumRows())
                     return AccessibleState().withIgnored();
 
-            auto state = ComponentAccessibilityHandler::getCurrentState();
-
             if (rowComponent.isSelected)
-                return state.withFocused().withSelected();
+                return AccessibleState().withSelected();
 
-            return state;
+            return {};
         }
 
         struct RowComponentCellInterface  : public CellInterface
         {
-            RowComponentCellInterface (RowComponentAccessibilityHandler& handler)
+            RowComponentCellInterface (RowAccessibilityHandler& handler)
                 : owner (handler)
             {
             }
@@ -288,7 +286,7 @@ private:
 
             const AccessibilityHandler* getTableHandler() const override  { return owner.rowComponent.owner.getAccessibilityHandler(); }
 
-            RowComponentAccessibilityHandler& owner;
+            RowAccessibilityHandler& owner;
         };
 
         RowComp& rowComponent;

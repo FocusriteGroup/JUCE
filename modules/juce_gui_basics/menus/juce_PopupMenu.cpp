@@ -162,18 +162,27 @@ struct ItemComponent  : public Component
 
     std::unique_ptr<AccessibilityHandler> createAccessibilityHandler() override
     {
-        return std::make_unique<ItemComponentAccessibilityHandler> (*this);
+        return std::make_unique<ItemAccessibilityHandler> (*this);
     }
 
     PopupMenu::Item item;
 
 private:
     //==============================================================================
-    struct ItemComponentAccessibilityHandler  : public ComponentAccessibilityHandler
+    struct ItemAccessibilityHandler  : public AccessibilityHandler
     {
         static AccessibilityActions buildAccessibilityActions (ItemComponent& itemComponent)
         {
-            auto cancelFn = [&itemComponent] { itemComponent.setHighlighted (false); };
+            auto selectFn = [&itemComponent]
+            {
+                itemComponent.parentWindow.disableTimerUntilMouseMoves();
+                itemComponent.parentWindow.setCurrentlyHighlightedChild (&itemComponent);
+            };
+
+            auto cancelFn = [&itemComponent]
+            {
+                itemComponent.setHighlighted (false);
+            };
 
             auto pressFn = [&itemComponent]
             {
@@ -181,15 +190,14 @@ private:
                 itemComponent.parentWindow.triggerCurrentlyHighlightedItem();
             };
 
-            return AccessibilityActions().addAction (AccessibilityActionType::select,
-                                                     [&itemComponent] { itemComponent.parentWindow.setCurrentlyHighlightedChild (&itemComponent); })
+            return AccessibilityActions().addAction (AccessibilityActionType::select,   std::move (selectFn))
                                          .addAction (AccessibilityActionType::press,    std::move (pressFn))
                                          .addAction (AccessibilityActionType::deselect, cancelFn)
                                          .addAction (AccessibilityActionType::cancel,   cancelFn);
         }
 
-        explicit ItemComponentAccessibilityHandler (ItemComponent& itemComponentToWrap)
-            : ComponentAccessibilityHandler (itemComponentToWrap,
+        explicit ItemAccessibilityHandler (ItemComponent& itemComponentToWrap)
+            : AccessibilityHandler (itemComponentToWrap,
                                              AccessibilityRole::menuItem,
                                              buildAccessibilityActions (itemComponentToWrap)),
               itemComponent (itemComponentToWrap)
@@ -203,12 +211,10 @@ private:
 
         AccessibleState getCurrentState() const override
         {
-            auto state = ComponentAccessibilityHandler::getCurrentState();
-
             if (itemComponent.isHighlighted)
-                return state.withFocused().withSelected();
+                return AccessibleState().withSelected();
 
-            return state;
+            return {};
         }
 
         ItemComponent& itemComponent;
@@ -1173,10 +1179,10 @@ struct MenuWindow  : public Component
     bool isBottomScrollZoneActive() const noexcept  { return canScroll() && childYOffset < contentHeight - windowPos.getHeight(); }
 
     //==============================================================================
-    struct MenuWindowAccessibilityHandler  : public ComponentAccessibilityHandler
+    struct MenuWindowAccessibilityHandler  : public AccessibilityHandler
     {
         explicit MenuWindowAccessibilityHandler (MenuWindow& window)
-            : ComponentAccessibilityHandler (window, AccessibilityRole::popupMenu)
+            : AccessibilityHandler (window, AccessibilityRole::popupMenu)
         {
         }
 
@@ -1938,10 +1944,6 @@ struct PopupMenuCompletionCallback  : public ModalComponentManager::Callback
             managerOfChosenCommand->invoke (info, true);
         }
 
-        if (component != nullptr && ! component->isOnDesktop())
-            if (auto* handler = component->getAccessibilityHandler())
-                handler->notifyAccessibilityEvent (AccessibilityEvent::windowClosed);
-
         // (this would be the place to fade out the component, if that's what's required)
         component.reset();
 
@@ -1953,10 +1955,6 @@ struct PopupMenuCompletionCallback  : public ModalComponentManager::Callback
             if (prevFocused != nullptr && prevFocused->isShowing())
                 prevFocused->grabKeyboardFocus();
         }
-
-        if (auto* focus = Component::getCurrentlyFocusedComponent())
-            if (auto* handler = focus->getAccessibilityHandler())
-                handler->notifyAccessibilityEvent (AccessibilityEvent::focusChanged);
     }
 
     ApplicationCommandManager* managerOfChosenCommand = nullptr;
@@ -1983,15 +1981,6 @@ int PopupMenu::showWithOptionalCallback (const Options& options,
 
         window->toFront (false);  // need to do this after making it modal, or it could
                                   // be stuck behind other comps that are already modal..
-
-        if (options.getParentComponent() != nullptr)
-        {
-            if (auto* handler = window->getAccessibilityHandler())
-            {
-                handler->notifyAccessibilityEvent (AccessibilityEvent::windowOpened);
-                handler->notifyAccessibilityEvent (AccessibilityEvent::focusChanged);
-            }
-        }
 
        #if JUCE_MODAL_LOOPS_PERMITTED
         if (userCallback == nullptr && canBeModal)

@@ -273,8 +273,6 @@ public:
     void parentHierarchyChanged() override;
     /** @internal */
     Rectangle<int> getTitleBarArea();
-    /** @internal */
-    std::unique_ptr<AccessibilityHandler> createAccessibilityHandler() override;
    #endif
 
 private:

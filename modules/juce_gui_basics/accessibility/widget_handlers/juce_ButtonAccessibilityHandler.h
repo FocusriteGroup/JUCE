@@ -30,19 +30,19 @@ namespace juce
 
     @tags{Accessibility}
 */
-struct ButtonAccessibilityHandler  : public ComponentAccessibilityHandler
+struct ButtonAccessibilityHandler  : public AccessibilityHandler
 {
     explicit ButtonAccessibilityHandler (Button& buttonToWrap)
-        : ComponentAccessibilityHandler (buttonToWrap,
-                                         AccessibilityRole::button,
-                                         buildAccessibilityActions (buttonToWrap)),
+        : AccessibilityHandler (buttonToWrap,
+                                AccessibilityRole::button,
+                                buildAccessibilityActions (buttonToWrap)),
           button (buttonToWrap)
     {
     }
 
     AccessibleState getCurrentState() const override
     {
-        auto state = ComponentAccessibilityHandler::getCurrentState();
+        auto state = AccessibilityHandler::getCurrentState();
 
         if (button.getClickingTogglesState() && button.getToggleState())
             return state.withToggled();

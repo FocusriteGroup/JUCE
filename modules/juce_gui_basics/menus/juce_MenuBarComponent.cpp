@@ -358,7 +358,7 @@ void MenuBarComponent::timerCallback()
 //==============================================================================
 std::unique_ptr<AccessibilityHandler> MenuBarComponent::createAccessibilityHandler()
 {
-    return std::make_unique<ComponentAccessibilityHandler> (*this, AccessibilityRole::menuBar);
+    return std::make_unique<AccessibilityHandler> (*this, AccessibilityRole::menuBar);
 }
 
 } // namespace juce

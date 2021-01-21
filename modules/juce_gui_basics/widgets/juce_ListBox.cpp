@@ -151,7 +151,7 @@ public:
     }
 
     //==============================================================================
-    struct RowComponentAccessibilityHandler  : public ComponentAccessibilityHandler
+    struct RowAccessibilityHandler  : public AccessibilityHandler
     {
         static AccessibilityActions buildAccessibilityActions (RowComponent& rowComponent)
         {
@@ -162,8 +162,8 @@ public:
                                          .addAction (AccessibilityActionType::press,    [&rowComponent]   { rowComponent.owner.selectRow (rowComponent.row); });
         }
 
-        explicit RowComponentAccessibilityHandler (RowComponent& rowComponentToWrap)
-            : ComponentAccessibilityHandler (rowComponentToWrap,
+        explicit RowAccessibilityHandler (RowComponent& rowComponentToWrap)
+            : AccessibilityHandler (rowComponentToWrap,
                                              AccessibilityRole::listItem,
                                              buildAccessibilityActions (rowComponentToWrap)),
               rowComponent (rowComponentToWrap)
@@ -184,12 +184,10 @@ public:
                 if (rowComponent.row >= m->getNumRows())
                     return AccessibleState().withIgnored();
 
-            auto state = ComponentAccessibilityHandler::getCurrentState();
-
             if (rowComponent.selected)
-                return state.withFocused().withSelected();
+                return AccessibleState().withSelected();
 
-            return state;
+            return {};
         }
 
         RowComponent& rowComponent;
@@ -197,7 +195,7 @@ public:
 
     std::unique_ptr<AccessibilityHandler> createAccessibilityHandler() override
     {
-        return std::make_unique<RowComponentAccessibilityHandler> (*this);
+        return std::make_unique<RowAccessibilityHandler> (*this);
     }
 
     //==============================================================================
@@ -991,7 +989,7 @@ void ListBox::startDragAndDrop (const MouseEvent& e, const SparseSet<int>& rowsT
 
 std::unique_ptr<AccessibilityHandler> ListBox::createAccessibilityHandler()
 {
-    return std::make_unique<ComponentAccessibilityHandler> (*this, AccessibilityRole::list);
+    return std::make_unique<AccessibilityHandler> (*this, AccessibilityRole::list);
 }
 
 //==============================================================================

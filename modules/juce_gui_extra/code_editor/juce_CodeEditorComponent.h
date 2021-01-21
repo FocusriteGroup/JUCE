@@ -406,7 +406,7 @@ private:
     class GutterComponent;
     std::unique_ptr<GutterComponent> gutter;
 
-    struct CodeEditorComponentAccessibilityHandler;
+    struct CodeEditorAccessibilityHandler;
 
     enum DragType
     {

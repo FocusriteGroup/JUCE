@@ -30,13 +30,13 @@ namespace juce
 
     @tags{Accessibility}
 */
-struct TableListBoxAccessibilityHandler  : public ComponentAccessibilityHandler
+struct TableListBoxAccessibilityHandler  : public AccessibilityHandler
 {
     explicit TableListBoxAccessibilityHandler (TableListBox& tableListBoxToWrap)
-        : ComponentAccessibilityHandler (tableListBoxToWrap,
-                                         AccessibilityRole::table,
-                                         {}, {}, {},
-                                         std::make_unique<TableListBoxTableInterface> (tableListBoxToWrap))
+        : AccessibilityHandler (tableListBoxToWrap,
+                                AccessibilityRole::table,
+                                {}, {}, {},
+                                std::make_unique<TableListBoxTableInterface> (tableListBoxToWrap))
     {
     }
 

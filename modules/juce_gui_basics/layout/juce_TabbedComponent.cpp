@@ -313,7 +313,7 @@ void TabbedComponent::popupMenuClickOnTab (int, const String&) {}
 //==============================================================================
 std::unique_ptr<AccessibilityHandler> TabbedComponent::createAccessibilityHandler()
 {
-    return std::make_unique<ComponentAccessibilityHandler> (*this, AccessibilityRole::group);
+    return std::make_unique<AccessibilityHandler> (*this, AccessibilityRole::group);
 }
 
 } // namespace juce

@@ -246,8 +246,8 @@ public:
     */
     virtual bool setAlwaysOnTop (bool alwaysOnTop) = 0;
 
-    /** Brings the window to the top, optionally also giving it focus. */
-    virtual void toFront (bool makeActive) = 0;
+    /** Brings the window to the top, optionally also giving it keyboard focus. */
+    virtual void toFront (bool takeKeyboardFocus) = 0;
 
     /** Moves the window to be just behind another one. */
     virtual void toBehind (ComponentPeer* other) = 0;

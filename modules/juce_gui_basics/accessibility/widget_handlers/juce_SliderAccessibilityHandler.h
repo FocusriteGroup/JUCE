@@ -30,13 +30,13 @@ namespace juce
 
     @tags{Accessibility}
 */
-struct SliderAccessibilityHandler  : public ComponentAccessibilityHandler
+struct SliderAccessibilityHandler  : public AccessibilityHandler
 {
     explicit SliderAccessibilityHandler (Slider& sliderToWrap)
-        : ComponentAccessibilityHandler (sliderToWrap,
-                                         AccessibilityRole::slider,
-                                         {},
-                                         std::make_unique<SliderValueInterface> (sliderToWrap))
+        : AccessibilityHandler (sliderToWrap,
+                                AccessibilityRole::slider,
+                                {},
+                                std::make_unique<SliderValueInterface> (sliderToWrap))
     {
     }
 

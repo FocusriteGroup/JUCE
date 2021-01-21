@@ -28,105 +28,77 @@ namespace juce
 
 namespace KeyboardFocusHelpers
 {
-    static int getOrder (const Component* c)
+    template <FocusHelpers::NavigationDirection>
+    static Component* traverse (ComponentTraverser&, Component*)
     {
-        auto order = c->getExplicitFocusOrder();
-        return order > 0 ? order : (std::numeric_limits<int>::max() / 2);
+        return nullptr;
     }
 
-    static void findAllFocusableComponents (Component* parent, Array<Component*>& comps)
+    template <>
+    Component* traverse<FocusHelpers::NavigationDirection::forwards> (ComponentTraverser& traverser, Component* currentComponent)
     {
-        if (parent->getNumChildComponents() != 0)
+        return traverser.getNextComponent (currentComponent);
+    }
+
+    template <>
+    Component* traverse<FocusHelpers::NavigationDirection::backwards> (ComponentTraverser& traverser, Component* currentComponent)
+    {
+        return traverser.getPreviousComponent (currentComponent);
+    }
+
+    template <FocusHelpers::NavigationDirection direction>
+    static Component* findComponent (ComponentTraverser& traverser, Component* currentComponent)
+    {
+        if (auto* comp = traverse<direction> (traverser, currentComponent))
         {
-            Array<Component*> localComps;
+            if (comp->getWantsKeyboardFocus())
+                return comp;
 
-            for (auto* c : parent->getChildren())
-                if (c->isVisible() && c->isEnabled())
-                    localComps.add (c);
-
-            // This will sort so that they are ordered in terms of left-to-right
-            // and then top-to-bottom.
-            std::stable_sort (localComps.begin(), localComps.end(),
-                              [] (const Component* a, const Component* b)
-            {
-                auto explicitOrder1 = getOrder (a);
-                auto explicitOrder2 = getOrder (b);
-
-                if (explicitOrder1 != explicitOrder2)
-                    return explicitOrder1 < explicitOrder2;
-
-                if (a->getY() != b->getY())
-                    return a->getY() < b->getY();
-
-                return a->getX() < b->getX();
-            });
-
-            for (auto* c : localComps)
-            {
-                if (c->getWantsKeyboardFocus())
-                    comps.add (c);
-
-                if (! c->isFocusContainer())
-                    findAllFocusableComponents (c, comps);
-            }
+            return findComponent<direction> (traverser, comp);
         }
+
+        return nullptr;
     }
 
-    static Component* findFocusContainer (Component* c)
+    template <FocusHelpers::NavigationDirection direction>
+    static Component* getComponent (Component* current)
     {
-        c = c->getParentComponent();
+        jassert (current != nullptr);
 
-        if (c != nullptr)
-            while (c->getParentComponent() != nullptr && ! c->isFocusContainer())
-                c = c->getParentComponent();
-
-        return c;
-    }
-
-    static Component* getIncrementedComponent (Component* current, int delta)
-    {
-        if (auto* focusContainer = findFocusContainer (current))
-        {
-            Array<Component*> comps;
-            KeyboardFocusHelpers::findAllFocusableComponents (focusContainer, comps);
-
-            if (! comps.isEmpty())
-            {
-                auto index = comps.indexOf (current) + delta;
-
-                if (isPositiveAndBelow (index, comps.size()))
-                    return comps[index];
-            }
-        }
+        if (auto focusTraverser = current->createFocusTraverser())
+            return findComponent<direction> (*focusTraverser, current);
 
         return nullptr;
     }
 }
 
 //==============================================================================
-KeyboardFocusTraverser::KeyboardFocusTraverser() {}
-KeyboardFocusTraverser::~KeyboardFocusTraverser() {}
-
 Component* KeyboardFocusTraverser::getNextComponent (Component* current)
 {
-    jassert (current != nullptr);
-    return KeyboardFocusHelpers::getIncrementedComponent (current, 1);
+    return KeyboardFocusHelpers::getComponent<FocusHelpers::NavigationDirection::forwards> (current);
 }
 
 Component* KeyboardFocusTraverser::getPreviousComponent (Component* current)
 {
-    jassert (current != nullptr);
-    return KeyboardFocusHelpers::getIncrementedComponent (current, -1);
+    return KeyboardFocusHelpers::getComponent<FocusHelpers::NavigationDirection::backwards> (current);
 }
 
 Component* KeyboardFocusTraverser::getDefaultComponent (Component* parentComponent)
 {
-    Array<Component*> comps;
+    jassert (parentComponent != nullptr);
 
-    if (parentComponent != nullptr)
-        KeyboardFocusHelpers::findAllFocusableComponents (parentComponent, comps);
+    if (auto focusTraverser = parentComponent->createFocusTraverser())
+    {
+        if (auto* defaultComponent = focusTraverser->getDefaultComponent (parentComponent))
+        {
+            if (defaultComponent->getWantsKeyboardFocus())
+                return defaultComponent;
 
-    return comps.getFirst();
+            return KeyboardFocusHelpers::findComponent<FocusHelpers::NavigationDirection::forwards> (*focusTraverser, defaultComponent);
+        }
+    }
+
+    return nullptr;
 }
 
 } // namespace juce

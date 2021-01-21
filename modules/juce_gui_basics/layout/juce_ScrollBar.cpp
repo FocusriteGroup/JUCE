@@ -443,7 +443,7 @@ bool ScrollBar::getVisibility() const noexcept
 //==============================================================================
 std::unique_ptr<AccessibilityHandler> ScrollBar::createAccessibilityHandler()
 {
-    return std::make_unique<ComponentAccessibilityHandler> (*this, AccessibilityRole::scrollBar);
+    return std::make_unique<AccessibilityHandler> (*this, AccessibilityRole::scrollBar);
 }
 
 } // namespace juce

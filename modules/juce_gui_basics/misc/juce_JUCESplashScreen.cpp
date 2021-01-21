@@ -191,7 +191,7 @@ void JUCESplashScreen::mouseUp (const MouseEvent&)
 //==============================================================================
 std::unique_ptr<AccessibilityHandler> JUCESplashScreen::createAccessibilityHandler()
 {
-    return std::make_unique<ComponentAccessibilityHandler> (*this, AccessibilityRole::splashScreen);
+    return std::make_unique<AccessibilityHandler> (*this, AccessibilityRole::splashScreen);
 }
 
 // END SECTION A

@@ -217,11 +217,12 @@ public:
         then they will still be kept in front of this one (unless of course this
         one is also 'always-on-top').
 
-        @param shouldAlsoGainFocus  if true, this will also try to assign keyboard focus
-                                    to the component (see grabKeyboardFocus() for more details)
+        @param shouldAlsoGainKeyboardFocus  if true, this will also try to assign
+                                            keyboard focus to the component (see
+                                            grabKeyboardFocus() for more details)
         @see toBack, toBehind, setAlwaysOnTop
     */
-    void toFront (bool shouldAlsoGainFocus);
+    void toFront (bool shouldAlsoGainKeyboardFocus);
 
     /** Changes this component's z-order to be at the back of all its siblings.
 
@@ -1203,11 +1204,58 @@ public:
     bool isBroughtToFrontOnMouseClick() const noexcept;
 
     //==============================================================================
-    // Keyboard focus methods
+    // Focus methods
 
-    /** Sets a flag to indicate whether this component needs keyboard focus or not.
+    /** Sets the focus order of this component.
 
-        By default components aren't actually interested in gaining the
+        The focus order is used by the default traverser implementation returned by
+        createFocusTraverser() as part of its algorithm for deciding the order in
+        which components should be traversed. A value of 0 or less is taken to mean
+        that no explicit order is wanted, and that traversal should use other
+        factors, like the component's position.
+
+        @see getExplicitFocusOrder, FocusTraverser, createFocusTraverser
+    */
+    void setExplicitFocusOrder (int newFocusOrderIndex);
+
+    /** Returns the focus order of this component, if one has been specified.
+
+        By default components don't have a focus order - in that case, this will
+        return 0.
+
+        @see setExplicitFocusOrder
+    */
+    int getExplicitFocusOrder() const;
+
+    /** Sets whether this component is a container for components that can have
+        their focus traversed.
+
+        This flag is used by the default traverser implementation returned by
+        createFocusTraverser() to find the first parent component (of the currently
+        focused one) which wants to be a focus container, so using this method to
+        set the flag to 'true' causes this component to act as the top-level
+        container within which focus is passed around.
+
+        @see isFocusContainer, FocusTraverser, createFocusTraverser
+    */
+    void setFocusContainer (bool shouldBeFocusContainer) noexcept;
+
+    /** Returns true if this component has been marked as a focus container.
+
+       @see setFocusContainer
+    */
+    bool isFocusContainer() const noexcept;
+
+    /** Returns the focus container for this component.
+
+        @see isFocusContainer, setFocusContainer
+    */
+    Component* findFocusContainer() const;
+
+    //==============================================================================
+    /** Sets a flag to indicate whether this component wants keyboard focus or not.
+
+        By default components aren't actually interested in gaining the keyboard
         focus, but this method can be used to turn this on.
 
         See the grabKeyboardFocus() method for details about the way a component
@@ -1219,39 +1267,39 @@ public:
 
     /** Returns true if the component is interested in getting keyboard focus.
 
-        This returns the flag set by setWantsKeyboardFocus(). The default
-        setting is false.
+        This returns the flag set by setWantsKeyboardFocus(). The default setting
+        is false.
 
         @see setWantsKeyboardFocus
     */
     bool getWantsKeyboardFocus() const noexcept;
 
-    //==============================================================================
     /** Chooses whether a click on this component automatically grabs the focus.
 
         By default this is set to true, but you might want a component which can
-        be focused, but where you don't want the user to be able to affect it directly
-        by clicking.
+        be focused, but where you don't want the user to be able to affect it
+        directly by clicking.
     */
     void setMouseClickGrabsKeyboardFocus (bool shouldGrabFocus);
 
     /** Returns the last value set with setMouseClickGrabsKeyboardFocus().
-        See setMouseClickGrabsKeyboardFocus() for more info.
+
+        @see setMouseClickGrabsKeyboardFocus
     */
     bool getMouseClickGrabsKeyboardFocus() const noexcept;
 
-    //==============================================================================
     /** Tries to give keyboard focus to this component.
 
-        When the user clicks on a component or its grabKeyboardFocus()
-        method is called, the following procedure is used to work out which
-        component should get it:
+        When the user clicks on a component or its grabKeyboardFocus() method is
+        called, the following procedure is used to work out which component should
+        get it:
 
         - if the component that was clicked on actually wants focus (as indicated
           by calling getWantsKeyboardFocus), it gets it.
         - if the component itself doesn't want focus, it will try to pass it
           on to whichever of its children is the default component, as determined by
-          KeyboardFocusTraverser::getDefaultComponent()
+          the getDefaultComponent() implemetation of the ComponentTraverser returned
+          by createKeyboardFocusTraverser().
         - if none of its children want focus at all, it will pass it up to its
           parent instead, unless it's a top-level component without a parent,
           in which case it just takes the focus itself.
@@ -1279,21 +1327,13 @@ public:
     */
     bool hasKeyboardFocus (bool trueIfChildIsFocused) const;
 
-    /** Returns the component that currently has the keyboard focus.
-        @returns the focused component, or null if nothing is focused.
-    */
-    static Component* JUCE_CALLTYPE getCurrentlyFocusedComponent() noexcept;
-
-    /** If any component has keyboard focus, this will defocus it. */
-    static void JUCE_CALLTYPE unfocusAllComponents();
-
-    //==============================================================================
     /** Tries to move the keyboard focus to one of this component's siblings.
 
-        This will try to move focus to either the next or previous component. (This
-        is the method that is used when shifting focus by pressing the tab key).
+        This will try to move focus to either the next or previous component, as
+        determined by the getNextComponent() and getPreviousComponent() implemetations
+        of the ComponentTraverser returned by createKeyboardFocusTraverser().
 
-        Components for which getWantsKeyboardFocus() returns false are not looked at.
+        This is the method that is used when shifting focus by pressing the tab key.
 
         @param moveToNext   if true, the focus will move forwards; if false, it will
                             move backwards
@@ -1301,67 +1341,42 @@ public:
     */
     void moveKeyboardFocusToSibling (bool moveToNext);
 
-    /** Creates a KeyboardFocusTraverser object to use to determine the logic by
-        which focus should be passed from this component.
+    /** Returns the component that currently has the keyboard focus.
 
-        The default implementation of this method will return a default
-        KeyboardFocusTraverser if this component is a focus container (as determined
-        by the setFocusContainer() method). If the component isn't a focus
-        container, then it will recursively ask its parents for a KeyboardFocusTraverser.
-
-        If you override this to return a custom KeyboardFocusTraverser, then
-        this component and all its sub-components will use the new object to
-        make their focusing decisions.
+        @returns the focused component, or nullptr if nothing is focused.
     */
-    virtual std::unique_ptr<KeyboardFocusTraverser> createFocusTraverser();
+    static Component* JUCE_CALLTYPE getCurrentlyFocusedComponent() noexcept;
 
-    /** Returns the focus order of this component, if one has been specified.
+    /** If any component has keyboard focus, this will defocus it. */
+    static void JUCE_CALLTYPE unfocusAllComponents();
 
-        By default components don't have a focus order - in that case, this
-        will return 0. Lower numbers indicate that the component will be
-        earlier in the focus traversal order.
+    //==============================================================================
+    /** Creates a ComponentTraverser object to use to determine the logic by which focus
+        should be passed from this component.
 
-        To change the order, call setExplicitFocusOrder().
+        The default implementation of this method will return an instance of FocusTraverser
+        if this component is a focus container (as determined by the setFocusContainer() method).
+        If the component isn't a focus container, then it will recursively call
+        createFocusTraverser() on its parents.
 
-        The focus order may be used by the KeyboardFocusTraverser class as part of
-        its algorithm for deciding the order in which components should be traversed.
-        See the KeyboardFocusTraverser class for more details on this.
-
-        @see moveKeyboardFocusToSibling, createFocusTraverser, KeyboardFocusTraverser
+        If you override this to return a custom traverser object, then this component and
+        all its sub-components will use the new object to make their focusing decisions.
     */
-    int getExplicitFocusOrder() const;
+    virtual std::unique_ptr<ComponentTraverser> createFocusTraverser();
 
-    /** Sets the index used in determining the order in which focusable components
-        should be traversed.
+    /** Creates a ComponentTraverser object to use to determine the logic by which keyboard
+        focus should be passed from this component.
 
-        A value of 0 or less is taken to mean that no explicit order is wanted, and
-        that traversal should use other factors, like the component's position.
+        The default implementation of this method will return an instance of
+        KeyboardFocusTraverser if this component is a focus container (as determined by the
+        setFocusContainer() method). If the component isn't a focus container, then it will
+        recursively call createKeyboardFocusTraverser() on its parents.
 
-        @see getExplicitFocusOrder, moveKeyboardFocusToSibling
+        If you override this to return a custom traverser object, then this component and
+        all its sub-components will use the new object to make their keyboard focusing
+        decisions.
     */
-    void setExplicitFocusOrder (int newFocusOrderIndex);
-
-    /** Indicates whether this component is a parent for components that can have
-        their focus traversed.
-
-        This flag is used by the default implementation of the createFocusTraverser()
-        method, which uses the flag to find the first parent component (of the currently
-        focused one) which wants to be a focus container.
-
-        So using this method to set the flag to 'true' causes this component to
-        act as the top level within which focus is passed around.
-
-        @see isFocusContainer, createFocusTraverser, moveKeyboardFocusToSibling
-    */
-    void setFocusContainer (bool shouldBeFocusContainer) noexcept;
-
-    /** Returns true if this component has been marked as a focus container.
-
-        See setFocusContainer() for more details.
-
-        @see setFocusContainer, moveKeyboardFocusToSibling, createFocusTraverser
-    */
-    bool isFocusContainer() const noexcept;
+    virtual std::unique_ptr<ComponentTraverser> createKeyboardFocusTraverser();
 
     //==============================================================================
     /** Returns true if the component (and all its parents) are enabled.
@@ -2290,7 +2305,7 @@ public:
 
     /** Sets the description for this component.
 
-        If this component supports accessibility using the default ComponentAccessibilityHandler
+        If this component supports accessibility using the default AccessibilityHandler
         implementation, this string will be passed to accessibility clients requesting a
         description, and may be read out by a screen reader.
 
@@ -2306,7 +2321,7 @@ public:
 
     /** Sets the help text for this component.
 
-        If this component supports accessibility using the default ComponentAccessibilityHandler
+        If this component supports accessibility using the default AccessibilityHandler
         implementation, this string will be passed to accessibility clients requesting help text,
         and may be read out by a screen reader.
 
@@ -2329,10 +2344,10 @@ private:
     //==============================================================================
     /** Override this method to return a custom AccessibilityHandler for this component.
 
-        The default implementation creates and returns a ComponentAccessibilityHandler
+        The default implementation creates and returns a AccessibilityHandler
         object with an unspecified role, meaning it will be visible to accessibility clients
         but without a specific role, action callbacks or interfaces. To control how accessibility
-        clients see and interact with your component, subclass ComponentAccessibilityHandler,
+        clients see and interact with your component, subclass AccessibilityHandler,
         implement the desired behaviours, and return an instance of it from this overridden method
         in your component subclass.
 
@@ -2378,15 +2393,15 @@ private:
         bool opaqueFlag                 : 1;
         bool ignoresMouseClicksFlag     : 1;
         bool allowChildMouseClicksFlag  : 1;
-        bool wantsFocusFlag             : 1;
+        bool wantsKeyboardFocusFlag     : 1;
         bool isFocusContainerFlag       : 1;
+        bool childKeyboardFocusedFlag   : 1;
         bool dontFocusOnMouseClickFlag  : 1;
         bool alwaysOnTopFlag            : 1;
         bool bufferToImageFlag          : 1;
         bool bringToFrontOnClickFlag    : 1;
         bool repaintOnMouseActivityFlag : 1;
         bool isDisabledFlag             : 1;
-        bool childCompFocusedFlag       : 1;
         bool dontClipGraphicsFlag       : 1;
         bool mouseDownWasBlocked        : 1;
         bool isMoveCallbackPending      : 1;
@@ -2415,10 +2430,10 @@ private:
     void internalMouseWheel (MouseInputSource, Point<float>, Time, const MouseWheelDetails&);
     void internalMagnifyGesture (MouseInputSource, Point<float>, Time, float);
     void internalBroughtToFront();
-    void internalFocusGain (FocusChangeType, const WeakReference<Component>&);
-    void internalFocusGain (FocusChangeType);
-    void internalFocusLoss (FocusChangeType);
-    void internalChildFocusChange (FocusChangeType, const WeakReference<Component>&);
+    void internalKeyboardFocusGain (FocusChangeType, const WeakReference<Component>&);
+    void internalKeyboardFocusGain (FocusChangeType);
+    void internalKeyboardFocusLoss (FocusChangeType);
+    void internalChildKeyboardFocusChange (FocusChangeType, const WeakReference<Component>&);
     void internalModalInputAttempt();
     void internalModifierKeysChanged();
     void internalChildrenChanged();
@@ -2434,8 +2449,8 @@ private:
     void repaintParent();
     void sendFakeMouseMove() const;
     void takeKeyboardFocus (FocusChangeType);
-    void grabFocusInternal (FocusChangeType, bool canTryParent);
-    static void giveAwayFocus (bool sendFocusLossEvent);
+    void grabKeyboardFocusInternal (FocusChangeType, bool canTryParent);
+    static void giveAwayKeyboardFocus (bool sendFocusLossEvent);
     void sendEnablementChangeMessage();
     void sendVisibilityChangeMessage();
 
