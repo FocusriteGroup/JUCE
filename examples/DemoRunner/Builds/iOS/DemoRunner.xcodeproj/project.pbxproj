@@ -121,10 +121,6 @@
 			isa = PBXBuildFile;
 			fileRef = 260481E972425474BB8155B0;
 		};
-		661FE35CFA52C4286FB3D435 = {
-			isa = PBXBuildFile;
-			fileRef = CDA070E9C031CE70A11A6289;
-		};
 		C2BB2B6DA237FE0CB64C7EDA = {
 			isa = PBXBuildFile;
 			fileRef = 5965349393850F41DF76F350;
@@ -545,13 +541,6 @@
 			path = "../../JuceLibraryCode/include_juce_video.mm";
 			sourceTree = "SOURCE_ROOT";
 		};
-		92CAE376A389BDCE29BF1323 = {
-			isa = PBXFileReference;
-			lastKnownFileType = file;
-			name = "juce_accessibility";
-			path = "../../../../modules/juce_accessibility";
-			sourceTree = "SOURCE_ROOT";
-		};
 		934ACDCB3FD9D223A3481D8F = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.cpp.cpp;
@@ -641,13 +630,6 @@
 			lastKnownFileType = sourcecode.cpp.objcpp;
 			name = "include_juce_dsp.mm";
 			path = "../../JuceLibraryCode/include_juce_dsp.mm";
-			sourceTree = "SOURCE_ROOT";
-		};
-		CDA070E9C031CE70A11A6289 = {
-			isa = PBXFileReference;
-			lastKnownFileType = sourcecode.cpp.objcpp;
-			name = "include_juce_accessibility.mm";
-			path = "../../JuceLibraryCode/include_juce_accessibility.mm";
 			sourceTree = "SOURCE_ROOT";
 		};
 		CE38E6469D98462A2C22C915 = {
@@ -822,7 +804,6 @@
 		5A0B2CEF393A25C6D4B1B76C = {
 			isa = PBXGroup;
 			children = (
-				92CAE376A389BDCE29BF1323,
 				112FFCB73597157E721BCDF2,
 				6847A9B2C5E3C2ED56D8D4E7,
 				60F2869DC345EAF2314D6C09,
@@ -850,7 +831,6 @@
 		61F3057D838D7DABB0FA3D34 = {
 			isa = PBXGroup;
 			children = (
-				CDA070E9C031CE70A11A6289,
 				5965349393850F41DF76F350,
 				03B0F9318FD583525AB195A9,
 				03A63C3CA6F24977F19C316D,
@@ -956,7 +936,6 @@
 					"JUCE_DISPLAY_SPLASH_SCREEN=0",
 					"JUCE_USE_DARK_SPLASH_SCREEN=1",
 					"JUCE_PROJUCER_VERSION=0x60005",
-					"JUCE_MODULE_AVAILABLE_juce_accessibility=1",
 					"JUCE_MODULE_AVAILABLE_juce_analytics=1",
 					"JUCE_MODULE_AVAILABLE_juce_audio_basics=1",
 					"JUCE_MODULE_AVAILABLE_juce_audio_devices=1",
@@ -1038,7 +1017,6 @@
 					"JUCE_DISPLAY_SPLASH_SCREEN=0",
 					"JUCE_USE_DARK_SPLASH_SCREEN=1",
 					"JUCE_PROJUCER_VERSION=0x60005",
-					"JUCE_MODULE_AVAILABLE_juce_accessibility=1",
 					"JUCE_MODULE_AVAILABLE_juce_analytics=1",
 					"JUCE_MODULE_AVAILABLE_juce_audio_basics=1",
 					"JUCE_MODULE_AVAILABLE_juce_audio_devices=1",
@@ -1240,7 +1218,6 @@
 				71DF4F5EB4C8305688416725,
 				4FBBB55F4E347757F74F1F41,
 				F619F3887CEC064441BB6EE6,
-				661FE35CFA52C4286FB3D435,
 				C2BB2B6DA237FE0CB64C7EDA,
 				F28112945CEBEA4CE8975833,
 				9EACEA6BE8D0ACC72C12C080,
