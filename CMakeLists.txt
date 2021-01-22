@@ -52,7 +52,6 @@ set(JUCE_LIBRARY_CODE
 if (APPLE)
     set(JUCE_LIBRARY_CODE
         ${JUCE_LIBRARY_CODE}
-        JuceLibraryCode/juce/include_juce_accessibility.mm
         JuceLibraryCode/juce/include_juce_analytics.cpp
         JuceLibraryCode/juce/include_juce_audio_basics.mm
         JuceLibraryCode/juce/include_juce_audio_devices.mm
@@ -71,7 +70,6 @@ if (APPLE)
 else()
     set(JUCE_LIBRARY_CODE
         ${JUCE_LIBRARY_CODE}
-        JuceLibraryCode/juce/include_juce_accessibility.cpp
         JuceLibraryCode/juce/include_juce_analytics.cpp
         JuceLibraryCode/juce/include_juce_audio_basics.cpp
         JuceLibraryCode/juce/include_juce_audio_devices.cpp
@@ -158,22 +156,22 @@ set_target_properties(jucelib PROPERTIES
 
 if (APPLE)
     target_link_libraries(jucelib PUBLIC
-            "-framework Accelerate"
-            "-framework AppKit"
-            "-framework AudioToolbox"
-            "-framework AVKit"
-            "-framework AVFoundation"
-            "-framework CoreAudio"
-            "-framework CoreFoundation"
-            "-framework CoreGraphics"
-            "-framework CoreImage"
-            "-framework CoreMedia"
-            "-framework CoreMIDI"
-            "-framework CoreServices"
-            "-framework CoreText"
-            "-framework ImageIO"
-            "-framework IOKit"
-            "-framework WebKit"
+        "-framework Accelerate"
+        "-framework AppKit"
+        "-framework AudioToolbox"
+        "-framework AVKit"
+        "-framework AVFoundation"
+        "-framework CoreAudio"
+        "-framework CoreFoundation"
+        "-framework CoreGraphics"
+        "-framework CoreImage"
+        "-framework CoreMedia"
+        "-framework CoreMIDI"
+        "-framework CoreServices"
+        "-framework CoreText"
+        "-framework ImageIO"
+        "-framework IOKit"
+        "-framework WebKit"
     )
 
     target_compile_options(jucelib PRIVATE
