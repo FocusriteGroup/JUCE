@@ -3,8 +3,8 @@ cmake_minimum_required(VERSION 3.12 FATAL_ERROR)
 # ------------------------------------------------------------------------------
 # Include cmake-common
 # ------------------------------------------------------------------------------
-        
-set(CMAKE_MODULE_PATH 
+
+set(CMAKE_MODULE_PATH
     ${CMAKE_MODULE_PATH}
     ${CMAKE_CURRENT_SOURCE_DIR}/libs/cmake-common
 )
@@ -14,7 +14,7 @@ include(cmake-common)
 # ------------------------------------------------------------------------------
 # Add CMAKE_BUILD_TYPE variable
 # ------------------------------------------------------------------------------
-        
+
 if (NOT CMAKE_BUILD_TYPE)
     set (CMAKE_BUILD_TYPE "Debug"  CACHE STRING "Choose the type of build." FORCE)
 endif (NOT CMAKE_BUILD_TYPE)
@@ -22,7 +22,7 @@ endif (NOT CMAKE_BUILD_TYPE)
 # ------------------------------------------------------------------------------
 # Source files
 # ------------------------------------------------------------------------------
-        
+
 file(GLOB_RECURSE JUCE_MODULE_HEADERS CONFIGURE_DEPENDS modules/*.h)
 file(GLOB_RECURSE JUCE_MODULE_SOURCES CONFIGURE_DEPENDS modules/*.cpp)
 
@@ -34,7 +34,7 @@ foreach(SOURCE ${JUCE_MODULE_HEADERS} ${JUCE_MODULE_SOURCES})
 endforeach(SOURCE)
 
 source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR}/modules
-    PREFIX juce_modules 
+    PREFIX juce_modules
     FILES ${JUCE_MODULE_HEADERS} ${JUCE_MODULE_SOURCES}
 )
 
@@ -81,16 +81,16 @@ else()
     )
 endif()
 
-source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR}/JuceLibraryCode 
-    PREFIX JuceLibraryCode 
+source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR}/JuceLibraryCode
+    PREFIX JuceLibraryCode
     FILES ${JUCE_LIBRARY_CODE}
 )
 
 # ------------------------------------------------------------------------------
 # jucelib library
 # ------------------------------------------------------------------------------
-        
-add_library(jucelib 
+
+add_library(jucelib
     ${JUCE_LIBRARY_CODE}
     ${JUCE_MODULE_HEADERS}
     ${JUCE_MODULE_SOURCES}
@@ -169,27 +169,27 @@ if (APPLE)
     )
 
     target_compile_options(jucelib PRIVATE
-        -fno-common 
-        -Wswitch 
-        -Wunused-variable 
-        -Wparentheses 
-        -Wnon-virtual-dtor 
-        -Wshorten-64-to-32 
-        -Wundeclared-selector 
-        -Wuninitialized 
-        -Wunused-function 
-        -Wbool-conversion 
-        -Wcomma 
-        -Wconstant-conversion 
-        -Wempty-body 
-        -Wenum-conversion 
-        -Winfinite-recursion 
-        -Wint-conversion 
-        -Wrange-loop-analysis 
-        -Wstrict-prototypes 
-        -Wmove 
-        -Wunreachable-code 
-        -Wduplicate-method-match 
+        -fno-common
+        -Wswitch
+        -Wunused-variable
+        -Wparentheses
+        -Wnon-virtual-dtor
+        -Wshorten-64-to-32
+        -Wundeclared-selector
+        -Wuninitialized
+        -Wunused-function
+        -Wbool-conversion
+        -Wcomma
+        -Wconstant-conversion
+        -Wempty-body
+        -Wenum-conversion
+        -Winfinite-recursion
+        -Wint-conversion
+        -Wrange-loop-analysis
+        -Wstrict-prototypes
+        -Wmove
+        -Wunreachable-code
+        -Wduplicate-method-match
         -Wreorder
 
         -mmacosx-version-min=${MACOS_DEPLOYMENT_TARGET}
@@ -199,7 +199,7 @@ if (APPLE)
     )
 elseif (MSVC)
     target_compile_options(jucelib PRIVATE
-        /W4 
+        /W4
         $<IF:$<CONFIG:Debug>,/Od,/Ox>
         $<IF:$<CONFIG:Debug>,/MTd,/MT>  # Runtime library
     )
