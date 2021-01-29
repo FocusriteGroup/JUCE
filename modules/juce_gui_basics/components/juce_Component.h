@@ -2336,7 +2336,12 @@ public:
     */
     AccessibilityHandler* getAccessibilityHandler();
 
-    /**
+    /** Invalidates the AccessibilityHandler that is currently being used for this
+        component.
+
+        Use this to indicate that something in the accessible component has changed
+        and its handler needs to be updated. This will cause createAccessibilityHandler()
+        to be called again and the new handler can be returned.
     */
     void invalidateAccessibilityHandler();
 
@@ -2359,6 +2364,7 @@ private:
     friend class ComponentPeer;
     friend class MouseInputSource;
     friend class MouseInputSourceInternal;
+    friend class AccessibilityHandler;
 
    #ifndef DOXYGEN
     static Component* currentlyFocusedComponent;

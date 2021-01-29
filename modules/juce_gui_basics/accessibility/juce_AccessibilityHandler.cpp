@@ -144,15 +144,9 @@ std::vector<AccessibilityHandler*> AccessibilityHandler::getChildren() const
 
     if (auto traverser = component.createFocusTraverser())
     {
-        auto* focusChild = traverser->getDefaultComponent (&component);
-
-        while (focusChild != nullptr)
-        {
+        for (auto* focusChild : traverser->getAllComponents (&component))
             if (auto* handler = focusChild->getAccessibilityHandler())
                 children.push_back (getFirstUnignoredDescendant (handler));
-
-            focusChild = traverser->getNextComponent (focusChild);
-        }
     }
 
     return children;
@@ -182,16 +176,21 @@ AccessibilityHandler* AccessibilityHandler::getFocus()
             }
         }
 
-        for (auto* child : getChildren())
-        {
-            if (child->isFocused())
-                return child->getFocus();
-        }
+        if (auto traverser = component.createFocusTraverser())
+            for (auto* focusChild : traverser->getAllComponents (&component))
+                if (auto* handler = focusChild->getAccessibilityHandler())
+                    if (handler->isFocused())
+                        return handler->getFocus();
 
         return this;
     }();
 
     return getUnignoredAncestor (focusedHandler);
+}
+
+void AccessibilityHandler::grabFocus()
+{
+    component.grabKeyboardFocusInternal (Component::FocusChangeType::focusChangedByTabKey, true);
 }
 
 //==============================================================================

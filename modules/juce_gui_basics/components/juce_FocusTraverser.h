@@ -55,6 +55,14 @@ public:
     /** Destructor. */
     virtual ~FocusTraverser() override = default;
 
+    /** Returns the component that should receive focus by default within the given
+        parent component.
+
+        The default implementation will just return the foremost visible and enabled
+        child component, and will return nullptr if there is no suitable component.
+    */
+    virtual Component* getDefaultComponent (Component* parentComponent) override;
+
     /** Returns the component that should be given focus after the specified one when
         moving "forwards".
 
@@ -73,13 +81,12 @@ public:
     */
     virtual Component* getPreviousComponent (Component* current) override;
 
-    /** Returns the component that should receive focus by default within the given
-        parent component.
+    /** Returns all of the components that can receive focus within the given parent
+        component in traversal order.
 
-        The default implementation will just return the foremost visible and enabled
-        child component, and will return nullptr if there is no suitable component.
+        The default implementation will return all visible and enabled child components.
     */
-    virtual Component* getDefaultComponent (Component* parentComponent) override;
+    virtual std::vector<Component*> getAllComponents (Component* parentComponent) override;
 };
 
 } // namespace juce

@@ -192,7 +192,7 @@ bool ComponentPeer::handleKeyPress (const KeyPress& keyInfo)
         {
             for (int i = keyListeners->size(); --i >= 0;)
             {
-                keyWasUsed = keyListeners->getUnchecked(i)->keyPressed (keyInfo, target);
+                keyWasUsed = keyListeners->getUnchecked (i)->keyPressed (keyInfo, target);
 
                 if (keyWasUsed || deletionChecker == nullptr)
                     return keyWasUsed;
@@ -206,19 +206,13 @@ bool ComponentPeer::handleKeyPress (const KeyPress& keyInfo)
         if (keyWasUsed || deletionChecker == nullptr)
             break;
     }
-    
-    if (! keyWasUsed)
+
+    if (! keyWasUsed && keyInfo.isKeyCode (KeyPress::tabKey))
     {
         if (auto* currentlyFocused = Component::getCurrentlyFocusedComponent())
         {
-            const bool isTab      = (keyInfo == KeyPress::tabKey);
-            const bool isShiftTab = (keyInfo == KeyPress (KeyPress::tabKey, ModifierKeys::shiftModifier, 0));
-
-            if (isTab || isShiftTab)
-            {
-                currentlyFocused->moveKeyboardFocusToSibling (isTab);
-                keyWasUsed = (currentlyFocused != Component::getCurrentlyFocusedComponent());
-            }
+            currentlyFocused->moveKeyboardFocusToSibling (! keyInfo.getModifiers().isShiftDown());
+            return true;
         }
     }
 
@@ -242,7 +236,7 @@ bool ComponentPeer::handleKeyUpOrDown (const bool isKeyDown)
         {
             for (int i = keyListeners->size(); --i >= 0;)
             {
-                keyWasUsed = keyListeners->getUnchecked(i)->keyStateChanged (isKeyDown, target);
+                keyWasUsed = keyListeners->getUnchecked (i)->keyStateChanged (isKeyDown, target);
 
                 if (keyWasUsed || deletionChecker == nullptr)
                     return keyWasUsed;

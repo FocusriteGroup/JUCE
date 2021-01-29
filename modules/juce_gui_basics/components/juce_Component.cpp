@@ -2758,8 +2758,27 @@ void Component::moveKeyboardFocusToSibling (bool moveToNext)
     {
         if (auto traverser = createKeyboardFocusTraverser())
         {
-            if (auto* nextComp = moveToNext ? traverser->getNextComponent (this)
-                                            : traverser->getPreviousComponent (this))
+            auto findComponentToFocus = [&]() -> Component*
+            {
+                if (auto* next = (moveToNext ? traverser->getNextComponent (this)
+                                             : traverser->getPreviousComponent (this)))
+                {
+                    return next;
+                }
+
+                if (auto* focusContainer = findFocusContainer())
+                {
+                    auto allFocusableComponents = traverser->getAllComponents (focusContainer);
+
+                    if (! allFocusableComponents.empty())
+                        return moveToNext ? allFocusableComponents.front()
+                                          : allFocusableComponents.back();
+                }
+
+                return nullptr;
+            };
+
+            if (auto* nextComp = findComponentToFocus())
             {
                 if (nextComp->isCurrentlyBlockedByAnotherModalComponent())
                 {

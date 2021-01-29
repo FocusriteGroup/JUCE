@@ -49,6 +49,7 @@ SidePanel::SidePanel (StringRef title, int width, bool positionOnLeft,
 
     setOpaque (false);
     setVisible (false);
+    setAlwaysOnTop (true);
 }
 
 SidePanel::~SidePanel()

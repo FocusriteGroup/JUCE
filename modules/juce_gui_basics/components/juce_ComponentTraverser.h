@@ -44,6 +44,13 @@ public:
     /** Destructor. */
     virtual ~ComponentTraverser() = default;
 
+    /** Returns the "default" component that should be used as the traversal entry point
+        within the given parent component.
+
+        This must return nullptr if there is no default component.
+    */
+    virtual Component* getDefaultComponent (Component* parentComponent) = 0;
+
     /** Returns the component comes after the specified one when moving "forwards".
 
         This must return nullptr if there is no next component.
@@ -56,12 +63,10 @@ public:
     */
     virtual Component* getPreviousComponent (Component* current) = 0;
 
-    /** Returns the "default" component that should be used as the traversal entry point
-        within the given parent component.
-
-        This must return nullptr if there is no default component.
+    /** Returns all of the traversable components within the given parent component in
+        traversal order.
     */
-    virtual Component* getDefaultComponent (Component* parentComponent) = 0;
+    virtual std::vector<Component*> getAllComponents (Component* parentComponent) = 0;
 };
 
 } // namespace juce

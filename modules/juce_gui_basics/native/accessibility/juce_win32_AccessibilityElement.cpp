@@ -482,7 +482,7 @@ HRESULT AccessibilityNativeHandle::SetFocus()
     auto& component = accessibilityHandler.getComponent();
 
     if (component.getWantsKeyboardFocus())
-        component.grabKeyboardFocus();
+        accessibilityHandler.grabFocus();
 
     if (auto actionCallback = accessibilityHandler.getActions().get (AccessibilityActionType::raise))
         actionCallback();

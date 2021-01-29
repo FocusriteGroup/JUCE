@@ -272,9 +272,11 @@ private:
         {
             if (auto* handler = getHandler (self))
             {
-                NSMutableArray* accessibleChildren = [[NSMutableArray new] autorelease];
+                auto children = handler->getChildren();
 
-                for (auto* childHandler : handler->getChildren())
+                NSMutableArray* accessibleChildren = [NSMutableArray arrayWithCapacity: (NSUInteger) children.size()];
+
+                for (auto* childHandler : children)
                     [accessibleChildren addObject: (id) childHandler->getNativeImplementation()];
 
                 return accessibleChildren;
@@ -285,10 +287,7 @@ private:
 
         static BOOL getIsAccessibilityFocused (id self, SEL)
         {
-            if (auto* handler = getHandler (self))
-                return handler->isFocused();
-
-            return NO;
+            return [[self accessibilityWindow] accessibilityFocusedUIElement] == self;
         }
 
         static void setAccessibilityFocused (id self, SEL, BOOL focused)
@@ -298,7 +297,7 @@ private:
                 auto& component = handler->getComponent();
 
                 if (focused)
-                    component.grabKeyboardFocus();
+                    handler->grabFocus();
                 else if (component.hasKeyboardFocus (true))
                     Component::unfocusAllComponents();
             }

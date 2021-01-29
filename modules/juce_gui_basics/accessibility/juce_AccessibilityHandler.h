@@ -195,6 +195,9 @@ public:
     AccessibilityNativeHandle* getNativeImplementation() const;
 
 private:
+    friend class AccessibilityNativeHandle;
+    void grabFocus();
+
     Component& component;
 
     const AccessibilityRole role;
