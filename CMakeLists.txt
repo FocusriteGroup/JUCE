@@ -202,5 +202,6 @@ elseif (MSVC)
         /W4 
         $<IF:$<CONFIG:Debug>,/Od,/Ox>
         $<IF:$<CONFIG:Debug>,/MTd,/MT>  # Runtime library
+        /bigobj
     )
 endif()
