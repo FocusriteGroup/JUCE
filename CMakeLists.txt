@@ -146,6 +146,9 @@ set_target_properties(jucelib PROPERTIES
     XCODE_ATTRIBUTE_SKIP_INSTALL                                "YES"
     XCODE_ATTRIBUTE_USE_HEADERMAP                               NO
     XCODE_ATTRIBUTE_MACOSX_DEPLOYMENT_TARGET                    ${MACOS_DEPLOYMENT_TARGET}
+    XCODE_ATTRIBUTE_CLANG_ENABLE_MODULES                        NO
+    COMPILER_INDEX_STORE_ENABLE                                 NO
+    XCODE_ATTRIBUTE_COMPILER_INDEX_STORE_ENABLE                 NO
 )
 
 if (APPLE)
