@@ -604,6 +604,34 @@ private:
         }
     }
 
+    void setBackgroundColour()
+    {
+        if (webViewController == nullptr)
+            return;
+
+        ComSmartPtr<ICoreWebView2Controller2> controller2;
+        webViewController->QueryInterface<ICoreWebView2Controller2>(controller2.resetAndGetPointerAddress());
+        if (controller2)
+            controller2->put_DefaultBackgroundColor({ 255, 0, 0, 0 });
+    }
+
+    void setBehaviourFlags()
+    {
+        if (webView == nullptr)
+            return;
+
+        ComSmartPtr<ICoreWebView2Settings> settings;
+        webView->get_Settings(settings.resetAndGetPointerAddress());
+        if (settings == nullptr)
+        {
+            jassertfalse;
+            return;
+        }
+
+        settings->put_IsStatusBarEnabled(false);
+        settings->put_IsBuiltInErrorPageEnabled(false);
+    }
+
     bool createWebViewEnvironment (const File& dllLocation, const File& userDataFolder)
     {
         using CreateWebViewEnvironmentWithOptionsFunc = HRESULT (*) (PCWSTR, PCWSTR,
@@ -665,8 +693,12 @@ private:
                             if (controller != nullptr)
                             {
                                 weakThis->webViewController = controller;
+                                
+                                weakThis->setBackgroundColour();
+
                                 controller->get_CoreWebView2 (weakThis->webView.resetAndGetPointerAddress());
 
+                                weakThis->setBehaviourFlags();
                                 weakThis->addEventHandlers();
                                 weakThis->componentMovedOrResized (true, true);
 
