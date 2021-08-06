@@ -337,10 +337,33 @@ public:
 
         if (trimmed.startsWithIgnoreCase ("file:"))
         {
-            auto file = URL (url).getLocalFile();
+            const URL localURL (url);
+
+            auto file = localURL.getLocalFile();
 
             if (NSURL* nsUrl = [NSURL fileURLWithPath: juceStringToNS (file.getFullPathName())])
+            {
+                const auto parameterNames = localURL.getParameterNames();
+                const auto parameterValues = localURL.getParameterValues();
+                if (parameterNames.size() != 0 &&
+                    parameterValues.size() != 0 &&
+                    parameterNames.size() == parameterValues.size())
+                {
+                    NSURLComponents* components = [[NSURLComponents alloc] initWithURL:nsUrl resolvingAgainstBaseURL:NO];
+                    NSMutableArray* queryItems = [components.queryItems mutableCopy];
+                    if (!queryItems)
+                        queryItems = [[NSMutableArray alloc] init];
+
+                    for (auto parameter = 0; parameter < parameterNames.size(); ++parameter)
+                        [queryItems addObject:[NSURLQueryItem queryItemWithName: juceStringToNS(parameterNames[parameter])
+                                                                          value: juceStringToNS(parameterValues[parameter])]];
+
+                    components.queryItems = queryItems;
+                    nsUrl = components.URL;
+                }
+
                 [webView loadFileURL: nsUrl allowingReadAccessToURL: nsUrl];
+            }
         }
         else if (NSMutableURLRequest* request = getRequestForURL (url, headers, postData))
         {
